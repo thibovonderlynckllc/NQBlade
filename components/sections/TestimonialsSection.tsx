@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const DESKTOP_ITEMS_PER_PAGE = 4;
-const MOBILE_ITEMS_PER_PAGE = 1;
 
 const testimonialImages = [
   "/testimonials/1.PNG",
@@ -18,28 +17,7 @@ const testimonialImages = [
 
 export function TestimonialsSection() {
   const [pageIndex, setPageIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(DESKTOP_ITEMS_PER_PAGE);
-  
-  const totalPages = Math.ceil(testimonialImages.length / itemsPerPage);
-
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      const width = window.innerWidth;
-      setItemsPerPage(width < 640 ? MOBILE_ITEMS_PER_PAGE : DESKTOP_ITEMS_PER_PAGE);
-    };
-
-    updateItemsPerPage();
-    window.addEventListener("resize", updateItemsPerPage);
-
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
-
-  useEffect(() => {
-    setPageIndex((prev) => {
-      const maxIndex = Math.max(totalPages - 1, 0);
-      return Math.min(prev, maxIndex);
-    });
-  }, [totalPages]);
+  const totalPages = Math.ceil(testimonialImages.length / DESKTOP_ITEMS_PER_PAGE);
 
   const handlePrev = () => {
     setPageIndex((prev) => Math.max(prev - 1, 0));
@@ -80,20 +58,20 @@ export function TestimonialsSection() {
         </div>
 
         {/* Testimonials Slider */}
-        <div className="max-w-md sm:max-w-4xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto">
           <div className="relative group">
             {/* Decorative glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)]/20 via-[var(--color-primary-light)]/10 to-[var(--color-primary)]/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
             
             {/* Slider wrapper */}
-            <div className="relative aspect-[9/16] sm:aspect-video rounded-2xl overflow-hidden border border-[var(--color-primary-light)]/20 bg-[var(--color-bg-dark)]">
+            <div className="relative rounded-2xl overflow-hidden border border-[var(--color-primary-light)]/20 bg-[var(--color-bg-dark)] p-4 sm:p-6">
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/5 via-transparent to-transparent pointer-events-none z-10" />
               
-              {/* Visible slides */}
-              <div className="absolute inset-0 z-0 overflow-hidden">
+              {/* Images Slider */}
+              <div className="relative z-0 overflow-hidden">
                 <div
-                  className="flex h-full transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+                  className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
                   style={{
                     width: `${totalPages * 100}%`,
                     transform: `translateX(-${(pageIndex * 100) / totalPages}%)`,
@@ -102,21 +80,21 @@ export function TestimonialsSection() {
                   {Array.from({ length: totalPages }).map((_, page) => (
                     <div
                       key={page}
-                      className="flex h-full items-center justify-center gap-4 px-4"
+                      className="flex items-center justify-center gap-4"
                       style={{ width: `${100 / totalPages}%` }}
                     >
-                      {Array.from({ length: itemsPerPage }).map((_, offset) => {
-                        const imgIndex = page * itemsPerPage + offset;
+                      {Array.from({ length: DESKTOP_ITEMS_PER_PAGE }).map((_, offset) => {
+                        const imgIndex = page * DESKTOP_ITEMS_PER_PAGE + offset;
                         const src = testimonialImages[imgIndex];
 
                         if (!src) {
-                          return <div key={`empty-${page}-${offset}`} className="flex-1 h-[80%]" />;
+                          return <div key={`empty-${page}-${offset}`} className="flex-1 aspect-[9/16]" />;
                         }
 
                         return (
                           <div
                             key={src}
-                            className="relative h-[90%] sm:h-[80%] flex-1 rounded-xl overflow-hidden border border-[var(--color-primary-light)]/25 bg-black/80 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.01]"
+                            className="relative flex-1 aspect-[9/16] rounded-xl overflow-hidden border border-[var(--color-primary-light)]/25 bg-black/80"
                           >
                             <img
                               src={src}
@@ -154,21 +132,6 @@ export function TestimonialsSection() {
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
-
-              {/* Dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                {Array.from({ length: totalPages }).map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setPageIndex(index)}
-                    className={`h-2.5 w-2.5 rounded-full border border-[var(--color-primary-light)]/60 transition-all ${
-                      index === pageIndex ? "bg-[var(--color-primary-light)] shadow-[0_0_20px_var(--color-primary-light)] scale-105" : "bg-[var(--color-bg-dark)]/60"
-                    }`}
-                    aria-label={`Show testimonial group ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
