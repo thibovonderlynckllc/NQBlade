@@ -95,15 +95,6 @@ export function UniqueSection() {
           ))}
         </div>
 
-        {/* Bottom Stats Bar */}
-        <div className="mt-12 md:mt-16 relative">
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12 py-6 md:py-8 px-4 sm:px-6 rounded-2xl border border-[var(--color-primary)]/10 bg-[var(--color-bg-dark)]/30 backdrop-blur-sm">
-            <StatItem label="Active Systems" value="150+" />
-            <StatItem label="Success Rate" value="94%" />
-            <StatItem label="Avg Monthly" value="9-12%" />
-            <StatItem label="Total Volume" value="$50M+" />
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -224,16 +215,4 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
   );
 }
 
-function StatItem({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="text-center group cursor-default">
-      <div className="text-2xl sm:text-3xl text-[var(--color-primary-light)] mb-1 group-hover:scale-110 transition-transform duration-300">
-        {value}
-      </div>
-      <div className="text-xs sm:text-sm text-white/40 uppercase tracking-wider group-hover:text-white/60 transition-colors duration-300">
-        {label}
-      </div>
-    </div>
-  );
-}
 

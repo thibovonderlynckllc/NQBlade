@@ -10,7 +10,7 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-4 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 animate-slide-down">
-      <div className="container mx-auto rounded-xl md:rounded-2xl border border-white/10 backdrop-blur-3xl px-2 md:px-6 py-2 md:py-4 shadow-lg bg-[var(--color-bg-dark)]/80 backdrop-saturate-250">
+      <div className="container mx-auto rounded-xl md:rounded-2xl border border-white/10 backdrop-blur-3xl px-2 md:px-6 py-2 md:py-4 shadow-lg bg-[var(--color-bg-dark)]/80 backdrop-saturate-500">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2 md:gap-3">
