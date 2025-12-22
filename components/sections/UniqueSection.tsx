@@ -40,13 +40,13 @@ const features = [
 
 export function UniqueSection() {
   return (
-    <section className="relative flex items-center justify-center min-h-screen">
+    <section className="relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-20">
       {/* Multiple gradient overlays for depth */}
       <div className="absolute top-0 left-0 w-[400px] md:w-[600px] lg:w-[800px] h-[400px] md:h-[600px] lg:h-[800px] bg-[var(--color-primary)] opacity-[0.15] blur-[140px] rounded-full animate-pulse" style={{ animationDuration: '8s' }} />
       <div className="absolute bottom-0 right-0 w-[350px] md:w-[550px] lg:w-[700px] h-[350px] md:h-[550px] lg:h-[700px] bg-[var(--color-primary-light)] opacity-[0.12] blur-[160px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] lg:w-[600px] h-[300px] md:h-[450px] lg:h-[600px] bg-[var(--color-primary)] opacity-[0.08] blur-[180px] rounded-full" />
 
-      <div className="relative z-10 max-w-[1400px] w-full mx-auto">
+      <div className="relative z-10 container px-6">
         {/* Floating decorative elements */}
         <div className="absolute top-20 right-20 w-2 h-2 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
         <div className="absolute top-40 left-20 w-1 h-1 bg-[var(--color-primary)] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
@@ -59,12 +59,12 @@ export function UniqueSection() {
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
-              <span className="text-[var(--color-primary-light)] text-[10px] sm:text-xs tracking-wider uppercase">Competitive Advantage</span>
+              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Competitive Advantage</span>
             </div>
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50" />
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white mb-4 md:mb-6 tracking-tight relative inline-block px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight relative inline-block px-4 font-bold">
             What Makes{" "}
             <span className="relative">
               <span className="text-[var(--color-primary-light)] relative z-10">NQBlade</span>
@@ -188,7 +188,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
               <div className="text-xl sm:text-2xl text-[var(--color-primary-light)] mb-0.5 group-hover:scale-110 transition-transform duration-300">
                 {stat}
               </div>
-              <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">{statLabel}</div>
+              <div className="text-xs text-white/40 uppercase tracking-wider">{statLabel}</div>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Hero } from '@/components/sections/Hero';
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { UniqueSection } from '@/components/sections/UniqueSection';
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
+        <TestimonialsSection />
         <UniqueSection />
       </div>
     </div>

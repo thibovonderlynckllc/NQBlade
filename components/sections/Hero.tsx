@@ -47,25 +47,26 @@ export function Hero() {
   const uptime = useCounter(99.9, 2000, 0);
 
   return (
-    <section className="relative flex items-center">
+    <section className="relative flex items-center justify-center min-h-screen">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Orbs - Main */}
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[var(--color-primary)]/20 rounded-full blur-[128px] animate-pulse"></div>
-        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-[var(--color-primary-light)]/15 rounded-full blur-[128px]"></div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-[var(--color-primary)]/10 to-transparent blur-3xl"></div>
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[var(--color-primary)]/30 rounded-full blur-[128px] animate-pulse"></div>
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-[var(--color-primary-light)]/25 rounded-full blur-[128px]"></div>
         
         {/* Additional Gradient Orbs */}
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-[var(--color-primary)]/15 rounded-full blur-[120px]"></div>
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--color-primary-light)]/8 rounded-full blur-[150px]"></div>
-        <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-gradient-to-br from-[var(--color-primary)]/12 to-[var(--color-primary-light)]/8 rounded-full blur-[110px]"></div>
+        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/18 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-[var(--color-primary)]/20 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--color-primary-light)]/15 rounded-full blur-[150px]"></div>
+        <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/15 rounded-full blur-[110px]"></div>
+        <div className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-[var(--color-primary-light)]/12 rounded-full blur-[140px]"></div>
+        <div className="absolute bottom-1/3 right-0 w-[350px] h-[350px] bg-[var(--color-primary)]/15 rounded-full blur-[130px] animate-pulse" style={{ animationDelay: '2s' }}></div>
 
         {/* Animated Lines - Horizontal */}
-        <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/30 to-transparent"></div>
-        <div className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/20 to-transparent"></div>
-        <div className="absolute top-2/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/15 to-transparent"></div>
-        <div className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/10 to-transparent"></div>
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/40 to-transparent"></div>
+        <div className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/30 to-transparent"></div>
+        <div className="absolute top-2/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/25 to-transparent"></div>
+        <div className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/20 to-transparent"></div>
         
         {/* Animated Lines - Vertical */}
         <div className="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--color-primary-light)]/20 to-transparent"></div>
@@ -80,34 +81,34 @@ export function Hero() {
 
         {/* Geometric Shapes */}
         <div className="absolute top-20 right-20 w-32 h-32 border border-[var(--color-primary-light)]/10 rounded-lg rotate-45 animate-spin-slow"></div>
-        <div className="absolute bottom-32 left-32 w-24 h-24 border border-[var(--color-primary)]/15 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-32 left-32 w-24 h-24 border border-[var(--color-primary)]/8 rounded-full animate-pulse opacity-50"></div>
         <div className="absolute top-1/3 right-1/3 w-16 h-16 border-2 border-[var(--color-primary-light)]/20 rotate-45"></div>
         
         {/* Particle Dots */}
         <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-[var(--color-primary-light)]/40 rounded-full blur-[2px] animate-pulse" style={{ animationDelay: '0.5s' }}></div>
         <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-[var(--color-primary)]/50 rounded-full blur-[1px] animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-        <div className="absolute bottom-1/3 left-2/3 w-2 h-2 bg-[var(--color-primary-light)]/30 rounded-full blur-[2px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/3 left-2/3 w-2 h-2 bg-[var(--color-primary-light)]/15 rounded-full blur-[2px] animate-pulse opacity-50" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-2/3 left-1/4 w-1 h-1 bg-[var(--color-primary)]/60 rounded-full blur-[1px]"></div>
         <div className="absolute top-1/5 right-1/5 w-1.5 h-1.5 bg-[var(--color-primary-light)]/40 rounded-full blur-[1px] animate-pulse" style={{ animationDelay: '0.8s' }}></div>
         
         {/* Radial Gradient Overlays */}
-        <div className="absolute top-0 left-0 w-full h-full" style={{ background: 'radial-gradient(circle at top left, var(--color-primary) 0%, transparent 50%)', opacity: 0.05 }}></div>
-        <div className="absolute bottom-0 right-0 w-full h-full" style={{ background: 'radial-gradient(circle at bottom right, transparent 0%, var(--color-primary-light) 50%)', opacity: 0.05 }}></div>
+        <div className="absolute top-0 left-0 w-full h-full" style={{ background: 'radial-gradient(circle at top left, var(--color-primary) 0%, transparent 50%)', opacity: 0.08 }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full" style={{ background: 'radial-gradient(circle at center, var(--color-primary-light) 0%, transparent 60%)', opacity: 0.06 }}></div>
         
         {/* Animated Rings */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[var(--color-primary-light)]/5 rounded-full animate-spin-slow"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-[var(--color-primary)]/8 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '15s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[var(--color-primary-light)]/10 rounded-full animate-spin-slow"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-[var(--color-primary)]/15 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '15s' }}></div>
       </div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-10">
+      <div className="relative container px-6 lg:px-8 pt-20 pb-12 md:pb-16 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary-light)]/10 border border-[var(--color-primary-light)]/20 rounded-full animate-fade-up" style={{ animationDelay: '0.1s' }}>
               <div className="w-2 h-2 bg-[var(--color-primary-light)] rounded-full animate-pulse"></div>
-              <span className="text-sm text-[var(--color-primary-light)]">Institutional-Grade Trading Bot</span>
+              <span className="text-xs sm:text-sm text-[var(--color-primary-light)]">Institutional-Grade Trading Bot</span>
             </div>
 
             {/* Headline */}
