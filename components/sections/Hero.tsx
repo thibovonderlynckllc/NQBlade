@@ -101,7 +101,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative container px-6 lg:px-8 pt-20 pb-12 md:pb-16 lg:pb-20">
+      <div className="relative container px-6 lg:px-8 pt-20 pb-12 md:pb-16 lg:pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
