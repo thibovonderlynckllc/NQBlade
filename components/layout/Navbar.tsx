@@ -10,7 +10,7 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-4 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 animate-slide-down">
-      <div className="container mx-auto rounded-xl md:rounded-2xl border border-white/10 backdrop-blur-3xl px-2 md:px-6 py-2 md:py-4 shadow-lg bg-[var(--color-bg-dark)]/80">
+      <div className="container mx-auto rounded-xl md:rounded-2xl border border-white/10 backdrop-blur-3xl px-2 md:px-6 py-2 md:py-4 shadow-lg bg-[var(--color-bg-dark)]/80 backdrop-saturate-250">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2 md:gap-3">
@@ -68,7 +68,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-4 rounded-xl border border-white/10 backdrop-blur-3xl bg-[var(--color-bg-dark)]/90 px-4 py-4 space-y-3">
+        <div className="md:hidden mt-4 rounded-xl border border-white/10 backdrop-blur-3xl bg-[var(--color-bg-dark)]/90 backdrop-saturate-150 px-4 py-4 space-y-3 shadow-lg">
           <Link href="#home" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             Home
           </Link>
