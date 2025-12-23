@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/layout/Navbar';
+import { FloatingChatButton } from '@/components/layout/FloatingChatButton';
 import { Hero } from '@/components/sections/Hero';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { UniqueSection } from '@/components/sections/UniqueSection';
@@ -17,6 +18,8 @@ export default function Home() {
         <UniqueSection />
         <FAQSection />
       </div>
+      
+      <FloatingChatButton />
     </div>
   );
 }
