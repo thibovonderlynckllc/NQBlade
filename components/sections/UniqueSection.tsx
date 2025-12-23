@@ -73,7 +73,7 @@ export function UniqueSection() {
             Unique
           </h2>
           
-          <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4">
             Built for consistency, automation, and long-term performance.
             <br className="hidden sm:block" />
             <span className="text-[var(--color-primary-light)]/70">Professional-grade infrastructure trusted by 150+ active traders.</span>
@@ -188,7 +188,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
             <h3 className="text-lg sm:text-xl text-white mb-2 sm:mb-3 group-hover:text-[var(--color-primary-light)] transition-colors duration-300 leading-tight">
               {title}
             </h3>
-            <p className="text-white/50 leading-relaxed text-xs sm:text-sm group-hover:text-white/70 transition-colors duration-300">
+            <p className="text-white/90 leading-relaxed text-xs sm:text-sm group-hover:text-white/90 transition-colors duration-300">
               {description}
             </p>
           </div>

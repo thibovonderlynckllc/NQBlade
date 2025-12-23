@@ -139,15 +139,15 @@ export function Hero() {
 
             {/* Trust Indicators */}
             <div className="flex flex-wrap gap-6 pt-6 animate-fade-up" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-2 text-white/50">
+              <div className="flex items-center gap-2 text-white/90">
                 <Shield className="w-5 h-5 text-[var(--color-primary-light)]" />
                 <span>Risk Managed</span>
               </div>
-              <div className="flex items-center gap-2 text-white/50">
+              <div className="flex items-center gap-2 text-white/90">
                 <Zap className="w-5 h-5 text-[var(--color-primary-light)]" />
                 <span>Fully Automated</span>
               </div>
-              <div className="flex items-center gap-2 text-white/50">
+              <div className="flex items-center gap-2 text-white/90">
                 <TrendingUp className="w-5 h-5 text-[var(--color-primary-light)]" />
                 <span>5-Year Track Record</span>
               </div>
@@ -262,7 +262,7 @@ export function Hero() {
                 </div>
                 
                 <div className="absolute -bottom-4 -left-4 bg-[var(--color-bg-dark)] border border-[var(--color-primary-light)]/30 px-4 py-2 rounded-full backdrop-blur-xl">
-                  <span className="text-sm text-white/70">NQ Futures</span>
+                  <span className="text-sm text-white/90">NQ Futures</span>
                 </div>
               </div>
             </div>

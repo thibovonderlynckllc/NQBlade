@@ -67,7 +67,7 @@ export function FAQSection() {
                 <AccordionTrigger className="text-left text-base md:text-lg font-medium text-white hover:no-underline py-4">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-base md:text-lg leading-relaxed text-white/80">
+                <AccordionContent className="text-base md:text-lg leading-relaxed text-white/90">
                   <ReactMarkdown
                     components={{
                       strong: ({ children }) => (

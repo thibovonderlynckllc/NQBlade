@@ -58,7 +58,7 @@ export function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 text-white/70 hover:text-white"
+            className="md:hidden p-2 text-white/90 hover:text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -69,19 +69,19 @@ export function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden mt-4 rounded-xl border border-white/10 backdrop-blur-3xl bg-[var(--color-bg-dark)]/90 backdrop-saturate-150 px-4 py-4 space-y-3 shadow-lg">
-          <Link href="#home" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="#home" className="block py-2 text-white/90 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             Home
           </Link>
-          <Link href="#performance" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="#performance" className="block py-2 text-white/90 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             Performance
           </Link>
-          <Link href="#how-it-works" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="#how-it-works" className="block py-2 text-white/90 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             How It Works
           </Link>
-          <Link href="#pricing" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="#pricing" className="block py-2 text-white/90 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             Pricing
           </Link>
-          <Link href="#faq" className="block py-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="#faq" className="block py-2 text-white/90 hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
             FAQ
           </Link>
           <div className="pt-4">

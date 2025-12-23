@@ -52,7 +52,7 @@ export function TestimonialsSection() {
             </span>
           </h2>
           
-          <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             See what our community is achieving with NQBlade's automated trading system
           </p>
         </div>
