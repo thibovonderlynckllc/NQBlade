@@ -3,6 +3,7 @@ import { FloatingChatButton } from '@/components/layout/FloatingChatButton';
 import { Hero } from '@/components/sections/Hero';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { UniqueSection } from '@/components/sections/UniqueSection';
+import { TimelineSection } from '@/components/sections/TimelineSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <TestimonialsSection />
         <UniqueSection />
+        <TimelineSection />
         <FAQSection />
       </div>
       

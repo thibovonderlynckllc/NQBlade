@@ -18,10 +18,10 @@ export function Navbar() {
               <Image
                 src="/logo.webp"
                 alt="NQBlade Logo"
-                width={32}
-                height={32}
+                width={42}
+                height={42}
                 quality={100}
-                className="h-6 md:h-8 w-auto cursor-pointer rounded-lg"
+                className="h-6 md:h-10 w-auto cursor-pointer rounded-full"
                 priority
               />
               <span className="text-xl tracking-tight hidden sm:inline font-bold">
