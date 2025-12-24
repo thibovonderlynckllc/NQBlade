@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { FloatingChatButton } from '@/components/layout/FloatingChatButton';
 import { Hero } from '@/components/sections/Hero';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
@@ -18,6 +19,7 @@ export default function Home() {
         <TimelineSection />
         <PricingSection />
         <FAQSection />
+        <Footer />
       </div>
       
       <FloatingChatButton />
