@@ -41,6 +41,8 @@ const features = [
 export function UniqueSection() {
   return (
     <section className="relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-16">
+      {/* Grid Pattern Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       {/* Multiple gradient overlays for depth */}
       <div className="absolute top-0 left-0 w-[400px] md:w-[600px] lg:w-[800px] h-[400px] md:h-[600px] lg:h-[800px] bg-[var(--color-primary)] opacity-[0.15] blur-[140px] rounded-full animate-pulse" style={{ animationDuration: '8s' }} />
       <div className="absolute bottom-0 right-0 w-[350px] md:w-[550px] lg:w-[700px] h-[350px] md:h-[550px] lg:h-[700px] bg-[var(--color-primary-light)] opacity-[0.12] blur-[160px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
