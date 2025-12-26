@@ -48,15 +48,6 @@ export function PricingSection() {
         }}
       />
       
-      {/* Dotted grid pattern - base layer */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          zIndex: 1,
-          backgroundImage: 'radial-gradient(circle, rgba(6, 152, 194, 0.4) 2px, transparent 2px)',
-          backgroundSize: '20px 20px'
-        }}
-      />
 
       {/* Enhanced dotted pattern that glows on hover - only around card with ripple effect */}
       <div 
@@ -237,14 +228,14 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
             <div className="relative">
               <div className="text-center">
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <span className="text-lg font-medium text-white/90 line-through uppercase">
+                  <span className="text-base sm:text-lg md:text-lg font-medium text-white/90 line-through uppercase">
                     {plan.originalPrice}
                   </span>
-                  <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-lg font-bold group-hover:from-[var(--color-primary)]/30 group-hover:to-[var(--color-primary-light)]/30 transition-all duration-300">
+                  <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-sm sm:text-base md:text-lg font-bold group-hover:from-[var(--color-primary)]/30 group-hover:to-[var(--color-primary-light)]/30 transition-all duration-300">
                     Save 30%
                   </span>
                 </div>
-                <div className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300">
+                <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300">
                   {plan.price}
                 </div>
                 <div className="text-white/90 uppercase tracking-wider group-hover:text-white/90 transition-colors duration-300">
@@ -258,7 +249,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
           </div>
 
           {/* Description */}
-          <p className="text-white/90 text-base lg:text-lg text-center mb-10 leading-relaxed max-w-xl mx-auto group-hover:text-white transition-colors duration-300">
+          <p className="text-white/90 text-sm sm:text-base md:text-base lg:text-lg text-center mb-10 leading-relaxed max-w-xl mx-auto group-hover:text-white transition-colors duration-300">
             {plan.description}
           </p>
 
@@ -278,7 +269,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
                     <Check className="w-3 h-3 text-[var(--color-primary-light)] group-hover/item:scale-110 transition-transform duration-300" strokeWidth={3} />
                   </div>
                 </div>
-                <span className="text-white/90 text-sm lg:text-base leading-relaxed group-hover/item:text-white transition-colors duration-300">
+                <span className="text-white/90 text-sm md:text-base leading-relaxed group-hover/item:text-white transition-colors duration-300">
                   {feature}
                 </span>
               </li>

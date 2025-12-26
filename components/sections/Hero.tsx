@@ -47,7 +47,7 @@ export function Hero() {
   const uptime = useCounter(99.9, 2000, 0);
 
   return (
-    <section className="relative flex items-center justify-center min-h-screen">
+    <section className="relative flex items-center justify-center">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Orbs - Main */}
@@ -101,7 +101,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative container px-6 lg:px-8 pt-20 pb-12 md:pb-16 lg:pb-16">
+      <div className="relative container px-4 sm:px-6 pt-20 pb-12 md:pb-16 lg:pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
@@ -112,7 +112,7 @@ export function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl lg:text-6xl animate-fade-up font-bold" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl animate-fade-up font-bold" style={{ animationDelay: '0.2s' }}>
               This bot made{' '}
               <span className="bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent animate-gradient bg-[size:200%_auto]">
                 600% profit
@@ -121,7 +121,7 @@ export function Hero() {
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg lg:text-xl text-white/90 max-w-xl animate-fade-up" style={{ animationDelay: '0.3s' }}>
+            <p className="text-base sm:text-lg md:text-lg lg:text-xl text-white/90 max-w-xl animate-fade-up" style={{ animationDelay: '0.3s' }}>
               Fully automated performance, averaging{' '}
               <span className="text-[var(--color-primary-light)] font-bold">{avgMonthlyLow}–{avgMonthlyHigh}%</span> per month for{' '}
               <span className="text-[var(--color-primary-light)] font-bold">{activeUsers}+</span> active users.
@@ -170,7 +170,7 @@ export function Hero() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-white/90">Total Return</p>
-                        <p className="text-4xl bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
+                        <p className="text-3xl sm:text-4xl md:text-4xl bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
                           +{totalReturn}%
                         </p>
                       </div>
@@ -242,15 +242,15 @@ export function Hero() {
                     <div className="grid grid-cols-3 gap-4">
                       <div className="bg-[var(--color-bg-dark)]/50 rounded-lg p-3 border border-white/5">
                         <p className="text-xs text-white/90 mb-1">Avg Monthly</p>
-                        <p className="text-lg text-[var(--color-primary-light)]">{avgMonthlyLow}–{avgMonthlyHigh}%</p>
+                        <p className="text-base sm:text-lg md:text-lg text-[var(--color-primary-light)]">{avgMonthlyLow}–{avgMonthlyHigh}%</p>
                       </div>
                       <div className="bg-[var(--color-bg-dark)]/50 rounded-lg p-3 border border-white/5">
                         <p className="text-xs text-white/90 mb-1">Active Users</p>
-                        <p className="text-lg text-[var(--color-primary-light)]">{activeUsers}+</p>
+                        <p className="text-base sm:text-lg md:text-lg text-[var(--color-primary-light)]">{activeUsers}+</p>
                       </div>
                       <div className="bg-[var(--color-bg-dark)]/50 rounded-lg p-3 border border-white/5">
                         <p className="text-xs text-white/90 mb-1">Uptime</p>
-                        <p className="text-lg text-[var(--color-primary-light)]">{uptime}%</p>
+                        <p className="text-base sm:text-lg md:text-lg text-[var(--color-primary-light)]">{uptime}%</p>
                       </div>
                     </div>
                   </div>

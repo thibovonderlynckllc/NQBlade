@@ -42,14 +42,12 @@ const features = [
 export function UniqueSection() {
   return (
     <section className="relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-16">
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       {/* Multiple gradient overlays for depth */}
       <div className="absolute top-0 left-0 w-[400px] md:w-[600px] lg:w-[800px] h-[400px] md:h-[600px] lg:h-[800px] bg-[var(--color-primary)] opacity-[0.15] blur-[140px] rounded-full animate-pulse" style={{ animationDuration: '8s' }} />
       <div className="absolute bottom-0 right-0 w-[350px] md:w-[550px] lg:w-[700px] h-[350px] md:h-[550px] lg:h-[700px] bg-[var(--color-primary-light)] opacity-[0.12] blur-[160px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] lg:w-[600px] h-[300px] md:h-[450px] lg:h-[600px] bg-[var(--color-primary)] opacity-[0.08] blur-[180px] rounded-full" />
 
-      <div className="relative z-10 container px-6">
+      <div className="relative z-10 container px-4 sm:px-6">
         {/* Floating decorative elements */}
         <div className="absolute top-20 right-20 w-2 h-2 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
         <div className="absolute top-40 left-20 w-1 h-1 bg-[var(--color-primary)] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
@@ -61,7 +59,7 @@ export function UniqueSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16 lg:mb-20 relative"
+          className="text-center mb-12 md:mb-16 relative"
         >
           {/* Top decorative line */}
           <motion.div
@@ -231,7 +229,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
               <div className="text-xl sm:text-2xl text-[var(--color-primary-light)] mb-0.5 group-hover:scale-110 transition-transform duration-300">
                 {stat}
               </div>
-              <div className="text-xs text-white/90 uppercase tracking-wider">{statLabel}</div>
+              <div className="text-xs sm:text-xs text-white/90 uppercase tracking-wider">{statLabel}</div>
             </div>
           </div>
 
@@ -240,7 +238,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
             <h3 className="text-lg sm:text-xl text-white mb-2 sm:mb-3 group-hover:text-[var(--color-primary-light)] transition-colors duration-300 leading-tight">
               {title}
             </h3>
-            <p className="text-white/90 leading-relaxed text-xs sm:text-sm group-hover:text-white/90 transition-colors duration-300">
+            <p className="text-white/90 leading-relaxed text-sm sm:text-base md:text-base group-hover:text-white/90 transition-colors duration-300">
               {description}
             </p>
           </div>

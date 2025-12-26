@@ -116,7 +116,7 @@ function TimelineStep({ step, index, isLast }: { step: TimelineStep; index: numb
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-white/90 leading-relaxed max-w-md text-base sm:text-lg"
+          className="text-white/90 leading-relaxed max-w-md text-sm sm:text-base md:text-base"
           style={{
             marginLeft: isEven ? 'auto' : '0',
             marginRight: isEven ? '0' : 'auto'
@@ -266,8 +266,6 @@ export function TimelineSection() {
 
   return (
     <section ref={containerRef} className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       {/* Background gradient orbs */}
       <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[var(--color-primary)]/10 rounded-full blur-[120px]" />
       <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/10 rounded-full blur-[120px]" />

@@ -217,7 +217,7 @@ export function PerformanceGraph() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-12 md:mb-16"
         >
           <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6">
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
@@ -234,7 +234,7 @@ export function PerformanceGraph() {
               Trading Results
             </span>
           </h2>
-          <p className="text-white/90 max-w-2xl mx-auto">
+          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Real performance data from Myfxbook. Track record spanning multiple years.
           </p>
         </motion.div>
@@ -248,16 +248,16 @@ export function PerformanceGraph() {
           className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto"
         >
           <div className="bg-gradient-to-br from-[var(--color-bg-dark)]/90 to-[var(--color-bg-dark)]/70 backdrop-blur-xl border border-[var(--color-primary)]/20 rounded-xl p-4">
-            <p className="text-white/90 mb-1">Total Return</p>
-            <p className="text-2xl font-bold text-[var(--color-primary-light)]">{totalReturn}%</p>
+            <p className="text-white/90 mb-1 text-sm sm:text-base">Total Return</p>
+            <p className="text-xl sm:text-2xl md:text-2xl font-bold text-[var(--color-primary-light)]">{totalReturn}%</p>
           </div>
           <div className="bg-gradient-to-br from-[var(--color-bg-dark)]/90 to-[var(--color-bg-dark)]/70 backdrop-blur-xl border border-[var(--color-primary)]/20 rounded-xl p-4">
-            <p className="text-white/90 mb-1">Peak Gain</p>
-            <p className="text-2xl font-bold text-[var(--color-primary-light)]">{maxEquity >= 0 ? '+' : ''}{maxEquity.toFixed(1)}%</p>
+            <p className="text-white/90 mb-1 text-sm sm:text-base">Peak Gain</p>
+            <p className="text-xl sm:text-2xl md:text-2xl font-bold text-[var(--color-primary-light)]">{maxEquity >= 0 ? '+' : ''}{maxEquity.toFixed(1)}%</p>
           </div>
           <div className="bg-gradient-to-br from-[var(--color-bg-dark)]/90 to-[var(--color-bg-dark)]/70 backdrop-blur-xl border border-[var(--color-primary)]/20 rounded-xl p-4">
-            <p className="text-white/90 mb-1">Trades Analyzed</p>
-            <p className="text-2xl font-bold text-[var(--color-primary-light)]">{equityData.length}</p>
+            <p className="text-white/90 mb-1 text-sm sm:text-base">Trades Analyzed</p>
+            <p className="text-xl sm:text-2xl md:text-2xl font-bold text-[var(--color-primary-light)]">{equityData.length}</p>
           </div>
         </motion.div>
 
@@ -323,7 +323,7 @@ export function PerformanceGraph() {
             
             {/* Chart Label */}
             <div className="mt-4 text-center">
-              <p className="text-white/90">Equity Curve - Performance Over Time</p>
+              <p className="text-white/90 text-sm sm:text-base md:text-base">Equity Curve - Performance Over Time</p>
             </div>
           </div>
         </motion.div>

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const DESKTOP_ITEMS_PER_PAGE = 4;
+const MOBILE_ITEMS_PER_PAGE = 1;
 
 const testimonialImages = [
   "/testimonials/1.PNG",
@@ -18,7 +19,22 @@ const testimonialImages = [
 
 export function TestimonialsSection() {
   const [pageIndex, setPageIndex] = useState(0);
-  const totalPages = Math.ceil(testimonialImages.length / DESKTOP_ITEMS_PER_PAGE);
+  const [itemsPerPage, setItemsPerPage] = useState(MOBILE_ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const newItemsPerPage = window.innerWidth >= 768 ? DESKTOP_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
+      setItemsPerPage(newItemsPerPage);
+      // Reset to first page when switching between mobile/desktop
+      setPageIndex(0);
+    };
+
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  const totalPages = Math.ceil(testimonialImages.length / itemsPerPage);
 
   const handlePrev = () => {
     setPageIndex((prev) => Math.max(prev - 1, 0));
@@ -30,8 +46,6 @@ export function TestimonialsSection() {
 
   return (
     <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16">
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       {/* Background gradient orbs */}
       <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[var(--color-primary)]/10 rounded-full blur-[120px]" />
       <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/10 rounded-full blur-[120px]" />
@@ -43,7 +57,7 @@ export function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-12 md:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -77,7 +91,7 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 tracking-tight font-bold"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold"
           >
             Trusted by{" "}
             <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
@@ -125,11 +139,11 @@ export function TestimonialsSection() {
                   {Array.from({ length: totalPages }).map((_, page) => (
                     <div
                       key={page}
-                      className="flex items-center justify-center gap-4"
+                      className="flex items-center justify-center gap-0 md:gap-4"
                       style={{ width: `${100 / totalPages}%` }}
                     >
-                      {Array.from({ length: DESKTOP_ITEMS_PER_PAGE }).map((_, offset) => {
-                        const imgIndex = page * DESKTOP_ITEMS_PER_PAGE + offset;
+                      {Array.from({ length: itemsPerPage }).map((_, offset) => {
+                        const imgIndex = page * itemsPerPage + offset;
                         const src = testimonialImages[imgIndex];
 
                         if (!src) {
@@ -139,7 +153,7 @@ export function TestimonialsSection() {
                         return (
                           <div
                             key={src}
-                            className="relative flex-1 aspect-[9/16] rounded-xl overflow-hidden border border-[var(--color-primary-light)]/25 bg-black/80"
+                            className="relative flex-1 aspect-[9/16] rounded-xl overflow-hidden border border-[var(--color-primary-light)]/25 bg-black/80 max-w-full md:max-w-none"
                           >
                             <img
                               src={src}
