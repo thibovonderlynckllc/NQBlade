@@ -267,9 +267,15 @@ export function PerformanceGraph() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-6xl mx-auto"
+          className="max-w-6xl mx-auto relative"
         >
-          <div className="bg-gradient-to-br from-[var(--color-bg-dark)]/90 to-[var(--color-bg-dark)]/70 backdrop-blur-xl border border-[var(--color-primary)]/20 rounded-2xl p-6 md:p-8">
+          {/* Left glow - behind chart */}
+          <div className="absolute -left-20 md:-left-32 top-1/3 -translate-y-1/2 w-64 md:w-96 h-[500px] md:h-[600px] bg-[var(--color-primary)]/15 rounded-full blur-[100px] pointer-events-none" />
+          
+          {/* Right glow - behind chart */}
+          <div className="absolute -right-20 md:-right-32 top-2/3 -translate-y-1/2 w-64 md:w-96 h-[500px] md:h-[600px] bg-[var(--color-primary-light)]/15 rounded-full blur-[100px] pointer-events-none" />
+          
+          <div className="relative bg-gradient-to-br from-[var(--color-bg-dark)]/90 to-[var(--color-bg-dark)]/70 backdrop-blur-xl border border-[var(--color-primary)]/20 rounded-2xl p-6 md:p-8">
             <div className="h-[400px] md:h-[500px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={equityData} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>

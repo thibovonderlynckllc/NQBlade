@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Heart } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -123,7 +124,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2 text-white/90 text-xs sm:text-sm md:text-sm">
               <span>Made with</span>
-              <span className="text-[var(--color-primary-light)]">❤️</span>
+              <Heart className="w-4 h-4 text-[var(--color-primary-light)] fill-[var(--color-primary-light)]" />
               <span>for traders</span>
             </div>
           </div>
