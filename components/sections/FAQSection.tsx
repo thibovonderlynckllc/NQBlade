@@ -25,7 +25,7 @@ export function FAQSection() {
   const faqItems = getFAQItems();
 
   return (
-    <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16">
+    <section id="faq" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16">
       {/* Background gradient orbs */}
       <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[var(--color-primary)]/10 rounded-full blur-[120px]" />
       <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/10 rounded-full blur-[120px]" />

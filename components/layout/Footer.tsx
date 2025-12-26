@@ -7,8 +7,20 @@ import { Heart } from 'lucide-react';
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 80; // 80px offset from top
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <footer className="border-t border-white/10 bg-[var(--color-bg-dark)]">
+    <footer className="relative border-t border-white/10 bg-[var(--color-bg-dark)]">
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       
@@ -16,7 +28,7 @@ export function Footer() {
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--color-primary)]/5 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-primary-light)]/5 rounded-full blur-[120px]" />
 
-      <div className="z-10 container px-4 sm:px-6 py-8 mx-auto">
+      <div className="relative z-10 container px-4 sm:px-6 py-8 mx-auto">
         {/* Brand Section - Centered */}
         <div className="text-center mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -40,30 +52,101 @@ export function Footer() {
         </div>
 
           {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12 mb-8 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-8 max-w-5xl mx-auto text-center">
 
-          {/* Quick Links */}
-          <div>
+          {/* Quick Links - Most important/actionable */}
+          <div className="relative z-10">
             <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-1">
               <li>
-                <a href="#features" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#pricing" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
+                <a 
+                  href="#pricing" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('pricing');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
                   Pricing
                 </a>
               </li>
               <li>
-                <a href="#testimonials" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
+                <a 
+                  href="#performance" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('performance');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
+                  Live Performance
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#testimonials" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('testimonials');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
                   Testimonials
                 </a>
               </li>
               <li>
-                <a href="#faq" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
+                <a 
+                  href="#faq" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('faq');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
                   FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Product - Learn more sections */}
+          <div className="relative z-10">
+            <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Product</h4>
+            <ul className="space-y-1">
+              <li>
+                <a 
+                  href="#comparison" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('comparison');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
+                  The Choice
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#unique" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('unique');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
+                  What Makes Us Unique
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#timeline" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection('timeline');
+                  }}
+                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                >
+                  How It Works
                 </a>
               </li>
             </ul>
@@ -76,11 +159,6 @@ export function Footer() {
               <li>
                 <a href="http://t.me/Marlon_NQBlade" target="_blank" rel="noopener noreferrer" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
                   Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#documentation" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Documentation
                 </a>
               </li>
               <li>

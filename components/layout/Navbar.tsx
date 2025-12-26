@@ -29,7 +29,20 @@ export function Navbar() {
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-1.5 md:gap-2">
-            <button className="shiny-cta !text-xs md:!text-sm !py-1.5 md:!py-2 !px-3 md:!px-4 !h-8 md:!h-auto">
+            <button 
+              className="shiny-cta !text-xs md:!text-sm !py-1.5 md:!py-2 !px-3 md:!px-4 !h-8 md:!h-auto"
+              onClick={() => {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) {
+                  const elementPosition = pricingSection.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - 80;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+            >
               <span>Get Access</span>
             </button>
           </div>

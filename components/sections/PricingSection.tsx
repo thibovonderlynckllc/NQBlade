@@ -28,7 +28,7 @@ export function PricingSection() {
   const [isCardHovered, setIsCardHovered] = useState(false);
 
   return (
-    <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
+    <section id="pricing" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
       {/* Complex radial gradient background */}
       <div 
         className="absolute inset-0 pointer-events-none"
@@ -136,7 +136,9 @@ export function PricingSection() {
                   Want to try NQBlade before purchasing? Start your free trial by registering with Vantage using our partner link and connecting the bot to your trading account.
                 </p>
                 <a
-                  href="#"
+                  href="https://t.me/NQBladeBot"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] font-medium text-sm sm:text-base transition-colors"
                 >
                   Get Free Trial

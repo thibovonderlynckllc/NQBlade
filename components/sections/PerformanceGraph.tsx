@@ -171,7 +171,7 @@ export function PerformanceGraph() {
 
   if (isLoading) {
     return (
-      <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16">
+      <section id="performance" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[var(--color-primary-light)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-white/90">Loading performance data...</p>
@@ -194,7 +194,7 @@ export function PerformanceGraph() {
     : finalEquity.toFixed(1);
 
   return (
-    <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
+    <section id="performance" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div 

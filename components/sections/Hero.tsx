@@ -284,12 +284,30 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: '0.4s' }}>
-              <button className="shiny-cta">
+              <button 
+                className="shiny-cta"
+                onClick={() => {
+                  const pricingSection = document.getElementById('pricing');
+                  if (pricingSection) {
+                    const elementPosition = pricingSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - 80; // 100px offset from top
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+              >
                 <span>Get Lifetime Access</span>
               </button>
-              <button className="shiny-cta-white">
+              <a 
+                href="https://t.me/+gJnsM_0FpetjOTFi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shiny-cta-white"
+              >
                 <span>Join Community</span>
-              </button>
+              </a>
             </div>
 
             {/* Trust Indicators */}

@@ -21,7 +21,7 @@ const withoutNQBlade = [
 
 export function ComparisonSection() {
   return (
-    <section className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
+    <section id="comparison" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
