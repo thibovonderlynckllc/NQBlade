@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const DESKTOP_ITEMS_PER_PAGE = 4;
 
@@ -37,30 +38,72 @@ export function TestimonialsSection() {
 
       <div className="relative z-10 container px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center mb-8 md:mb-12">
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6">
-            <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8 md:mb-12"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6"
+          >
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '5rem' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="h-[1px] bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50"
+            />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
               <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Real Results</span>
             </div>
-            <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50" />
-          </div>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '5rem' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="h-[1px] bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50"
+            />
+          </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 tracking-tight font-bold">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 tracking-tight font-bold"
+          >
             Trusted by{" "}
             <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
               150+ Traders
             </span>
-          </h2>
+          </motion.h2>
           
-          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto"
+          >
             See what our community is achieving with NQBlade's automated trading system
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Testimonials Slider */}
-        <div className="w-full max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-7xl mx-auto"
+        >
           <div className="relative group">
             {/* Decorative glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)]/20 via-[var(--color-primary-light)]/10 to-[var(--color-primary)]/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
@@ -136,7 +179,7 @@ export function TestimonialsSection() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

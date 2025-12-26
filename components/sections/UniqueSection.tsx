@@ -2,6 +2,7 @@
 
 import { Target, Zap, ShieldCheck, TrendingUp } from "lucide-react";
 import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -55,31 +56,67 @@ export function UniqueSection() {
         <div className="absolute bottom-40 right-40 w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
 
         {/* Section Header with Advanced Styling */}
-        <div className="text-center mb-12 md:mb-16 lg:mb-20 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12 md:mb-16 lg:mb-20 relative"
+        >
           {/* Top decorative line */}
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6 md:mb-8">
-            <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center justify-center gap-2 sm:gap-4 mb-6 md:mb-8"
+          >
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '5rem' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="h-[1px] bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50"
+            />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
               <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Competitive Advantage</span>
             </div>
-            <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50" />
-          </div>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '5rem' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="h-[1px] bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50"
+            />
+          </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight relative inline-block px-4 font-bold">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight relative inline-block px-4 font-bold"
+          >
             What Makes{" "}
             <span className="relative">
               <span className="text-[var(--color-primary-light)] relative z-10">NQBlade</span>
               <div className="absolute inset-0 bg-[var(--color-primary-light)] blur-2xl opacity-20" />
             </span>{" "}
             Unique
-          </h2>
+          </motion.h2>
           
-          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-white/90 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4"
+          >
             Built for consistency, automation, and long-term performance.
             <br className="hidden sm:block" />
             <span className="text-[var(--color-primary-light)]/70">Professional-grade infrastructure trusted by 150+ active traders.</span>
-          </p>
+          </motion.p>
 
           {/* Decorative corners */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-40">
@@ -88,12 +125,25 @@ export function UniqueSection() {
             <div className="absolute top-0 right-0 w-4 h-[1px] bg-gradient-to-l from-[var(--color-primary-light)]/50 to-transparent" />
             <div className="absolute top-0 right-0 w-[1px] h-4 bg-gradient-to-b from-[var(--color-primary-light)]/50 to-transparent" />
           </div>
-        </div>
+        </motion.div>
 
         {/* Advanced Feature Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {features.map((feature, index) => (
-            <AdvancedFeatureCard key={index} {...feature} index={index} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              className="h-full"
+            >
+              <AdvancedFeatureCard {...feature} index={index} />
+            </motion.div>
           ))}
         </div>
 
@@ -129,7 +179,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
   return (
     <div
       ref={cardRef}
-      className="group relative"
+      className="group relative h-full w-full"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
