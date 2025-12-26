@@ -47,6 +47,8 @@ export function PricingSection() {
           `
         }}
       />
+      {/* Grid Pattern Background - On top of gradients */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.06)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" style={{ zIndex: 1 }} />
       
 
       {/* Enhanced dotted pattern that glows on hover - only around card with ripple effect */}

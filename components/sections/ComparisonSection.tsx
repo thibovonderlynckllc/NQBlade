@@ -34,6 +34,8 @@ export function ComparisonSection() {
             `
           }}
         />
+        {/* Grid Pattern Background - On top of gradients */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" style={{ zIndex: 1 }} />
         {/* Red overlay from right side */}
         <div 
           className="absolute inset-0 pointer-events-none"
