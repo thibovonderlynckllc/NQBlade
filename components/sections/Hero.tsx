@@ -2,6 +2,13 @@
 
 import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+interface EquityPoint {
+  date: string;
+  equity: number;
+  balance: number;
+}
 
 function useCounter(end: number, duration: number = 2000, delay: number = 0) {
   const [count, setCount] = useState(0);
@@ -45,6 +52,154 @@ export function Hero() {
   const avgMonthlyHigh = useCounter(12, 1800, 0);
   const activeUsers = useCounter(150, 2000, 0);
   const uptime = useCounter(99.9, 2000, 0);
+  const [equityData, setEquityData] = useState<EquityPoint[]>([]);
+  const [isLoadingChart, setIsLoadingChart] = useState(true);
+
+  useEffect(() => {
+    const loadAndProcessData = async () => {
+      try {
+        const response = await fetch('/numbers.csv');
+        const csvText = await response.text();
+        
+        // Parse CSV
+        const lines = csvText.split('\n');
+        const headers = lines[0].split(',');
+        
+        // Find column indices
+        const openDateIdx = headers.indexOf('Open Date');
+        const closeDateIdx = headers.indexOf('Close Date');
+        const gainIdx = headers.indexOf('Gain');
+        const actionIdx = headers.indexOf('Action');
+        
+        // Process trades and calculate equity curve
+        const trades: Array<{ date: Date; gain: number }> = [];
+        
+        // Parse all trades
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!line) continue;
+          
+          // Handle CSV with potential commas in values (quoted fields)
+          const values: string[] = [];
+          let current = '';
+          let inQuotes = false;
+          
+          for (let j = 0; j < line.length; j++) {
+            const char = line[j];
+            if (char === '"') {
+              inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+              values.push(current.trim());
+              current = '';
+            } else {
+              current += char;
+            }
+          }
+          values.push(current.trim());
+          
+          if (values.length < headers.length) continue;
+          
+          const action = values[actionIdx]?.trim();
+          const openDate = values[openDateIdx]?.trim();
+          const closeDate = values[closeDateIdx]?.trim();
+          const gainStr = values[gainIdx]?.trim();
+          
+          // Skip deposits, withdrawals, and invalid entries
+          if (!action || action === 'Deposit' || action === 'Withdrawal' || !openDate || !closeDate || closeDate === '') {
+            continue;
+          }
+          
+          const gain = parseFloat(gainStr || '0');
+          if (isNaN(gain)) continue;
+          
+          // Parse date (MM/DD/YYYY HH:MM format)
+          try {
+            const datePart = closeDate.split(' ')[0];
+            const [month, day, year] = datePart.split('/');
+            const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            if (!isNaN(date.getTime())) {
+              trades.push({ date, gain });
+            }
+          } catch (e) {
+            continue;
+          }
+        }
+        
+        // Sort trades by date (oldest first)
+        trades.sort((a, b) => a.date.getTime() - b.date.getTime());
+        
+        // Calculate cumulative equity
+        let cumulativeGain = 0;
+        const equityPoints: EquityPoint[] = [];
+        
+        // Group by date and accumulate
+        const dailyMap = new Map<string, number>();
+        trades.forEach(trade => {
+          const dateKey = trade.date.toISOString().split('T')[0];
+          if (!dailyMap.has(dateKey)) {
+            dailyMap.set(dateKey, 0);
+          }
+          dailyMap.set(dateKey, dailyMap.get(dateKey)! + trade.gain);
+        });
+        
+        // Build equity curve
+        const sortedDates = Array.from(dailyMap.keys()).sort();
+        sortedDates.forEach(dateKey => {
+          cumulativeGain += dailyMap.get(dateKey)!;
+          equityPoints.push({
+            date: dateKey,
+            equity: cumulativeGain,
+            balance: cumulativeGain,
+          });
+        });
+        
+        // Normalize to start from 0 (percentage based on initial)
+        if (equityPoints.length > 0) {
+          const firstEquity = equityPoints[0].equity;
+          const normalizedPoints = equityPoints.map(point => ({
+            ...point,
+            equity: point.equity - firstEquity,
+            balance: point.balance - firstEquity,
+          }));
+          
+          setEquityData(normalizedPoints);
+        }
+        
+        setIsLoadingChart(false);
+      } catch (error) {
+        console.error('Error loading CSV data:', error);
+        setIsLoadingChart(false);
+      }
+    };
+    
+    loadAndProcessData();
+  }, []);
+
+  // Format date for display
+  const formatDate = (dateStr: string) => {
+    try {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Custom tooltip
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-[var(--color-bg-dark)] border border-[var(--color-primary)]/30 rounded-lg p-2 shadow-lg">
+          <p className="text-white/90 text-xs mb-1">{formatDate(data.date)}</p>
+          <p className="text-[var(--color-primary-light)] font-semibold text-sm">
+            Equity: {data.equity.toFixed(2)}%
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <section className="relative flex items-center justify-center">
@@ -179,63 +334,48 @@ export function Hero() {
                       </div>
                     </div>
 
-                    {/* Performance Chart SVG */}
-                    <div className="relative h-48 bg-[var(--color-bg-dark)]/50 rounded-xl p-4 border border-white/5">
-                      <svg viewBox="0 0 400 150" className="w-full h-full">
-                        {/* Grid Lines */}
-                        <line x1="0" y1="0" x2="400" y2="0" stroke="#ffffff" strokeOpacity="0.05" />
-                        <line x1="0" y1="50" x2="400" y2="50" stroke="#ffffff" strokeOpacity="0.05" />
-                        <line x1="0" y1="100" x2="400" y2="100" stroke="#ffffff" strokeOpacity="0.05" />
-                        <line x1="0" y1="150" x2="400" y2="150" stroke="#ffffff" strokeOpacity="0.05" />
-                        
-                        {/* Performance Line */}
-                        <defs>
-                          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="var(--color-primary)" />
-                            <stop offset="100%" stopColor="var(--color-primary-light)" />
-                          </linearGradient>
-                          <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="var(--color-primary-light)" stopOpacity="0.3" />
-                            <stop offset="100%" stopColor="var(--color-primary-light)" stopOpacity="0" />
-                          </linearGradient>
-                        </defs>
-                        
-                        {/* Area under curve */}
-                        <path
-                          d="M0,140 L40,130 L80,125 L120,115 L160,105 L200,90 L240,75 L280,55 L320,35 L360,15 L400,10 L400,150 L0,150 Z"
-                          fill="url(#areaGradient)"
-                          className="animate-fade-in"
-                        />
-                        
-                        {/* Main line */}
-                        <path
-                          d="M0,140 L40,130 L80,125 L120,115 L160,105 L200,90 L240,75 L280,55 L320,35 L360,15 L400,10"
-                          stroke="url(#lineGradient)"
-                          strokeWidth="3"
-                          fill="none"
-                          strokeLinecap="round"
-                          className="animate-draw-line"
-                        />
-                        
-                        {/* Glow effect */}
-                        <path
-                          d="M0,140 L40,130 L80,125 L120,115 L160,105 L200,90 L240,75 L280,55 L320,35 L360,15 L400,10"
-                          stroke="url(#lineGradient)"
-                          strokeWidth="8"
-                          fill="none"
-                          strokeLinecap="round"
-                          opacity="0.2"
-                          filter="blur(4px)"
-                          className="animate-draw-line"
-                        />
-                      </svg>
-                      
-                      {/* Time labels */}
-                      <div className="absolute bottom-2 left-4 right-4 flex justify-between text-xs text-white/90">
-                        <span>2020</span>
-                        <span>2022</span>
-                        <span>2025</span>
-                      </div>
+                    {/* Performance Chart */}
+                    <div className="relative h-48 bg-[var(--color-bg-dark)]/50 rounded-xl p-2 sm:p-4 border border-white/5">
+                      {isLoadingChart ? (
+                        <div className="flex items-center justify-center h-full">
+                          <div className="w-6 h-6 border-2 border-[var(--color-primary-light)] border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                      ) : equityData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart data={equityData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                            <defs>
+                              <linearGradient id="heroEquityGradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#15DBF8" stopOpacity={0.4} />
+                                <stop offset="50%" stopColor="#15DBF8" stopOpacity={0.15} />
+                                <stop offset="95%" stopColor="#15DBF8" stopOpacity={0} />
+                              </linearGradient>
+                            </defs>
+                            <CartesianGrid 
+                              strokeDasharray="3 3" 
+                              stroke="rgba(255, 255, 255, 0.05)" 
+                              vertical={false}
+                            />
+                            <Tooltip 
+                              content={<CustomTooltip />}
+                              cursor={{ stroke: 'rgba(21, 219, 248, 0.3)', strokeWidth: 1 }}
+                            />
+                            <Area
+                              type="monotone"
+                              dataKey="equity"
+                              stroke="#15DBF8"
+                              strokeWidth={2}
+                              fill="url(#heroEquityGradient)"
+                              dot={false}
+                              activeDot={{ 
+                                r: 4, 
+                                fill: '#15DBF8',
+                                stroke: '#0698C2',
+                                strokeWidth: 2
+                              }}
+                            />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      ) : null}
                     </div>
 
                     {/* Key Metrics */}
