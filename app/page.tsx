@@ -6,6 +6,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { UniqueSection } from '@/components/sections/UniqueSection';
 import { TimelineSection } from '@/components/sections/TimelineSection';
 import { PricingSection } from '@/components/sections/PricingSection';
+import { PerformanceGraph } from '@/components/sections/PerformanceGraph';
 import { FAQSection } from '@/components/sections/FAQSection';
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <UniqueSection />
         <TimelineSection />
         <PricingSection />
+        <PerformanceGraph />
         <FAQSection />
         <Footer />
       </div>

@@ -181,7 +181,7 @@ function AdvancedFeatureCard({ icon: Icon, title, description, stat, statLabel, 
               <div className="text-xl sm:text-2xl text-[var(--color-primary-light)] mb-0.5 group-hover:scale-110 transition-transform duration-300">
                 {stat}
               </div>
-              <div className="text-xs text-white/40 uppercase tracking-wider">{statLabel}</div>
+              <div className="text-xs text-white/90 uppercase tracking-wider">{statLabel}</div>
             </div>
           </div>
 

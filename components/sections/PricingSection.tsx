@@ -237,7 +237,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
             <div className="relative">
               <div className="text-center">
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <span className="text-lg font-medium text-white/40 line-through uppercase">
+                  <span className="text-lg font-medium text-white/90 line-through uppercase">
                     {plan.originalPrice}
                   </span>
                   <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-lg font-bold group-hover:from-[var(--color-primary)]/30 group-hover:to-[var(--color-primary-light)]/30 transition-all duration-300">
@@ -247,10 +247,10 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
                 <div className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300">
                   {plan.price}
                 </div>
-                <div className="text-white/60 text-sm uppercase tracking-wider group-hover:text-white/80 transition-colors duration-300">
+                <div className="text-white/90 uppercase tracking-wider group-hover:text-white/90 transition-colors duration-300">
                   {plan.period}
                 </div>
-              </div>
+              </div>  
               {/* Decorative lines */}
               <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-r from-transparent to-[var(--color-primary)]/30 hidden lg:block group-hover:to-[var(--color-primary-light)]/50 transition-colors duration-300" />
               <div className="absolute -right-20 top-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-l from-transparent to-[var(--color-primary)]/30 hidden lg:block group-hover:to-[var(--color-primary-light)]/50 transition-colors duration-300" />
@@ -265,7 +265,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
           {/* Divider */}
           <div className="flex items-center gap-4 mb-10">
             <div className="flex-1 border-t border-white/10 group-hover:border-[var(--color-primary-light)]/30 transition-colors duration-300"></div>
-            <span className="text-xs text-white/50 uppercase tracking-wider group-hover:text-[var(--color-primary-light)]/70 transition-colors duration-300">What's Included</span>
+            <span className="text-xs text-white/90 uppercase tracking-wider group-hover:text-[var(--color-primary-light)]/70 transition-colors duration-300">What's Included</span>
             <div className="flex-1 border-t border-white/10 group-hover:border-[var(--color-primary-light)]/30 transition-colors duration-300"></div>
           </div>
 
