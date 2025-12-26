@@ -169,6 +169,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -177,6 +178,39 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
+  };
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Checkout error:', data.error || 'Unknown error');
+        alert(`Error: ${data.error || 'Failed to create checkout session. Please check your Stripe configuration.'}`);
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL returned', data);
+        alert('Error: No checkout URL returned. Please check your Stripe configuration.');
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      alert('Error: Failed to connect to payment server. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -287,8 +321,12 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
           </div>
 
           {/* CTA Button */}
-          <button className="shiny-cta w-full !py-4 !px-8 !text-base lg:!text-lg">
-            <span>Buy NQBlade Now</span>
+          <button 
+            onClick={handleCheckout}
+            disabled={isLoading}
+            className="shiny-cta w-full !py-4 !px-8 !text-base lg:!text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span>{isLoading ? 'Loading...' : 'Buy NQBlade Now'}</span>
           </button>
 
           {/* Scan line effect */}
