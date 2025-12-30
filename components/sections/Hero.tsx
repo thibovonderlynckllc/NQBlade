@@ -361,13 +361,13 @@ export function Hero() {
                       ) : equityData.length > 0 ? (
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={equityData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                            <defs>
+                        <defs>
                               <linearGradient id="heroEquityGradient" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="#15DBF8" stopOpacity={0.4} />
                                 <stop offset="50%" stopColor="#15DBF8" stopOpacity={0.15} />
                                 <stop offset="95%" stopColor="#15DBF8" stopOpacity={0} />
-                              </linearGradient>
-                            </defs>
+                          </linearGradient>
+                        </defs>
                             <CartesianGrid 
                               strokeDasharray="3 3" 
                               stroke="rgba(255, 255, 255, 0.05)" 
