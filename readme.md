@@ -10,7 +10,7 @@ This guide will walk you through setting up Stripe payments for the NQBlade webs
 
 1. Log in to your [Stripe Dashboard](https://dashboard.stripe.com)
 2. Make sure you're in **Test mode** (toggle in the top right) for initial setup and testing
-3. Navigate to **Developers** → **API keys** in the left sidebar
+3. Search for "API keys" in the Stripe Dashboard or navigate to **Developers** → **API keys**
 4. You'll see two keys:
 
    - **Publishable key** (starts with `pk_test_...` or `pk_live_...`)
@@ -66,7 +66,7 @@ When you're ready to accept real payments:
 
 2. **Get your Live API keys:**
 
-   - Go to **Developers** → **API keys**
+   - Search for "API keys" in the Stripe Dashboard or navigate to **Developers** → **API keys**
    - Copy your **Live Secret key** (starts with `sk_live_...`)
 
 3. **Create a Live Product and Price:**
