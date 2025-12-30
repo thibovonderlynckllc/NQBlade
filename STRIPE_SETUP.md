@@ -45,7 +45,7 @@ Since NQBlade is a one-time purchase (not a subscription), you need to create a 
 ```env
 # Stripe Configuration
 STRIPE_SECRET_KEY=your_stripe_secret_key_here
-STRIPE_PRICE_ID=price_xxxxxxxxxxxxx
+STRIPE_PRICE_ID=your_stripe_price_id_here
 
 # Base URL (for production, use your actual domain)
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
