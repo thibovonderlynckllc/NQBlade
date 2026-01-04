@@ -6,426 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    /* Preview Styles */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #0a0a0f;
-      color: #ffffff;
-      padding: 20px;
-      line-height: 1.6;
-    }
-
-    .preview-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    h1,
-    h2,
-    h3 {
-      color: #15DBF8;
-      margin-top: 0;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(21, 219, 248, 0.1);
-      border: 1px solid rgba(21, 219, 248, 0.2);
-      border-radius: 9999px;
-      font-size: 14px;
-      color: #15DBF8;
-    }
-
-    .feature-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .feature-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .feature-list li:before {
-      content: "✓ ";
-      color: #15DBF8;
-      font-weight: bold;
-    }
-
-    .pricing-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px;
-      margin: 20px 0;
-    }
-
-    .price {
-      font-size: 48px;
-      font-weight: bold;
-      color: #15DBF8;
-    }
-
-    .link-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .link-list li {
-      padding: 4px 0;
-    }
-
-    .link-list a {
-      color: #15DBF8;
-      text-decoration: none;
-    }
-
-    .link-list a:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
+  
   <script>
-    // Register preview styles
-    CMS.registerPreviewStyle(`
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: #0a0a0f;
-        color: #ffffff;
-        padding: 20px;
-        line-height: 1.6;
-      }
-      .preview-container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      h1, h2, h3 {
-        color: #15DBF8;
-        margin-top: 0;
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        background: rgba(21, 219, 248, 0.1);
-        border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 9999px;
-        font-size: 14px;
-        color: #15DBF8;
-      }
-      .feature-list {
-        list-style: none;
-        padding: 0;
-      }
-      .feature-list li {
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .feature-list li:before {
-        content: "✓ ";
-        color: #15DBF8;
-        font-weight: bold;
-      }
-      .pricing-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 24px;
-        margin: 20px 0;
-      }
-      .price {
-        font-size: 48px;
-        font-weight: bold;
-        color: #15DBF8;
-      }
-      .link-list {
-        list-style: none;
-        padding: 0;
-      }
-      .link-list li {
-        padding: 4px 0;
-      }
-      .link-list a {
-        color: #15DBF8;
-        text-decoration: none;
-      }
-    `, { raw: true });
-
-    // FAQ Preview Template
-    var FAQPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var items = entry.getIn(['data', 'items']) || [];
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'FAQ Preview'),
-          items.toJS().map(function (item, index) {
-            return h('div', { key: index, style: { marginBottom: '20px', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px' } },
-              h('h3', { style: { color: '#15DBF8', marginBottom: '8px' } }, item.question || ''),
-              h('div', { style: { opacity: 0.9 } }, item.answer || '')
-            );
-          })
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('faq', FAQPreview);
-
-    // Hero Preview Template
-    var HeroPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var hero = entry.getIn(['data', 'hero']) || {};
-        var heroData = hero.toJS ? hero.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Hero Section Preview'),
-          h('div', { className: 'badge' }, heroData.badge || ''),
-          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
-            heroData.headline || '', ' ',
-            h('span', { style: { color: '#15DBF8' } }, heroData.headlineHighlight || ''), ' ',
-            heroData.headlineEnd || ''
-          ),
-          h('p', { style: { fontSize: '18px', marginTop: '16px', opacity: 0.9 } },
-            heroData.subheadline || '', ' ',
-            h('strong', { style: { color: '#15DBF8' } }, (heroData.avgMonthlyLow || 0) + '–' + (heroData.avgMonthlyHigh || 0) + '%'),
-            ' per month for ',
-            h('strong', { style: { color: '#15DBF8' } }, (heroData.activeUsers || 0) + '+'),
-            ' active users.'
-          ),
-          h('div', { style: { marginTop: '20px' } },
-            h('button', { style: { padding: '12px 24px', background: '#15DBF8', color: '#0a0a0f', border: 'none', borderRadius: '8px', fontWeight: 'bold', marginRight: '12px' } }, heroData.ctaPrimary || ''),
-            h('button', { style: { padding: '12px 24px', background: 'transparent', color: '#15DBF8', border: '1px solid #15DBF8', borderRadius: '8px', fontWeight: 'bold' } }, heroData.ctaSecondary || '')
-          ),
-          h('div', { style: { marginTop: '24px', display: 'flex', gap: '16px', flexWrap: 'wrap' } },
-            (heroData.trustIndicators || []).map(function (indicator, index) {
-              return h('div', { key: index, style: { display: 'flex', alignItems: 'center', gap: '8px' } },
-                h('span', {}, '✓'),
-                h('span', {}, indicator.text || '')
-              );
-            })
-          )
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('hero', HeroPreview);
-
-    // Pricing Preview Template
-    var PricingPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var pricing = entry.getIn(['data', 'pricing']) || {};
-        var pricingData = pricing.toJS ? pricing.toJS() : {};
-        var plan = pricingData.plan || {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Pricing Section Preview'),
-          h('h2', {}, pricingData.title || ''),
-          h('p', { style: { opacity: 0.9 } }, pricingData.subtitle || ''),
-          h('div', { className: 'pricing-card' },
-            h('h3', {}, plan.name || ''),
-            h('div', { className: 'price' }, plan.price || ''),
-            h('p', { style: { textDecoration: 'line-through', opacity: 0.6 } }, plan.originalPrice || ''),
-            h('p', { style: { marginTop: '16px' } }, plan.description || ''),
-            h('ul', { className: 'feature-list', style: { marginTop: '20px' } },
-              (plan.features || []).map(function (feature, index) {
-                return h('li', { key: index }, feature);
-              })
-            ),
-            h('button', { style: { marginTop: '24px', padding: '12px 24px', background: '#15DBF8', color: '#0a0a0f', border: 'none', borderRadius: '8px', fontWeight: 'bold', width: '100%' } }, plan.ctaButton || ''),
-            h('div', { style: { marginTop: '16px', textAlign: 'center' } },
-              h('a', { href: plan.trialLink || '#', style: { color: '#15DBF8' } }, plan.trialButton || ''),
-              h('p', { style: { fontSize: '14px', opacity: 0.8, marginTop: '8px' } }, plan.trialText || '')
-            )
-          )
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('pricing', PricingPreview);
-
-    // Testimonials Preview Template
-    var TestimonialsPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var testimonials = entry.getIn(['data', 'testimonials']) || {};
-        var data = testimonials.toJS ? testimonials.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Testimonials Section Preview'),
-          h('div', { className: 'badge' }, data.badge || ''),
-          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
-            data.title || '', ' ',
-            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || '')
-          ),
-          h('p', { style: { marginTop: '16px', opacity: 0.9 } }, data.description || '')
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('testimonials', TestimonialsPreview);
-
-    // Comparison Preview Template
-    var ComparisonPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var comparison = entry.getIn(['data', 'comparison']) || {};
-        var data = comparison.toJS ? comparison.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Comparison Section Preview'),
-          h('div', { className: 'badge' }, data.badge || ''),
-          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
-            data.title || '', ' ',
-            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || ''), ' ',
-            data.titleEnd || ' ',
-            h('span', { style: { color: '#ef4444' } }, data.titleEndHighlight || '')
-          ),
-          h('p', { style: { marginTop: '16px', opacity: 0.9, marginBottom: '32px' } }, data.description || ''),
-          h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' } },
-            h('div', { style: { padding: '20px', background: 'rgba(21, 219, 248, 0.1)', borderRadius: '12px', border: '1px solid rgba(21, 219, 248, 0.3)' } },
-              h('h3', { style: { color: '#15DBF8', marginBottom: '16px' } }, 'With NQBlade'),
-              h('ul', { className: 'feature-list' },
-                (data.withNQBlade || []).map(function (item, index) {
-                  return h('li', { key: index }, item);
-                })
-              )
-            ),
-            h('div', { style: { padding: '20px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.3)' } },
-              h('h3', { style: { color: '#ef4444', marginBottom: '16px' } }, 'Without NQBlade'),
-              h('ul', { className: 'feature-list' },
-                (data.withoutNQBlade || []).map(function (item, index) {
-                  return h('li', { key: index }, item);
-                })
-              )
-            )
-          )
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('comparison', ComparisonPreview);
-
-    // Unique Preview Template
-    var UniquePreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var unique = entry.getIn(['data', 'unique']) || {};
-        var data = unique.toJS ? unique.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Unique Section Preview'),
-          h('div', { className: 'badge' }, data.badge || ''),
-          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
-            data.title || '', ' ',
-            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || ''), ' ',
-            data.titleEnd || ''
-          ),
-          h('p', { style: { marginTop: '16px', opacity: 0.9, marginBottom: '32px' } },
-            data.description || '', ' ',
-            h('span', { style: { color: '#15DBF8', opacity: 0.7 } }, data.descriptionHighlight || '')
-          ),
-          h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' } },
-            (data.features || []).map(function (feature, index) {
-              return h('div', { key: index, style: { padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)' } },
-                h('h3', { style: { color: '#15DBF8', marginBottom: '8px' } }, feature.title || ''),
-                h('p', { style: { fontSize: '14px', opacity: 0.9, marginBottom: '12px' } }, feature.description || ''),
-                h('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px' } },
-                  h('span', { style: { fontSize: '24px', fontWeight: 'bold', color: feature.color || '#15DBF8' } }, feature.stat || ''),
-                  h('span', { style: { fontSize: '14px', opacity: 0.7 } }, feature.statLabel || '')
-                )
-              );
-            })
-          )
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('unique', UniquePreview);
-
-    // Timeline Preview Template
-    var TimelinePreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var timeline = entry.getIn(['data', 'timeline']) || {};
-        var data = timeline.toJS ? timeline.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Timeline Section Preview'),
-          h('div', { className: 'badge' }, data.badge || ''),
-          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
-            data.title || '', ' ',
-            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || '')
-          ),
-          h('div', { style: { marginTop: '32px' } },
-            (data.steps || []).map(function (step, index) {
-              return h('div', { key: index, style: { marginBottom: '32px', padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px' } },
-                h('div', { style: { fontSize: '48px', fontWeight: 'bold', color: '#15DBF8', marginBottom: '12px' } }, step.number || ''),
-                h('h3', { style: { fontSize: '20px', marginBottom: '8px' } }, step.title || ''),
-                h('p', { style: { opacity: 0.9 } }, step.description || ''),
-                step.imageUrl ? h('img', { src: step.imageUrl, style: { width: '100%', maxWidth: '400px', marginTop: '16px', borderRadius: '8px' } }) : null
-              );
-            })
-          )
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('timeline', TimelinePreview);
-
-    // Footer Preview Template
-    var FooterPreview = createClass({
-      render: function () {
-        var entry = this.props.entry;
-        var footer = entry.getIn(['data', 'footer']) || {};
-        var footerData = footer.toJS ? footer.toJS() : {};
-
-        return h('div', { className: 'preview-container' },
-          h('h1', {}, 'Footer Preview'),
-          h('p', { style: { marginBottom: '24px', opacity: 0.9 } }, footerData.description || ''),
-          h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' } },
-            h('div', {},
-              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Quick Links'),
-              h('ul', { className: 'link-list' },
-                (footerData.quickLinks || []).map(function (link, index) {
-                  return h('li', { key: index },
-                    h('a', { href: link.href || '#' }, link.label || '')
-                  );
-                })
-              )
-            ),
-            h('div', {},
-              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Product'),
-              h('ul', { className: 'link-list' },
-                (footerData.productLinks || []).map(function (link, index) {
-                  return h('li', { key: index },
-                    h('a', { href: link.href || '#' }, link.label || '')
-                  );
-                })
-              )
-            ),
-            h('div', {},
-              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Support'),
-              h('ul', { className: 'link-list' },
-                (footerData.supportLinks || []).map(function (link, index) {
-                  return h('li', { key: index },
-                    h('a', { href: link.href || '#' }, link.label || '')
-                  );
-                })
-              )
-            )
-          ),
-          h('p', { style: { marginTop: '32px', textAlign: 'center', opacity: 0.7, fontSize: '14px' } }, footerData.copyright || '')
-        );
-      }
-    });
-    CMS.registerPreviewTemplate('footer', FooterPreview);
-
-    // Netlify Identity initialization
+    // Netlify Identity redirect handling
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
@@ -435,6 +23,700 @@
         }
       });
     }
+
+    // Register custom preview styles that match the website
+    CMS.registerPreviewStyle(`
+      :root {
+        --color-primary: #0698C2;
+        --color-primary-light: #15DBF8;
+        --color-bg-dark: #0a0a0f;
+      }
+
+      body {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: var(--color-bg-dark);
+        color: #ffffff;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .preview-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 40px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(21, 219, 248, 0.1);
+        border: 1px solid rgba(21, 219, 248, 0.2);
+        border-radius: 9999px;
+        font-size: 12px;
+        color: var(--color-primary-light);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+      }
+
+      .badge::before {
+        content: '●';
+        color: var(--color-primary-light);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin: 16px 0;
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 16px 0;
+        line-height: 1.2;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 16px 0;
+      }
+
+      .highlight {
+        background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .highlight-red {
+        color: #f87171;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 16px 0;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 16px;
+        margin: 24px 0;
+        flex-wrap: wrap;
+      }
+
+      .cta-button {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .cta-primary {
+        background: var(--color-primary-light);
+        color: #000;
+      }
+
+      .cta-secondary {
+        background: transparent;
+        color: var(--color-primary-light);
+        border: 1px solid var(--color-primary-light);
+      }
+
+      .trust-indicators {
+        display: flex;
+        gap: 24px;
+        margin: 24px 0;
+        flex-wrap: wrap;
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+      }
+
+      .trust-item::before {
+        content: '✓';
+        color: var(--color-primary-light);
+        font-weight: bold;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 24px;
+        margin: 32px 0;
+      }
+
+      .stat {
+        text-align: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+      }
+
+      .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .feature-list, .comparison-list {
+        list-style: none;
+        padding: 0;
+        margin: 24px 0;
+      }
+
+      .feature-list li, .comparison-list li {
+        padding: 16px;
+        margin: 12px 0;
+        background: rgba(21, 219, 248, 0.05);
+        border: 1px solid rgba(21, 219, 248, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .feature-list li::before {
+        content: '✓';
+        color: var(--color-primary-light);
+        font-weight: bold;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .comparison-list.negative li {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .comparison-list.negative li::before {
+        content: '✗';
+        color: #f87171;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        margin: 32px 0;
+      }
+
+      .comparison-card {
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+      }
+
+      .pricing-card {
+        padding: 32px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(21, 219, 248, 0.3);
+        border-radius: 16px;
+        margin: 24px 0;
+      }
+
+      .price {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        margin: 16px 0;
+      }
+
+      .original-price {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: line-through;
+        margin-right: 12px;
+      }
+
+      .save-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        margin: 32px 0;
+      }
+
+      .feature-card {
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(21, 219, 248, 0.2);
+        border-radius: 16px;
+        transition: all 0.3s;
+      }
+
+      .feature-card:hover {
+        border-color: var(--color-primary-light);
+        background: rgba(21, 219, 248, 0.05);
+      }
+
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(21, 219, 248, 0.1);
+        border: 1px solid rgba(21, 219, 248, 0.3);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary-light);
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+
+      .feature-stat {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        float: right;
+      }
+
+      .timeline {
+        margin: 32px 0;
+      }
+
+      .timeline-item {
+        display: flex;
+        gap: 24px;
+        margin: 24px 0;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        position: relative;
+      }
+
+      .timeline-number {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        opacity: 0.3;
+        flex-shrink: 0;
+      }
+
+      .timeline-content {
+        flex: 1;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 32px;
+        margin: 32px 0;
+      }
+
+      .footer-section h4 {
+        color: var(--color-primary-light);
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section li {
+        margin: 8px 0;
+      }
+
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .footer-section a:hover {
+        color: var(--color-primary-light);
+      }
+
+      strong {
+        color: var(--color-primary-light);
+      }
+
+      .faq-item {
+        margin: 16px 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+      }
+
+      .faq-question {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 12px;
+        color: #fff;
+      }
+
+      .faq-answer {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.8;
+      }
+    `, { raw: true });
+
+    // Hero Section Preview Template
+    var HeroPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'hero']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, data.badge),
+            h('h1', {},
+              data.headline, ' ',
+              h('span', { className: 'highlight' }, data.headlineHighlight), ' ',
+              data.headlineEnd
+            ),
+            h('p', {},
+              data.subheadline, ' ',
+              h('strong', {}, data.avgMonthlyLow, '–', data.avgMonthlyHigh, '%'), ' per month for ',
+              h('strong', {}, data.activeUsers, '+'), ' active users.'
+            )
+          ),
+          h('div', { className: 'cta-buttons' },
+            h('a', { className: 'cta-button cta-primary', href: '#' }, data.ctaPrimary),
+            h('a', { className: 'cta-button cta-secondary', href: data.ctaSecondaryLink, target: '_blank' }, data.ctaSecondary)
+          ),
+          h('div', { className: 'trust-indicators' },
+            data.trustIndicators && data.trustIndicators.map(function (indicator, i) {
+              return h('div', { key: i, className: 'trust-item' }, indicator.text);
+            })
+          ),
+          h('div', { className: 'stats' },
+            h('div', { className: 'stat' },
+              h('div', { className: 'stat-value' }, data.totalReturn, '%'),
+              h('div', { className: 'stat-label' }, 'Total Return')
+            ),
+            h('div', { className: 'stat' },
+              h('div', { className: 'stat-value' }, data.uptime, '%'),
+              h('div', { className: 'stat-label' }, 'Uptime')
+            ),
+            h('div', { className: 'stat' },
+              h('div', { className: 'stat-value' }, data.activeUsers, '+'),
+              h('div', { className: 'stat-label' }, 'Active Users')
+            )
+          )
+        );
+      }
+    });
+
+    // Testimonials Section Preview Template
+    var TestimonialsPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'testimonials']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, data.badge),
+            h('h2', {},
+              data.title, ' ',
+              h('span', { className: 'highlight' }, data.titleHighlight)
+            ),
+            h('p', {}, data.description)
+          ),
+          h('p', { style: { textAlign: 'center', color: 'rgba(255,255,255,0.5)' } }, 
+            '(Testimonial images will display on the live site)')
+        );
+      }
+    });
+
+    // Comparison Section Preview Template
+    var ComparisonPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'comparison']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, data.badge),
+            h('h2', {},
+              data.title, ' ',
+              h('span', { className: 'highlight' }, data.titleHighlight), ' ',
+              data.titleEnd, ' ',
+              h('span', { className: 'highlight-red' }, data.titleEndHighlight)
+            ),
+            h('p', {}, data.description)
+          ),
+          h('div', { className: 'comparison-grid' },
+            h('div', { className: 'comparison-card' },
+              h('h3', {},
+                'Trading With ',
+                h('span', { className: 'highlight' }, 'NQBlade')
+              ),
+              h('ul', { className: 'feature-list' },
+                data.withNQBlade && data.withNQBlade.map(function (feature, i) {
+                  return h('li', { key: i }, feature);
+                })
+              )
+            ),
+            h('div', { className: 'comparison-card' },
+              h('h3', {},
+                'Trading By ',
+                h('span', { className: 'highlight-red' }, 'Yourself')
+              ),
+              h('ul', { className: 'comparison-list negative' },
+                data.withoutNQBlade && data.withoutNQBlade.map(function (feature, i) {
+                  return h('li', { key: i }, feature);
+                })
+              )
+            )
+          )
+        );
+      }
+    });
+
+    // Unique Section Preview Template
+    var UniquePreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'unique']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, data.badge),
+            h('h2', {},
+              data.title, ' ',
+              h('span', { className: 'highlight' }, data.titleHighlight), ' ',
+              data.titleEnd
+            ),
+            h('p', {},
+              data.description,
+              h('br'),
+              h('span', { style: { color: 'rgba(21,219,248,0.7)' } }, data.descriptionHighlight)
+            )
+          ),
+          h('div', { className: 'feature-grid' },
+            data.features && data.features.map(function (feature, i) {
+              return h('div', { key: i, className: 'feature-card' },
+                h('div', { className: 'feature-icon' }, '⚡'),
+                h('div', { className: 'feature-stat' }, feature.stat),
+                h('h3', {}, feature.title),
+                h('p', { style: { fontSize: '14px', margin: '8px 0' } }, feature.description),
+                h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '8px' } }, 
+                  feature.statLabel
+                )
+              );
+            })
+          )
+        );
+      }
+    });
+
+    // Timeline Section Preview Template
+    var TimelinePreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'timeline']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, data.badge),
+            h('h2', {},
+              data.title, ' ',
+              h('span', { className: 'highlight' }, data.titleHighlight)
+            ),
+            h('p', {}, data.description)
+          ),
+          h('div', { className: 'timeline' },
+            data.steps && data.steps.map(function (step, i) {
+              return h('div', { key: i, className: 'timeline-item' },
+                h('div', { className: 'timeline-number' }, step.number),
+                h('div', { className: 'timeline-content' },
+                  h('h3', {}, step.title),
+                  h('p', {}, step.description)
+                )
+              );
+            })
+          )
+        );
+      }
+    });
+
+    // Pricing Section Preview Template
+    var PricingPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'pricing']).toJS();
+        var plan = data.plan || {};
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('h2', {},
+              data.title, ' ',
+              h('span', { className: 'highlight' }, 'NQBlade')
+            ),
+            h('p', {}, data.subtitle)
+          ),
+          h('div', { className: 'pricing-card' },
+            h('h3', {}, plan.name),
+            h('div', {},
+              h('span', { className: 'original-price' }, plan.originalPrice),
+              h('span', { className: 'price' }, plan.price),
+              h('span', { className: 'save-badge' }, 'Save €150')
+            ),
+            h('p', { style: { margin: '16px 0', color: 'rgba(255,255,255,0.7)' } }, plan.period),
+            h('p', {}, plan.description),
+            h('ul', { className: 'feature-list' },
+              plan.features && plan.features.map(function (feature, i) {
+                return h('li', { key: i }, feature);
+              })
+            ),
+            h('div', { className: 'cta-buttons' },
+              h('a', { className: 'cta-button cta-primary', href: '#', style: { width: '100%', textAlign: 'center' } }, 
+                plan.ctaButton
+              )
+            ),
+            h('div', { style: { marginTop: '24px', padding: '20px', background: 'rgba(21,219,248,0.05)', borderRadius: '12px' } },
+              h('h4', { style: { margin: '0 0 8px 0' } }, plan.trialButton),
+              h('p', { style: { fontSize: '14px', margin: '0 0 12px 0' } }, plan.trialText),
+              h('a', { href: plan.trialLink, className: 'cta-button cta-secondary', style: { display: 'inline-block' } }, 
+                plan.trialButton
+              )
+            )
+          )
+        );
+      }
+    });
+
+    // Footer Preview Template
+    var FooterPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var data = entry.getIn(['data', 'footer']).toJS();
+
+        return h('div', { className: 'preview-container' },
+          h('div', { style: { textAlign: 'center', marginBottom: '32px' } },
+            h('h2', { className: 'highlight' }, 'NQBlade'),
+            h('p', {}, data.description)
+          ),
+          h('div', { className: 'footer-links' },
+            h('div', { className: 'footer-section' },
+              h('h4', {}, 'Quick Links'),
+              h('ul', {},
+                data.quickLinks && data.quickLinks.map(function (link, i) {
+                  return h('li', { key: i },
+                    h('a', { href: link.href }, link.label)
+                  );
+                })
+              )
+            ),
+            h('div', { className: 'footer-section' },
+              h('h4', {}, 'Product'),
+              h('ul', {},
+                data.productLinks && data.productLinks.map(function (link, i) {
+                  return h('li', { key: i },
+                    h('a', { href: link.href }, link.label)
+                  );
+                })
+              )
+            ),
+            h('div', { className: 'footer-section' },
+              h('h4', {}, 'Support'),
+              h('ul', {},
+                data.supportLinks && data.supportLinks.map(function (link, i) {
+                  return h('li', { key: i },
+                    h('a', { href: link.href }, link.label)
+                  );
+                })
+              )
+            )
+          ),
+          h('div', { style: { textAlign: 'center', marginTop: '32px', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' } },
+            h('p', { style: { fontSize: '14px' } }, data.copyright)
+          )
+        );
+      }
+    });
+
+    // FAQ Preview Template
+    var FAQPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var items = entry.getIn(['data', 'items']);
+        var itemsArray = items ? items.toJS() : [];
+
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'section-header' },
+            h('div', { className: 'badge' }, 'FAQ'),
+            h('h2', {},
+              'Frequently Asked ',
+              h('span', { className: 'highlight' }, 'Questions')
+            )
+          ),
+          h('div', {},
+            itemsArray.map(function (item, i) {
+              return h('div', { key: i, className: 'faq-item' },
+                h('div', { className: 'faq-question' }, item.question),
+                h('div', { 
+                  className: 'faq-answer',
+                  dangerouslySetInnerHTML: { __html: item.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>') }
+                })
+              );
+            })
+          )
+        );
+      }
+    });
+
+    // Register all preview templates
+    CMS.registerPreviewTemplate('hero_section', HeroPreview);
+    CMS.registerPreviewTemplate('testimonials_section', TestimonialsPreview);
+    CMS.registerPreviewTemplate('comparison_section', ComparisonPreview);
+    CMS.registerPreviewTemplate('unique_section', UniquePreview);
+    CMS.registerPreviewTemplate('timeline_section', TimelinePreview);
+    CMS.registerPreviewTemplate('pricing_section', PricingPreview);
+    CMS.registerPreviewTemplate('footer_section', FooterPreview);
+    CMS.registerPreviewTemplate('faq', FAQPreview);
   </script>
 </body>
 
