@@ -3,28 +3,11 @@
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
-
-const plan = {
-  name: "NQBlade EA",
-  price: "€349",
-  originalPrice: "€499",
-  period: "one-time",
-  description: "Get lifetime access to our proven NQ Futures trading algorithm",
-  features: [
-    "Full Algorithm Access",
-    "Unlimited Trading Accounts",
-    "24/7 Automated Trading",
-    "Lifetime Updates",
-    "Priority Support",
-    "Performance Dashboard",
-    "Advanced Analytics",
-    "Custom Risk Settings",
-    "Installation Guide",
-    "Trading Community Access",
-  ]
-};
+import contentData from '@/data/content.json';
 
 export function PricingSection() {
+  const pricingContent = contentData.pricing;
+  const plan = pricingContent.plan;
   const [isCardHovered, setIsCardHovered] = useState(false);
 
   return (
@@ -98,13 +81,13 @@ export function PricingSection() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold">
-            Get{" "}
+            {pricingContent.title}{" "}
             <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
               NQBlade
             </span>
           </h2>
           <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-            One-time purchase. Lifetime access. Start trading today.
+            {pricingContent.subtitle}
           </p>
         </div>
 
@@ -132,18 +115,18 @@ export function PricingSection() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                  Free Trial Available
+                  {plan.trialButton}
                 </h3>
                 <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-4">
-                  Want to try NQBlade before purchasing? Start your free trial by registering with Vantage using our partner link and connecting the bot to your trading account.
+                  {plan.trialText}
                 </p>
                 <a
-                  href="https://t.me/NQBladeBot"
+                  href={plan.trialLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] font-medium text-sm sm:text-base transition-colors"
                 >
-                  Get Free Trial
+                  {plan.trialButton}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -165,6 +148,10 @@ interface PricingCardProps {
     period: string;
     description: string;
     features: string[];
+    ctaButton: string;
+    trialButton: string;
+    trialLink: string;
+    trialText: string;
   };
   onHoverChange?: (isHovered: boolean) => void;
 }
@@ -330,7 +317,7 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
             disabled={isLoading}
             className="shiny-cta w-full !py-4 !px-8 !text-base lg:!text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span>{isLoading ? 'Loading...' : 'Buy NQBlade Now'}</span>
+            <span>{isLoading ? 'Loading...' : plan.ctaButton}</span>
           </button>
 
           {/* Scan line effect */}

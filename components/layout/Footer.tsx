@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heart } from 'lucide-react';
+import contentData from '@/data/content.json';
 
 export function Footer() {
+  const footerContent = contentData.footer;
   const currentYear = new Date().getFullYear();
 
   const handleScrollToSection = (sectionId: string) => {
@@ -47,7 +49,7 @@ export function Footer() {
             </h3>
           </div>
           <p className="text-white/90 text-sm sm:text-base md:text-base leading-relaxed max-w-2xl mx-auto">
-            The best automated trading bot for NQ Futures. Institutional-grade strategy with 5+ years of proven performance.
+            {footerContent.description}
           </p>
         </div>
 
@@ -58,54 +60,22 @@ export function Footer() {
           <div className="relative z-10">
             <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-1">
-              <li>
-                <a 
-                  href="#pricing" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('pricing');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  Pricing
-                </a>
-              </li>
-              {/* <li>
-                <a 
-                  href="#performance" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('performance');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  Live Performance
-                </a>
-              </li> */}
-              <li>
-                <a 
-                  href="#testimonials" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('testimonials');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  Testimonials
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#faq" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('faq');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  FAQ
-                </a>
-              </li>
+              {footerContent.quickLinks.map((link, index) => (
+                <li key={index}>
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => {
+                      if (link.href.startsWith('#')) {
+                        e.preventDefault();
+                        handleScrollToSection(link.href.substring(1));
+                      }
+                    }}
+                    className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -113,42 +83,22 @@ export function Footer() {
           <div className="relative z-10">
             <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Product</h4>
             <ul className="space-y-1">
-              <li>
-                <a 
-                  href="#comparison" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('comparison');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  The Choice
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#unique" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('unique');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  What Makes Us Unique
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#timeline" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToSection('timeline');
-                  }}
-                  className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
-                >
-                  How It Works
-                </a>
-              </li>
+              {footerContent.productLinks.map((link, index) => (
+                <li key={index}>
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => {
+                      if (link.href.startsWith('#')) {
+                        e.preventDefault();
+                        handleScrollToSection(link.href.substring(1));
+                      }
+                    }}
+                    className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -156,16 +106,24 @@ export function Footer() {
           <div>
             <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Support</h4>
             <ul className="space-y-1">
-              <li>
-                <a href="http://t.me/Marlon_NQBlade" target="_blank" rel="noopener noreferrer" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#community" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Community
-                </a>
-              </li>
+              {footerContent.supportLinks.map((link, index) => (
+                <li key={index}>
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => {
+                      if (link.href.startsWith('#')) {
+                        e.preventDefault();
+                        handleScrollToSection(link.href.substring(1));
+                      }
+                    }}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -198,7 +156,7 @@ export function Footer() {
         <div className="container px-4 sm:px-6 mx-auto py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
             <p className="text-white/90 text-xs sm:text-sm md:text-sm">
-              © {currentYear} NQBlade. All rights reserved.
+              {footerContent.copyright.replace('2024', currentYear.toString())}
             </p>
             <div className="flex items-center gap-2 text-white/90 text-xs sm:text-sm md:text-sm">
               <span>Made with</span>

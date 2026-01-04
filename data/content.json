@@ -1,0 +1,170 @@
+{
+  "hero": {
+    "badge": "Institutional-Grade Trading Bot",
+    "headline": "This bot made",
+    "headlineHighlight": "600% profit",
+    "headlineEnd": "over the past 5 years!",
+    "subheadline": "Fully automated performance, averaging",
+    "avgMonthlyLow": 9,
+    "avgMonthlyHigh": 12,
+    "activeUsers": 150,
+    "totalReturn": 600,
+    "uptime": 99.9,
+    "ctaPrimary": "Get Lifetime Access",
+    "ctaSecondary": "Join Community",
+    "ctaSecondaryLink": "https://t.me/+gJnsM_0FpetjOTFi",
+    "trustIndicators": [
+      { "icon": "Shield", "text": "Risk Managed" },
+      { "icon": "Zap", "text": "Fully Automated" },
+      { "icon": "TrendingUp", "text": "5-Year Track Record" }
+    ]
+  },
+  "testimonials": {
+    "badge": "Real Results",
+    "title": "Trusted by",
+    "titleHighlight": "150+ Traders",
+    "description": "See what our community of traders is saying about NQBlade"
+  },
+  "comparison": {
+    "badge": "The Choice",
+    "title": "Trading",
+    "titleHighlight": "With NQBlade",
+    "titleEnd": "vs",
+    "titleEndHighlight": "Trading Alone",
+    "description": "See the difference between automated trading and manual trading",
+    "withNQBlade": [
+      "Fully automated trading with zero manual intervention",
+      "Proven 5-year track record with 600% ROI",
+      "Built-in risk management with <15% max drawdown",
+      "24/7 automated execution, never miss opportunities",
+      "Lifetime access with continuous updates and support"
+    ],
+    "withoutNQBlade": [
+      "Spend countless hours analyzing charts and markets",
+      "Make emotional decisions that lead to losses",
+      "Face unlimited drawdown risk without protection",
+      "Miss trading opportunities while you sleep",
+      "Pay ongoing fees and subscriptions for tools"
+    ]
+  },
+  "unique": {
+    "badge": "Competitive Advantage",
+    "title": "What Makes",
+    "titleHighlight": "NQBlade",
+    "titleEnd": "Unique",
+    "description": "Built for consistency, automation, and long-term performance.",
+    "descriptionHighlight": "Professional-grade infrastructure trusted by 150+ active traders.",
+    "features": [
+      {
+        "icon": "Target",
+        "title": "Institutional-Grade Strategy",
+        "description": "Designed using professional futures trading logic, optimized for Nasdaq (NQ) market conditions.",
+        "stat": "99.9%",
+        "statLabel": "Precision",
+        "color": "#0698C2"
+      },
+      {
+        "icon": "Zap",
+        "title": "Fully Automated",
+        "description": "No manual trading, no emotional decisions. NQBlade runs 24/7 with zero user intervention.",
+        "stat": "24/7",
+        "statLabel": "Uptime",
+        "color": "#15DBF8"
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Built-In Risk Management",
+        "description": "Strict drawdown controls, position sizing, and capital protection are embedded into the system.",
+        "stat": "< 15%",
+        "statLabel": "Max DD",
+        "color": "#0698C2"
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "5-Year Proven Performance",
+        "description": "Live-tested over multiple market cycles with consistent results and verified performance data.",
+        "stat": "600%",
+        "statLabel": "ROI",
+        "color": "#15DBF8"
+      }
+    ]
+  },
+  "timeline": {
+    "badge": "Process",
+    "title": "How To Use",
+    "titleHighlight": "The Algorithm",
+    "description": "A guided process built for automation, clarity, and control.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Install our bot in 5 minutes",
+        "description": "Quick and easy setup process that gets you trading in no time.",
+        "imageUrl": "/process/installation.png"
+      },
+      {
+        "number": "02",
+        "title": "Watch the Bot Pass Your Challenge/s",
+        "description": "Our algorithm automatically trades and passes your funded account challenges.",
+        "imageUrl": "https://images.unsplash.com/photo-1719749582943-32b710dd5026?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF0Zm9ybSUyMGNvbmZpZ3VyYXRpb24lMjBzY3JlZW58ZW58MXx8fHwxNzY2NDk1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        "number": "03",
+        "title": "Repeat the process",
+        "description": "Scale your trading by repeating the process across multiple funded accounts.",
+        "imageUrl": "https://images.unsplash.com/photo-1765046255500-ce203b84c307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbGdvcml0aG0lMjBjb25uZWN0aW9uJTIwbmV0d29ya3xlbnwxfHx8fDE3NjY0OTUwODB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Get NQBlade",
+    "subtitle": "One-time purchase. Lifetime access. Start trading today.",
+    "plan": {
+      "name": "NQBlade EA",
+      "price": "€349",
+      "originalPrice": "€499",
+      "period": "one-time",
+      "description": "Get lifetime access to our proven NQ Futures trading algorithm",
+      "features": [
+        "Full Algorithm Access",
+        "Unlimited Trading Accounts",
+        "24/7 Automated Trading",
+        "Lifetime Updates",
+        "Priority Support",
+        "Performance Dashboard",
+        "Advanced Analytics",
+        "Custom Risk Settings",
+        "Installation Guide",
+        "Trading Community Access"
+      ],
+      "ctaButton": "Buy NQBlade Now",
+      "trialButton": "Get Free Trial",
+      "trialLink": "https://t.me/NQBladeBot",
+      "trialText": "Try NQBlade risk-free with our partner broker"
+    }
+  },
+  "footer": {
+    "description": "NQBlade is the best automated trading bot for NQ Futures. Trade with confidence using our proven algorithm.",
+    "quickLinks": [
+      { "label": "The Choice", "href": "#comparison" },
+      { "label": "What Makes Us Unique", "href": "#unique" },
+      { "label": "How It Works", "href": "#timeline" },
+      { "label": "Live Performance", "href": "#performance" },
+      { "label": "Pricing", "href": "#pricing" },
+      { "label": "Testimonials", "href": "#testimonials" },
+      { "label": "FAQ", "href": "#faq" }
+    ],
+    "productLinks": [
+      { "label": "Features", "href": "#unique" },
+      { "label": "Performance", "href": "#performance" },
+      { "label": "Pricing", "href": "#pricing" }
+    ],
+    "supportLinks": [
+      { "label": "FAQ", "href": "#faq" },
+      { "label": "Contact", "href": "https://t.me/NQBladeBot" }
+    ],
+    "socialLinks": [
+      { "label": "Telegram", "href": "https://t.me/+gJnsM_0FpetjOTFi" }
+    ],
+    "copyright": "© 2024 NQBlade. All rights reserved."
+  }
+}

@@ -2,6 +2,7 @@
 
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
+import contentData from '@/data/content.json';
 
 interface TimelineStep {
   number: string;
@@ -9,27 +10,6 @@ interface TimelineStep {
   description: string;
   imageUrl: string;
 }
-
-const steps: TimelineStep[] = [
-  {
-    number: "01",
-    title: "Install our bot in 5 minutes",
-    description: "Quick and easy setup process that gets you trading in no time.",
-    imageUrl: "/process/installation.png"
-  },
-  {
-    number: "02",
-    title: "Watch the Bot Pass Your Challenge/s",
-    description: "Our algorithm automatically trades and passes your funded account challenges.",
-    imageUrl: "https://images.unsplash.com/photo-1719749582943-32b710dd5026?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF0Zm9ybSUyMGNvbmZpZ3VyYXRpb24lMjBzY3JlZW58ZW58MXx8fHwxNzY2NDk1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080"
-  },
-  {
-    number: "03",
-    title: "Repeat the process",
-    description: "Scale your trading by repeating the process across multiple funded accounts.",
-    imageUrl: "https://images.unsplash.com/photo-1765046255500-ce203b84c307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbGdvcml0aG0lMjBjb25uZWN0aW9uJTIwbmV0d29ya3xlbnwxfHx8fDE3NjY0OTUwODB8MA&ixlib=rb-4.1.0&q=80&w=1080"
-  }
-];
 
 function TimelineStep({ step, index, isLast }: { step: TimelineStep; index: number; isLast: boolean }) {
   const stepRef = useRef<HTMLDivElement>(null);
@@ -252,6 +232,9 @@ function TimelineStep({ step, index, isLast }: { step: TimelineStep; index: numb
 }
 
 export function TimelineSection() {
+  const timelineContent = contentData.timeline;
+  const steps: TimelineStep[] = timelineContent.steps;
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const isHeaderInView = useInView(headerRef, { once: true, amount: 0.8 });
@@ -277,7 +260,7 @@ export function TimelineSection() {
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
-              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Process</span>
+              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">{timelineContent.badge}</span>
             </div>
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50" />
           </div>
@@ -288,13 +271,13 @@ export function TimelineSection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold">
-              How To Use{" "}
+              {timelineContent.title}{" "}
               <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
-                The Algorithm
+                {timelineContent.titleHighlight}
               </span>
             </h2>
             <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-              A guided process built for automation, clarity, and control.
+              {timelineContent.description}
             </p>
           </motion.div>
         </div>

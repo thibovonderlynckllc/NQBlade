@@ -3,6 +3,7 @@
 import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import contentData from '@/data/content.json';
 
 interface EquityPoint {
   date: string;
@@ -47,11 +48,20 @@ function useCounter(end: number, duration: number = 2000, delay: number = 0) {
 }
 
 export function Hero() {
-  const totalReturn = useCounter(600, 2000, 0);
-  const avgMonthlyLow = useCounter(9, 1800, 0);
-  const avgMonthlyHigh = useCounter(12, 1800, 0);
-  const activeUsers = useCounter(150, 2000, 0);
-  const uptime = useCounter(99.9, 2000, 0);
+  const heroContent = contentData.hero;
+  
+  const totalReturn = useCounter(heroContent.totalReturn, 2000, 0);
+  const avgMonthlyLow = useCounter(heroContent.avgMonthlyLow, 1800, 0);
+  const avgMonthlyHigh = useCounter(heroContent.avgMonthlyHigh, 1800, 0);
+  const activeUsers = useCounter(heroContent.activeUsers, 2000, 0);
+  const uptime = useCounter(heroContent.uptime, 2000, 0);
+  
+  // Icon mapping for trust indicators
+  const iconMap: Record<string, typeof Shield> = {
+    Shield,
+    Zap,
+    TrendingUp,
+  };
   
   // Static equity data - represents 600% growth over 5 years
   // TODO: To make this dynamic again, uncomment the useEffect below and remove this static data
@@ -342,32 +352,29 @@ export function Hero() {
                   }
                 }}
               >
-                <span>Get Lifetime Access</span>
+                <span>{heroContent.ctaPrimary}</span>
               </button>
               <a 
-                href="https://t.me/+gJnsM_0FpetjOTFi"
+                href={heroContent.ctaSecondaryLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shiny-cta-white"
               >
-                <span>Join Community</span>
+                <span>{heroContent.ctaSecondary}</span>
               </a>
             </div>
 
             {/* Trust Indicators */}
             <div className="flex flex-wrap gap-6 pt-6 animate-fade-up" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-2 text-white/90">
-                <Shield className="w-5 h-5 text-[var(--color-primary-light)]" />
-                <span>Risk Managed</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/90">
-                <Zap className="w-5 h-5 text-[var(--color-primary-light)]" />
-                <span>Fully Automated</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/90">
-                <TrendingUp className="w-5 h-5 text-[var(--color-primary-light)]" />
-                <span>5-Year Track Record</span>
-              </div>
+              {heroContent.trustIndicators.map((indicator, index) => {
+                const IconComponent = iconMap[indicator.icon] || Shield;
+                return (
+                  <div key={index} className="flex items-center gap-2 text-white/90">
+                    <IconComponent className="w-5 h-5 text-[var(--color-primary-light)]" />
+                    <span>{indicator.text}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

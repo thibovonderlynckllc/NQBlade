@@ -2,24 +2,10 @@
 
 import { Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const withNQBlade = [
-  "Fully automated trading with zero manual intervention",
-  "Proven 5-year track record with 600% ROI",
-  "Built-in risk management with <15% max drawdown",
-  "24/7 automated execution, never miss opportunities",
-  "Lifetime access with continuous updates and support"
-];
-
-const withoutNQBlade = [
-  "Spend countless hours analyzing charts and markets",
-  "Make emotional decisions that lead to losses",
-  "Face unlimited drawdown risk without protection",
-  "Miss trading opportunities while you sleep",
-  "Pay ongoing fees and subscriptions for tools"
-];
+import contentData from '@/data/content.json';
 
 export function ComparisonSection() {
+  const comparisonContent = contentData.comparison;
   return (
     <section id="comparison" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
       {/* Background */}
@@ -61,21 +47,21 @@ export function ComparisonSection() {
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50" />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
-              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">The Choice</span>
+              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">{comparisonContent.badge}</span>
             </div>
             <div className="h-[1px] w-10 sm:w-20 bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50" />
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold">
-            Trading{" "}
+            {comparisonContent.title}{" "}
             <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
-              With NQBlade
+              {comparisonContent.titleHighlight}
             </span>{" "}
-            vs{" "}
-            <span className="text-red-400">Trading Alone</span>
+            {comparisonContent.titleEnd}{" "}
+            <span className="text-red-400">{comparisonContent.titleEndHighlight}</span>
           </h2>
           <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-            See the difference between automated trading and manual trading
+            {comparisonContent.description}
           </p>
         </motion.div>
 
@@ -109,7 +95,7 @@ export function ComparisonSection() {
 
                 {/* Features List */}
                 <div className="space-y-4">
-                  {withNQBlade.map((feature, index) => (
+                  {comparisonContent.withNQBlade.map((feature, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -159,7 +145,7 @@ export function ComparisonSection() {
 
                 {/* Features List */}
                 <div className="space-y-4">
-                  {withoutNQBlade.map((feature, index) => (
+                  {comparisonContent.withoutNQBlade.map((feature, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: 20 }}

@@ -1,27 +1,424 @@
 <!doctype html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    /* Preview Styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #0a0a0f;
+      color: #ffffff;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .preview-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      color: #15DBF8;
+      margin-top: 0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(21, 219, 248, 0.1);
+      border: 1px solid rgba(21, 219, 248, 0.2);
+      border-radius: 9999px;
+      font-size: 14px;
+      color: #15DBF8;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .feature-list li:before {
+      content: "✓ ";
+      color: #15DBF8;
+      font-weight: bold;
+    }
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    .price {
+      font-size: 48px;
+      font-weight: bold;
+      color: #15DBF8;
+    }
+    .link-list {
+      list-style: none;
+      padding: 0;
+    }
+    .link-list li {
+      padding: 4px 0;
+    }
+    .link-list a {
+      color: #15DBF8;
+      text-decoration: none;
+    }
+    .link-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
 <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
-    </script>
-</body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <script>
+    // Register preview styles
+    CMS.registerPreviewStyle(`
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: #0a0a0f;
+        color: #ffffff;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .preview-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      h1, h2, h3 {
+        color: #15DBF8;
+        margin-top: 0;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(21, 219, 248, 0.1);
+        border: 1px solid rgba(21, 219, 248, 0.2);
+        border-radius: 9999px;
+        font-size: 14px;
+        color: #15DBF8;
+      }
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+      .feature-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .feature-list li:before {
+        content: "✓ ";
+        color: #15DBF8;
+        font-weight: bold;
+      }
+      .pricing-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 24px;
+        margin: 20px 0;
+      }
+      .price {
+        font-size: 48px;
+        font-weight: bold;
+        color: #15DBF8;
+      }
+      .link-list {
+        list-style: none;
+        padding: 0;
+      }
+      .link-list li {
+        padding: 4px 0;
+      }
+      .link-list a {
+        color: #15DBF8;
+        text-decoration: none;
+      }
+    `, { raw: true });
 
+    // FAQ Preview Template
+    var FAQPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var items = entry.getIn(['data', 'items']) || [];
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'FAQ Preview'),
+          items.toJS().map(function(item, index) {
+            return h('div', { key: index, style: { marginBottom: '20px', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px' } },
+              h('h3', { style: { color: '#15DBF8', marginBottom: '8px' } }, item.question || ''),
+              h('div', { style: { opacity: 0.9 } }, item.answer || '')
+            );
+          })
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('faq', FAQPreview);
+
+    // Hero Preview Template
+    var HeroPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var hero = entry.getIn(['data', 'hero']) || {};
+        var heroData = hero.toJS ? hero.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Hero Section Preview'),
+          h('div', { className: 'badge' }, heroData.badge || ''),
+          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
+            heroData.headline || '', ' ',
+            h('span', { style: { color: '#15DBF8' } }, heroData.headlineHighlight || ''), ' ',
+            heroData.headlineEnd || ''
+          ),
+          h('p', { style: { fontSize: '18px', marginTop: '16px', opacity: 0.9 } },
+            heroData.subheadline || '', ' ',
+            h('strong', { style: { color: '#15DBF8' } }, (heroData.avgMonthlyLow || 0) + '–' + (heroData.avgMonthlyHigh || 0) + '%'),
+            ' per month for ',
+            h('strong', { style: { color: '#15DBF8' } }, (heroData.activeUsers || 0) + '+'),
+            ' active users.'
+          ),
+          h('div', { style: { marginTop: '20px' } },
+            h('button', { style: { padding: '12px 24px', background: '#15DBF8', color: '#0a0a0f', border: 'none', borderRadius: '8px', fontWeight: 'bold', marginRight: '12px' } }, heroData.ctaPrimary || ''),
+            h('button', { style: { padding: '12px 24px', background: 'transparent', color: '#15DBF8', border: '1px solid #15DBF8', borderRadius: '8px', fontWeight: 'bold' } }, heroData.ctaSecondary || '')
+          ),
+          h('div', { style: { marginTop: '24px', display: 'flex', gap: '16px', flexWrap: 'wrap' } },
+            (heroData.trustIndicators || []).map(function(indicator, index) {
+              return h('div', { key: index, style: { display: 'flex', alignItems: 'center', gap: '8px' } },
+                h('span', {}, '✓'),
+                h('span', {}, indicator.text || '')
+              );
+            })
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('hero', HeroPreview);
+
+    // Pricing Preview Template
+    var PricingPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var pricing = entry.getIn(['data', 'pricing']) || {};
+        var pricingData = pricing.toJS ? pricing.toJS() : {};
+        var plan = pricingData.plan || {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Pricing Section Preview'),
+          h('h2', {}, pricingData.title || ''),
+          h('p', { style: { opacity: 0.9 } }, pricingData.subtitle || ''),
+          h('div', { className: 'pricing-card' },
+            h('h3', {}, plan.name || ''),
+            h('div', { className: 'price' }, plan.price || ''),
+            h('p', { style: { textDecoration: 'line-through', opacity: 0.6 } }, plan.originalPrice || ''),
+            h('p', { style: { marginTop: '16px' } }, plan.description || ''),
+            h('ul', { className: 'feature-list', style: { marginTop: '20px' } },
+              (plan.features || []).map(function(feature, index) {
+                return h('li', { key: index }, feature);
+              })
+            ),
+            h('button', { style: { marginTop: '24px', padding: '12px 24px', background: '#15DBF8', color: '#0a0a0f', border: 'none', borderRadius: '8px', fontWeight: 'bold', width: '100%' } }, plan.ctaButton || ''),
+            h('div', { style: { marginTop: '16px', textAlign: 'center' } },
+              h('a', { href: plan.trialLink || '#', style: { color: '#15DBF8' } }, plan.trialButton || ''),
+              h('p', { style: { fontSize: '14px', opacity: 0.8, marginTop: '8px' } }, plan.trialText || '')
+            )
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('pricing', PricingPreview);
+
+    // Testimonials Preview Template
+    var TestimonialsPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var testimonials = entry.getIn(['data', 'testimonials']) || {};
+        var data = testimonials.toJS ? testimonials.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Testimonials Section Preview'),
+          h('div', { className: 'badge' }, data.badge || ''),
+          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
+            data.title || '', ' ',
+            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || '')
+          ),
+          h('p', { style: { marginTop: '16px', opacity: 0.9 } }, data.description || '')
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('testimonials', TestimonialsPreview);
+
+    // Comparison Preview Template
+    var ComparisonPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var comparison = entry.getIn(['data', 'comparison']) || {};
+        var data = comparison.toJS ? comparison.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Comparison Section Preview'),
+          h('div', { className: 'badge' }, data.badge || ''),
+          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
+            data.title || '', ' ',
+            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || ''), ' ',
+            data.titleEnd || ' ',
+            h('span', { style: { color: '#ef4444' } }, data.titleEndHighlight || '')
+          ),
+          h('p', { style: { marginTop: '16px', opacity: 0.9, marginBottom: '32px' } }, data.description || ''),
+          h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' } },
+            h('div', { style: { padding: '20px', background: 'rgba(21, 219, 248, 0.1)', borderRadius: '12px', border: '1px solid rgba(21, 219, 248, 0.3)' } },
+              h('h3', { style: { color: '#15DBF8', marginBottom: '16px' } }, 'With NQBlade'),
+              h('ul', { className: 'feature-list' },
+                (data.withNQBlade || []).map(function(item, index) {
+                  return h('li', { key: index }, item);
+                })
+              )
+            ),
+            h('div', { style: { padding: '20px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.3)' } },
+              h('h3', { style: { color: '#ef4444', marginBottom: '16px' } }, 'Without NQBlade'),
+              h('ul', { className: 'feature-list' },
+                (data.withoutNQBlade || []).map(function(item, index) {
+                  return h('li', { key: index }, item);
+                })
+              )
+            )
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('comparison', ComparisonPreview);
+
+    // Unique Preview Template
+    var UniquePreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var unique = entry.getIn(['data', 'unique']) || {};
+        var data = unique.toJS ? unique.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Unique Section Preview'),
+          h('div', { className: 'badge' }, data.badge || ''),
+          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
+            data.title || '', ' ',
+            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || ''), ' ',
+            data.titleEnd || ''
+          ),
+          h('p', { style: { marginTop: '16px', opacity: 0.9, marginBottom: '32px' } },
+            data.description || '', ' ',
+            h('span', { style: { color: '#15DBF8', opacity: 0.7 } }, data.descriptionHighlight || '')
+          ),
+          h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' } },
+            (data.features || []).map(function(feature, index) {
+              return h('div', { key: index, style: { padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)' } },
+                h('h3', { style: { color: '#15DBF8', marginBottom: '8px' } }, feature.title || ''),
+                h('p', { style: { fontSize: '14px', opacity: 0.9, marginBottom: '12px' } }, feature.description || ''),
+                h('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px' } },
+                  h('span', { style: { fontSize: '24px', fontWeight: 'bold', color: feature.color || '#15DBF8' } }, feature.stat || ''),
+                  h('span', { style: { fontSize: '14px', opacity: 0.7 } }, feature.statLabel || '')
+                )
+              );
+            })
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('unique', UniquePreview);
+
+    // Timeline Preview Template
+    var TimelinePreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var timeline = entry.getIn(['data', 'timeline']) || {};
+        var data = timeline.toJS ? timeline.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Timeline Section Preview'),
+          h('div', { className: 'badge' }, data.badge || ''),
+          h('h2', { style: { marginTop: '20px', fontSize: '32px' } },
+            data.title || '', ' ',
+            h('span', { style: { color: '#15DBF8' } }, data.titleHighlight || '')
+          ),
+          h('div', { style: { marginTop: '32px' } },
+            (data.steps || []).map(function(step, index) {
+              return h('div', { key: index, style: { marginBottom: '32px', padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px' } },
+                h('div', { style: { fontSize: '48px', fontWeight: 'bold', color: '#15DBF8', marginBottom: '12px' } }, step.number || ''),
+                h('h3', { style: { fontSize: '20px', marginBottom: '8px' } }, step.title || ''),
+                h('p', { style: { opacity: 0.9 } }, step.description || ''),
+                step.imageUrl ? h('img', { src: step.imageUrl, style: { width: '100%', maxWidth: '400px', marginTop: '16px', borderRadius: '8px' } }) : null
+              );
+            })
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('timeline', TimelinePreview);
+
+    // Footer Preview Template
+    var FooterPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var footer = entry.getIn(['data', 'footer']) || {};
+        var footerData = footer.toJS ? footer.toJS() : {};
+        
+        return h('div', { className: 'preview-container' },
+          h('h1', {}, 'Footer Preview'),
+          h('p', { style: { marginBottom: '24px', opacity: 0.9 } }, footerData.description || ''),
+          h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' } },
+            h('div', {},
+              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Quick Links'),
+              h('ul', { className: 'link-list' },
+                (footerData.quickLinks || []).map(function(link, index) {
+                  return h('li', { key: index },
+                    h('a', { href: link.href || '#' }, link.label || '')
+                  );
+                })
+              )
+            ),
+            h('div', {},
+              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Product'),
+              h('ul', { className: 'link-list' },
+                (footerData.productLinks || []).map(function(link, index) {
+                  return h('li', { key: index },
+                    h('a', { href: link.href || '#' }, link.label || '')
+                  );
+                })
+              )
+            ),
+            h('div', {},
+              h('h3', { style: { fontSize: '16px', marginBottom: '12px' } }, 'Support'),
+              h('ul', { className: 'link-list' },
+                (footerData.supportLinks || []).map(function(link, index) {
+                  return h('li', { key: index },
+                    h('a', { href: link.href || '#' }, link.label || '')
+                  );
+                })
+              )
+            )
+          ),
+          h('p', { style: { marginTop: '32px', textAlign: 'center', opacity: 0.7, fontSize: '14px' } }, footerData.copyright || '')
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('footer', FooterPreview);
+
+    // Netlify Identity initialization
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
 </html>

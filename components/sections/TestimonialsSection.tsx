@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import contentData from '@/data/content.json';
 
 const DESKTOP_ITEMS_PER_PAGE = 4;
 const MOBILE_ITEMS_PER_PAGE = 1;
@@ -18,6 +19,7 @@ const testimonialImages = [
 ];
 
 export function TestimonialsSection() {
+  const testimonialsContent = contentData.testimonials;
   const [pageIndex, setPageIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(MOBILE_ITEMS_PER_PAGE);
 
@@ -75,7 +77,7 @@ export function TestimonialsSection() {
             />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
-              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Real Results</span>
+              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">{testimonialsContent.badge}</span>
             </div>
             <motion.div
               initial={{ width: 0 }}
@@ -93,9 +95,9 @@ export function TestimonialsSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold"
           >
-            Trusted by{" "}
+            {testimonialsContent.title}{" "}
             <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
-              150+ Traders
+              {testimonialsContent.titleHighlight}
             </span>
           </motion.h2>
           
@@ -106,7 +108,7 @@ export function TestimonialsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto"
           >
-            See what our community is achieving with NQBlade's automated trading system
+            {testimonialsContent.description}
           </motion.p>
         </motion.div>
 

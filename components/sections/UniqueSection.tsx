@@ -3,43 +3,24 @@
 import { Target, Zap, ShieldCheck, TrendingUp } from "lucide-react";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
+import contentData from '@/data/content.json';
 
-const features = [
-  {
-    icon: Target,
-    title: "Institutional-Grade Strategy",
-    description: "Designed using professional futures trading logic, optimized for Nasdaq (NQ) market conditions.",
-    stat: "99.9%",
-    statLabel: "Precision",
-    color: "#0698C2"
-  },
-  {
-    icon: Zap,
-    title: "Fully Automated",
-    description: "No manual trading, no emotional decisions. NQBlade runs 24/7 with zero user intervention.",
-    stat: "24/7",
-    statLabel: "Uptime",
-    color: "#15DBF8"
-  },
-  {
-    icon: ShieldCheck,
-    title: "Built-In Risk Management",
-    description: "Strict drawdown controls, position sizing, and capital protection are embedded into the system.",
-    stat: "< 15%",
-    statLabel: "Max DD",
-    color: "#0698C2"
-  },
-  {
-    icon: TrendingUp,
-    title: "5-Year Proven Performance",
-    description: "Live-tested over multiple market cycles with consistent results and verified performance data.",
-    stat: "600%",
-    statLabel: "ROI",
-    color: "#15DBF8"
-  }
-];
+// Icon mapping
+const iconMap: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
+  Target,
+  Zap,
+  ShieldCheck,
+  TrendingUp,
+};
 
 export function UniqueSection() {
+  const uniqueContent = contentData.unique;
+  
+  // Map features with icon components
+  const features = uniqueContent.features.map(feature => ({
+    ...feature,
+    icon: iconMap[feature.icon] || Target,
+  }));
   return (
     <section id="unique" className="relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-16">
       {/* Multiple gradient overlays for depth */}
@@ -78,7 +59,7 @@ export function UniqueSection() {
             />
             <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
               <div className="w-1.5 h-1.5 bg-[var(--color-primary-light)] rounded-full animate-pulse" />
-              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">Competitive Advantage</span>
+              <span className="text-[var(--color-primary-light)] text-xs sm:text-sm tracking-wider uppercase">{uniqueContent.badge}</span>
             </div>
             <motion.div
               initial={{ width: 0 }}
@@ -96,12 +77,12 @@ export function UniqueSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight relative inline-block px-4 font-bold"
           >
-            What Makes{" "}
+            {uniqueContent.title}{" "}
             <span className="relative">
-              <span className="text-[var(--color-primary-light)] relative z-10">NQBlade</span>
+              <span className="text-[var(--color-primary-light)] relative z-10">{uniqueContent.titleHighlight}</span>
               <div className="absolute inset-0 bg-[var(--color-primary-light)] blur-2xl opacity-20" />
             </span>{" "}
-            Unique
+            {uniqueContent.titleEnd}
           </motion.h2>
           
           <motion.p
@@ -111,9 +92,9 @@ export function UniqueSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-white/90 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4"
           >
-            Built for consistency, automation, and long-term performance.
+            {uniqueContent.description}
             <br className="hidden sm:block" />
-            <span className="text-[var(--color-primary-light)]/70">Professional-grade infrastructure trusted by 150+ active traders.</span>
+            <span className="text-[var(--color-primary-light)]/70">{uniqueContent.descriptionHighlight}</span>
           </motion.p>
 
           {/* Decorative corners */}
