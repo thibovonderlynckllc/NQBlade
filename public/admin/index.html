@@ -33,14 +33,16 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // Configure Tailwind
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'primary': '#0698C2',
-            'primary-light': '#15DBF8',
-            'bg-dark': '#0a0a0f',
+    // Configure Tailwind BEFORE Decap CMS loads
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#0698C2',
+              'primary-light': '#15DBF8',
+              'bg-dark': '#0a0a0f',
+            }
           }
         }
       }
@@ -832,7 +834,183 @@
       }
     });
 
-    // Register all preview templates with their exact names from config.yml
+    // Function to inject Tailwind into preview iframe
+    function injectTailwindIntoPreview() {
+      // Wait for CMS to be ready
+      if (typeof CMS !== 'undefined') {
+        // Hook into preview rendering
+        const originalRegisterPreviewTemplate = CMS.registerPreviewTemplate;
+        CMS.registerPreviewTemplate = function (name, component) {
+          // Wrap the component to inject Tailwind
+          const wrappedComponent = createClass({
+            render: function () {
+              // Inject Tailwind into iframe when it loads
+              setTimeout(function () {
+                const iframes = document.querySelectorAll('iframe[src*="preview"]');
+                iframes.forEach(function (iframe) {
+                  try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (iframeDoc && !iframeDoc.querySelector('script[src*="tailwind"]')) {
+                      const script = iframeDoc.createElement('script');
+                      script.src = 'https://cdn.tailwindcss.com';
+                      script.onload = function () {
+                        if (typeof iframe.contentWindow.tailwind !== 'undefined') {
+                          iframe.contentWindow.tailwind.config = {
+                            theme: {
+                              extend: {
+                                colors: {
+                                  'primary': '#0698C2',
+                                  'primary-light': '#15DBF8',
+                                  'bg-dark': '#0a0a0f',
+                                }
+                              }
+                            }
+                          }
+                        }
+                      };
+                      iframeDoc.head.appendChild(script);
+
+                      // Also inject font
+                      const fontLink = iframeDoc.createElement('link');
+                      fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap';
+                      fontLink.rel = 'stylesheet';
+                      iframeDoc.head.appendChild(fontLink);
+
+                      // Inject CSS variables
+                      const style = iframeDoc.createElement('style');
+                      style.textContent = `
+                        :root {
+                          --color-primary: #0698C2;
+                          --color-primary-light: #15DBF8;
+                          --color-bg-dark: #0a0a0f;
+                        }
+                        body {
+                          font-family: 'Montserrat', sans-serif;
+                          background: var(--color-bg-dark);
+                          color: #ffffff;
+                        }
+                      `;
+                      iframeDoc.head.appendChild(style);
+                    }
+                  } catch (e) {
+                    console.log('Could not access iframe:', e);
+                  }
+                });
+              }, 100);
+
+              return component.render.call(this);
+            }
+          });
+          return originalRegisterPreviewTemplate.call(this, name, wrappedComponent);
+        };
+      }
+    }
+
+    // Function to inject Tailwind and styles into preview iframe
+    function injectStylesIntoPreview(iframe) {
+      try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!iframeDoc) return;
+
+        // Check if already injected
+        if (iframeDoc.querySelector('script[data-tailwind-injected]')) return;
+
+        // Inject Tailwind CSS
+        const tailwindScript = iframeDoc.createElement('script');
+        tailwindScript.src = 'https://cdn.tailwindcss.com';
+        tailwindScript.setAttribute('data-tailwind-injected', 'true');
+        tailwindScript.onload = function () {
+          // Configure Tailwind in iframe
+          if (iframe.contentWindow.tailwind) {
+            iframe.contentWindow.tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    'primary': '#0698C2',
+                    'primary-light': '#15DBF8',
+                    'bg-dark': '#0a0a0f',
+                  }
+                }
+              }
+            }
+          }
+        };
+        iframeDoc.head.appendChild(tailwindScript);
+
+        // Inject Google Fonts
+        const fontLink = iframeDoc.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap';
+        fontLink.rel = 'stylesheet';
+        iframeDoc.head.appendChild(fontLink);
+
+        // Inject CSS variables and base styles
+        const style = iframeDoc.createElement('style');
+        style.textContent = `
+          :root {
+            --color-primary: #0698C2;
+            --color-primary-light: #15DBF8;
+            --color-bg-dark: #0a0a0f;
+          }
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg-dark);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+          }
+        `;
+        iframeDoc.head.appendChild(style);
+      } catch (e) {
+        console.log('Could not inject styles into preview iframe:', e);
+      }
+    }
+
+    // Watch for preview iframes and inject styles
+    function watchForPreviewIframes() {
+      const observer = new MutationObserver(function (mutations) {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(function (iframe) {
+          if (iframe.src && iframe.src.includes('preview')) {
+            if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+              injectStylesIntoPreview(iframe);
+            } else {
+              iframe.addEventListener('load', function () {
+                injectStylesIntoPreview(iframe);
+              });
+            }
+          }
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+
+      // Also check existing iframes
+      setTimeout(function () {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(function (iframe) {
+          if (iframe.src && iframe.src.includes('preview')) {
+            if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+              injectStylesIntoPreview(iframe);
+            } else {
+              iframe.addEventListener('load', function () {
+                injectStylesIntoPreview(iframe);
+              });
+            }
+          }
+        });
+      }, 1000);
+    }
+
+    // Register all preview templates
     CMS.registerPreviewTemplate('hero_section', HeroPreview);
     CMS.registerPreviewTemplate('testimonials_section', TestimonialsPreview);
     CMS.registerPreviewTemplate('comparison_section', ComparisonPreview);
@@ -841,6 +1019,13 @@
     CMS.registerPreviewTemplate('pricing_section', PricingPreview);
     CMS.registerPreviewTemplate('footer_section', FooterPreview);
     CMS.registerPreviewTemplate('faq', FAQPreview);
+
+    // Start watching for preview iframes
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchForPreviewIframes);
+    } else {
+      watchForPreviewIframes();
+    }
   </script>
 </body>
 
