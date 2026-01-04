@@ -6,6 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #0698C2;
+      --color-primary-light: #15DBF8;
+      --color-bg-dark: #0a0a0f;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--color-bg-dark);
+      margin: 0;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -13,6 +33,19 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
+    // Configure Tailwind
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#0698C2',
+            'primary-light': '#15DBF8',
+            'bg-dark': '#0a0a0f',
+          }
+        }
+      }
+    }
+
     // Netlify Identity redirect handling
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
@@ -24,669 +57,357 @@
       });
     }
 
-    // Register preview styles that EXACTLY match the live website
-    CMS.registerPreviewStyle(`
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-
-      :root {
-        --color-primary: #0698C2;
-        --color-primary-light: #15DBF8;
-        --color-bg-dark: #0a0a0f;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: var(--color-bg-dark);
-        color: #ffffff;
-        padding: 40px 20px;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      .preview-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 60px 24px;
-        background: rgba(10, 10, 15, 0.95);
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      /* Badge styling - exact from website */
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        background: rgba(21, 219, 248, 0.1);
-        border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 9999px;
-        font-size: 12px;
-        color: var(--color-primary-light);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-weight: 500;
-        margin-bottom: 24px;
-      }
-
-      .badge::before {
-        content: '';
-        width: 6px;
-        height: 6px;
-        background: var(--color-primary-light);
-        border-radius: 50%;
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-      }
-
-      /* Typography - exact from website */
-      h1 {
-        font-size: 60px;
-        font-weight: 700;
-        line-height: 1.2;
-        margin: 0 0 24px 0;
-        color: #ffffff;
-        letter-spacing: -0.02em;
-      }
-
-      h2 {
-        font-size: 48px;
-        font-weight: 700;
-        line-height: 1.2;
-        margin: 0 0 24px 0;
-        color: #ffffff;
-        letter-spacing: -0.02em;
-      }
-
-      h3 {
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 1.4;
-        margin: 0 0 12px 0;
-        color: #ffffff;
-      }
-
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 1.5;
-        margin: 0 0 16px 0;
-        color: #ffffff;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      p {
-        font-size: 18px;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.9);
-        margin: 0 0 16px 0;
-      }
-
-      /* Gradient text - exact from website */
-      .gradient-text {
-        background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .red-text {
-        color: #f87171;
-      }
-
-      /* Section header - centered */
-      .section-header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      /* CTA Buttons - exact from website */
-      .cta-buttons {
-        display: flex;
-        gap: 16px;
-        margin: 32px 0;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .cta-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px 32px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 16px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border: none;
-      }
-
-      .cta-primary {
-        background: var(--color-primary-light);
-        color: #000000;
-        box-shadow: 0 0 20px rgba(21, 219, 248, 0.3);
-      }
-
-      .cta-primary:hover {
-        box-shadow: 0 0 30px rgba(21, 219, 248, 0.5);
-        transform: translateY(-2px);
-      }
-
-      .cta-secondary {
-        background: transparent;
-        color: var(--color-primary-light);
-        border: 1px solid var(--color-primary-light);
-      }
-
-      .cta-secondary:hover {
-        background: rgba(21, 219, 248, 0.1);
-      }
-
-      /* Trust indicators */
-      .trust-indicators {
-        display: flex;
-        gap: 32px;
-        margin: 32px 0;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .trust-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 16px;
-      }
-
-      .trust-item::before {
-        content: '✓';
-        color: var(--color-primary-light);
-        font-weight: 700;
-        font-size: 18px;
-      }
-
-      /* Stats grid */
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin: 40px 0;
-      }
-
-      .stat-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 32px;
-        text-align: center;
-      }
-
-      .stat-value {
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--color-primary-light);
-        margin-bottom: 8px;
-        line-height: 1;
-      }
-
-      .stat-label {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-weight: 500;
-      }
-
-      /* Comparison grid */
-      .comparison-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
-        margin: 48px 0;
-      }
-
-      .comparison-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 40px;
-      }
-
-      .comparison-card.positive {
-        background: linear-gradient(135deg, rgba(6, 152, 194, 0.1) 0%, rgba(10, 10, 15, 0.9) 100%);
-        border-color: rgba(21, 219, 248, 0.3);
-      }
-
-      .comparison-card.negative {
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 10, 15, 0.9) 100%);
-        border-color: rgba(239, 68, 68, 0.3);
-      }
-
-      .comparison-title {
-        margin-bottom: 32px;
-        padding-bottom: 16px;
-        border-bottom: 2px solid;
-      }
-
-      .comparison-card.positive .comparison-title {
-        border-color: var(--color-primary-light);
-      }
-
-      .comparison-card.negative .comparison-title {
-        border-color: rgba(239, 68, 68, 0.5);
-      }
-
-      /* Feature list */
-      .feature-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .feature-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 16px;
-        margin: 12px 0;
-        background: rgba(21, 219, 248, 0.05);
-        border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 12px;
-        font-size: 16px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.9);
-      }
-
-      .feature-list li::before {
-        content: '✓';
-        color: var(--color-primary-light);
-        font-weight: 700;
-        font-size: 20px;
-        flex-shrink: 0;
-        margin-top: 2px;
-      }
-
-      .feature-list.negative li {
-        background: rgba(239, 68, 68, 0.08);
-        border-color: rgba(239, 68, 68, 0.25);
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .feature-list.negative li::before {
-        content: '✗';
-        color: #f87171;
-      }
-
-      /* Feature cards grid */
-      .feature-cards {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-        margin: 48px 0;
-      }
-
-      .feature-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 20px;
-        padding: 32px;
-        transition: all 0.3s ease;
-      }
-
-      .feature-card:hover {
-        background: rgba(21, 219, 248, 0.05);
-        border-color: var(--color-primary-light);
-        transform: translateY(-4px);
-      }
-
-      .feature-icon {
-        width: 64px;
-        height: 64px;
-        background: rgba(21, 219, 248, 0.1);
-        border: 1px solid rgba(21, 219, 248, 0.3);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 24px;
-        font-size: 32px;
-      }
-
-      .feature-stat {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--color-primary-light);
-        float: right;
-        margin-top: -8px;
-      }
-
-      .feature-stat-label {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        text-align: right;
-        clear: right;
-        margin-top: 4px;
-      }
-
-      /* Timeline */
-      .timeline {
-        margin: 48px 0;
-      }
-
-      .timeline-item {
-        display: flex;
-        gap: 32px;
-        margin: 32px 0;
-        padding: 32px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-      }
-
-      .timeline-number {
-        font-size: 72px;
-        font-weight: 700;
-        color: var(--color-primary-light);
-        opacity: 0.3;
-        line-height: 1;
-        flex-shrink: 0;
-      }
-
-      .timeline-content {
-        flex: 1;
-        padding-top: 8px;
-      }
-
-      /* Pricing card */
-      .pricing-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 2px solid rgba(21, 219, 248, 0.3);
-        border-radius: 24px;
-        padding: 48px;
-        margin: 32px auto;
-        max-width: 800px;
-      }
-
-      .price-header {
-        text-align: center;
-        margin-bottom: 32px;
-        padding-bottom: 32px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .price-wrapper {
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        gap: 16px;
-        margin: 24px 0;
-      }
-
-      .original-price {
-        font-size: 32px;
-        color: rgba(255, 255, 255, 0.4);
-        text-decoration: line-through;
-        font-weight: 600;
-      }
-
-      .price {
-        font-size: 72px;
-        font-weight: 700;
-        color: var(--color-primary-light);
-        line-height: 1;
-      }
-
-      .save-badge {
-        display: inline-block;
-        padding: 6px 16px;
-        background: rgba(34, 197, 94, 0.2);
-        color: #4ade80;
-        border-radius: 999px;
-        font-size: 14px;
-        font-weight: 600;
-        margin-left: 16px;
-      }
-
-      .period {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.6);
-        text-align: center;
-        margin-bottom: 24px;
-      }
-
-      .pricing-features {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin: 32px 0;
-      }
-
-      .pricing-features li {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.9);
-      }
-
-      .pricing-features li::before {
-        content: '✓';
-        color: var(--color-primary-light);
-        font-weight: 700;
-        font-size: 18px;
-        flex-shrink: 0;
-      }
-
-      .trial-section {
-        margin-top: 40px;
-        padding: 32px;
-        background: rgba(21, 219, 248, 0.05);
-        border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 16px;
-      }
-
-      /* Footer */
-      .footer-content {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .footer-links {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 48px;
-        margin: 48px 0;
-      }
-
-      .footer-section ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .footer-section li {
-        margin: 12px 0;
-      }
-
-      .footer-section a {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s;
-      }
-
-      .footer-section a:hover {
-        color: var(--color-primary-light);
-      }
-
-      .footer-bottom {
-        text-align: center;
-        margin-top: 48px;
-        padding-top: 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
-      }
-
-      /* FAQ */
-      .faq-item {
-        margin: 20px 0;
-        padding: 32px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-      }
-
-      .faq-question {
-        font-weight: 700;
-        font-size: 20px;
-        margin-bottom: 16px;
-        color: #ffffff;
-      }
-
-      .faq-answer {
-        color: rgba(255, 255, 255, 0.85);
-        line-height: 1.8;
-        font-size: 16px;
-      }
-
-      .faq-answer strong {
-        color: var(--color-primary-light);
-        font-weight: 600;
-      }
-
-      strong {
-        color: var(--color-primary-light);
-        font-weight: 600;
-      }
-    `, { raw: true });
-
-    // Hero Section Preview
+    // HERO SECTION PREVIEW - Exact copy from Hero.tsx
     var HeroPreview = createClass({
       render: function () {
         var entry = this.props.entry;
-        var data = entry.getIn(['data', 'hero']).toJS();
+        var heroData = entry.getIn(['data', 'hero']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, data.badge),
-            h('h1', {},
-              data.headline, ' ',
-              h('span', { className: 'gradient-text' }, data.headlineHighlight), ' ',
-              data.headlineEnd
-            ),
-            h('p', { style: { fontSize: '20px', maxWidth: '700px', margin: '0 auto 32px' } },
-              data.subheadline, ' ',
-              h('strong', {}, data.avgMonthlyLow, '–', data.avgMonthlyHigh, '%'), ' per month for ',
-              h('strong', {}, data.activeUsers, '+'), ' active users.'
-            )
-          ),
-          h('div', { className: 'cta-buttons' },
-            h('button', { className: 'cta-button cta-primary' }, data.ctaPrimary),
-            h('a', { className: 'cta-button cta-secondary', href: data.ctaSecondaryLink }, data.ctaSecondary)
-          ),
-          h('div', { className: 'trust-indicators' },
-            data.trustIndicators && data.trustIndicators.map(function (indicator, i) {
-              return h('div', { key: i, className: 'trust-item' }, indicator.text);
+        return h('section', {
+          className: 'relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-20',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          // Background effects (simplified for preview)
+          h('div', { className: 'absolute inset-0 pointer-events-none', style: { opacity: 0.4 } },
+            h('div', {
+              className: 'absolute top-0 left-0 w-full h-full',
+              style: { background: 'radial-gradient(circle at top left, var(--color-primary) 0%, transparent 50%)' }
             })
           ),
-          h('div', { className: 'stats-grid' },
-            h('div', { className: 'stat-card' },
-              h('div', { className: 'stat-value' }, data.totalReturn, '%'),
-              h('div', { className: 'stat-label' }, 'Total Return')
-            ),
-            h('div', { className: 'stat-card' },
-              h('div', { className: 'stat-value' }, data.uptime, '%'),
-              h('div', { className: 'stat-label' }, 'Uptime')
-            ),
-            h('div', { className: 'stat-card' },
-              h('div', { className: 'stat-value' }, data.activeUsers, '+'),
-              h('div', { className: 'stat-label' }, 'Active Users')
+
+          // Content
+          h('div', { className: 'relative container px-4 sm:px-6 pt-20 pb-12 md:pb-16 lg:pb-16' },
+            h('div', { className: 'grid lg:grid-cols-2 gap-12 items-center' },
+              // Left Column - Text Content
+              h('div', { className: 'space-y-8' },
+                // Badge
+                h('div', { className: 'inline-flex items-center gap-2 px-4 py-2 rounded-full', style: { background: 'rgba(21, 219, 248, 0.1)', border: '1px solid rgba(21, 219, 248, 0.2)' } },
+                  h('div', { className: 'w-2 h-2 rounded-full animate-pulse', style: { background: 'var(--color-primary-light)' } }),
+                  h('span', { className: 'text-xs sm:text-sm', style: { color: 'var(--color-primary-light)' } }, heroData.badge)
+                ),
+
+                // Headline
+                h('h1', { className: 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold' },
+                  heroData.headline, ' ',
+                  h('span', {
+                    className: 'bg-gradient-to-r bg-clip-text',
+                    style: {
+                      backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light), var(--color-primary))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }
+                  }, heroData.headlineHighlight),
+                  ' ', heroData.headlineEnd
+                ),
+
+                // Subheadline
+                h('p', { className: 'text-base sm:text-lg md:text-lg lg:text-xl text-white/90 max-w-xl' },
+                  heroData.subheadline, ' ',
+                  h('span', { className: 'font-bold', style: { color: 'var(--color-primary-light)' } },
+                    heroData.avgMonthlyLow, '–', heroData.avgMonthlyHigh, '%'
+                  ),
+                  ' per month for ',
+                  h('span', { className: 'font-bold', style: { color: 'var(--color-primary-light)' } },
+                    heroData.activeUsers, '+'
+                  ),
+                  ' active users.'
+                ),
+
+                // CTA Buttons
+                h('div', { className: 'flex flex-wrap gap-4' },
+                  h('button', {
+                    className: 'px-8 py-4 rounded-lg font-bold text-lg transition-all',
+                    style: {
+                      background: 'var(--color-primary-light)',
+                      color: '#000',
+                      boxShadow: '0 0 20px rgba(21, 219, 248, 0.3)'
+                    }
+                  }, heroData.ctaPrimary),
+                  h('a', {
+                    href: heroData.ctaSecondaryLink,
+                    className: 'px-8 py-4 rounded-lg font-bold text-lg transition-all',
+                    style: {
+                      background: 'transparent',
+                      color: 'var(--color-primary-light)',
+                      border: '1px solid var(--color-primary-light)'
+                    }
+                  }, heroData.ctaSecondary)
+                ),
+
+                // Trust Indicators
+                h('div', { className: 'flex flex-wrap gap-6 pt-6' },
+                  heroData.trustIndicators && heroData.trustIndicators.map(function (indicator, index) {
+                    return h('div', { key: index, className: 'flex items-center gap-2 text-white/90' },
+                      h('span', { style: { color: 'var(--color-primary-light)' } }, '✓'),
+                      h('span', {}, indicator.text)
+                    );
+                  })
+                )
+              ),
+
+              // Right Column - Stats Cards
+              h('div', { className: 'space-y-6' },
+                // Stats Cards
+                [
+                  { value: heroData.totalReturn + '%', label: 'Total Return' },
+                  { value: heroData.uptime + '%', label: 'Uptime' },
+                  { value: heroData.activeUsers + '+', label: 'Active Users' }
+                ].map(function (stat, i) {
+                  return h('div', {
+                    key: i,
+                    className: 'p-6 rounded-2xl',
+                    style: {
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }
+                  },
+                    h('div', { className: 'text-4xl font-bold mb-2', style: { color: 'var(--color-primary-light)' } }, stat.value),
+                    h('div', { className: 'text-sm text-white/70 uppercase tracking-wider' }, stat.label)
+                  );
+                })
+              )
             )
           )
         );
       }
     });
 
-    // Testimonials Preview
+    // TESTIMONIALS SECTION PREVIEW - Exact copy from TestimonialsSection.tsx
     var TestimonialsPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'testimonials']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, data.badge),
-            h('h2', {},
-              data.title, ' ',
-              h('span', { className: 'gradient-text' }, data.titleHighlight)
+        return h('section', {
+          className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            // Section Header
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('div', { className: 'flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6' },
+                h('div', {
+                  className: 'h-[1px] w-20',
+                  style: { background: 'linear-gradient(to right, transparent, rgba(21, 219, 248, 0.5))' }
+                }),
+                h('div', {
+                  className: 'flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full',
+                  style: {
+                    border: '1px solid rgba(21, 219, 248, 0.2)',
+                    background: 'rgba(21, 219, 248, 0.05)'
+                  }
+                },
+                  h('div', {
+                    className: 'w-1.5 h-1.5 rounded-full animate-pulse',
+                    style: { background: 'var(--color-primary-light)' }
+                  }),
+                  h('span', {
+                    className: 'text-xs sm:text-sm tracking-wider uppercase',
+                    style: { color: 'var(--color-primary-light)' }
+                  }, data.badge)
+                ),
+                h('div', {
+                  className: 'h-[1px] w-20',
+                  style: { background: 'linear-gradient(to left, transparent, rgba(21, 219, 248, 0.5))' }
+                })
+              ),
+
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold' },
+                data.title, ' ',
+                h('span', {
+                  className: 'bg-gradient-to-r bg-clip-text',
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }, data.titleHighlight)
+              ),
+
+              h('p', { className: 'text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto' },
+                data.description
+              )
             ),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
-          ),
-          h('p', { style: { textAlign: 'center', color: 'rgba(255,255,255,0.5)', marginTop: '40px' } },
-            '📸 Testimonial images will display on the live site'
+
+            h('p', {
+              className: 'text-center text-white/50 mt-8',
+              style: { fontSize: '14px' }
+            }, '📸 Testimonial images will appear on the live website')
           )
         );
       }
     });
 
-    // Comparison Section Preview
+    // COMPARISON SECTION PREVIEW - Exact copy from ComparisonSection.tsx
     var ComparisonPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'comparison']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, data.badge),
-            h('h2', {},
-              data.title, ' ',
-              h('span', { className: 'gradient-text' }, data.titleHighlight), ' ',
-              data.titleEnd, ' ',
-              h('span', { className: 'red-text' }, data.titleEndHighlight)
-            ),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
+        return h('section', {
+          className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          // Background with red overlay
+          h('div', { className: 'absolute inset-0 pointer-events-none' },
+            h('div', {
+              className: 'absolute inset-0',
+              style: {
+                background: 'linear-gradient(to left, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.06) 40%, rgba(239, 68, 68, 0.02) 60%, transparent 75%)'
+              }
+            })
           ),
-          h('div', { className: 'comparison-grid' },
-            h('div', { className: 'comparison-card positive' },
-              h('div', { className: 'comparison-title' },
-                h('h3', {},
-                  'Trading With ',
-                  h('span', { className: 'gradient-text' }, 'NQBlade')
-                )
+
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            // Section Header
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('div', { className: 'flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6' },
+                h('div', { className: 'h-[1px] w-10 sm:w-20', style: { background: 'linear-gradient(to right, transparent, rgba(21, 219, 248, 0.5))' } }),
+                h('div', {
+                  className: 'flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full',
+                  style: { border: '1px solid rgba(21, 219, 248, 0.2)', background: 'rgba(21, 219, 248, 0.05)' }
+                },
+                  h('div', { className: 'w-1.5 h-1.5 rounded-full animate-pulse', style: { background: 'var(--color-primary-light)' } }),
+                  h('span', { className: 'text-xs sm:text-sm tracking-wider uppercase', style: { color: 'var(--color-primary-light)' } }, data.badge)
+                ),
+                h('div', { className: 'h-[1px] w-10 sm:w-20', style: { background: 'linear-gradient(to left, transparent, rgba(21, 219, 248, 0.5))' } })
               ),
-              h('ul', { className: 'feature-list' },
-                data.withNQBlade && data.withNQBlade.map(function (feature, i) {
-                  return h('li', { key: i }, feature);
-                })
-              )
+
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold' },
+                data.title, ' ',
+                h('span', {
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }, data.titleHighlight),
+                ' ', data.titleEnd, ' ',
+                h('span', { style: { color: '#f87171' } }, data.titleEndHighlight)
+              ),
+              h('p', { className: 'text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto' }, data.description)
             ),
-            h('div', { className: 'comparison-card negative' },
-              h('div', { className: 'comparison-title' },
-                h('h3', {},
-                  'Trading By ',
-                  h('span', { className: 'red-text' }, 'Yourself')
+
+            // Comparison Grid
+            h('div', { className: 'max-w-7xl mx-auto relative' },
+              // Divider Line
+              h('div', {
+                className: 'hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2',
+                style: { background: 'linear-gradient(to bottom, transparent, rgba(21, 219, 248, 0.2), transparent)' }
+              }),
+
+              h('div', { className: 'grid md:grid-cols-2 gap-6 lg:gap-8 relative' },
+                // Left Side - With NQBlade
+                h('div', { className: 'relative' },
+                  h('div', {
+                    className: 'absolute inset-0 rounded-2xl',
+                    style: { background: 'linear-gradient(to bottom right, rgba(6, 152, 194, 0.1), rgba(6, 152, 194, 0.05), transparent)' }
+                  }),
+                  h('div', {
+                    className: 'relative rounded-2xl p-6 md:p-8 h-full',
+                    style: {
+                      border: '1px solid rgba(21, 219, 248, 0.3)',
+                      background: 'linear-gradient(to bottom right, rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.7))',
+                      backdropFilter: 'blur(20px)'
+                    }
+                  },
+                    h('div', { className: 'mb-6 md:mb-8' },
+                      h('h3', { className: 'text-lg sm:text-xl font-bold text-white mb-2' },
+                        'Trading With ',
+                        h('span', { style: { color: 'var(--color-primary-light)' } }, 'NQBlade')
+                      ),
+                      h('div', {
+                        className: 'h-1 w-20 rounded-full',
+                        style: { background: 'linear-gradient(to right, var(--color-primary-light), transparent)' }
+                      })
+                    ),
+                    h('div', { className: 'space-y-4' },
+                      data.withNQBlade && data.withNQBlade.map(function (feature, index) {
+                        return h('div', {
+                          key: index,
+                          className: 'flex items-start gap-4 p-4 rounded-xl transition-all duration-300',
+                          style: {
+                            border: '1px solid rgba(21, 219, 248, 0.2)',
+                            background: 'rgba(21, 219, 248, 0.05)'
+                          }
+                        },
+                          h('div', { className: 'flex-shrink-0 mt-1' },
+                            h('div', {
+                              className: 'w-8 h-8 rounded-full flex items-center justify-center',
+                              style: {
+                                background: 'linear-gradient(to bottom right, rgba(21, 219, 248, 0.2), rgba(6, 152, 194, 0.2))',
+                                border: '1px solid rgba(21, 219, 248, 0.4)'
+                              }
+                            },
+                              h('span', { className: 'text-lg font-bold', style: { color: 'var(--color-primary-light)' } }, '✓')
+                            )
+                          ),
+                          h('p', { className: 'text-white/90 text-sm sm:text-base leading-relaxed flex-1' }, feature)
+                        );
+                      })
+                    )
+                  )
+                ),
+
+                // Right Side - Without NQBlade
+                h('div', { className: 'relative' },
+                  h('div', {
+                    className: 'absolute inset-0 rounded-2xl',
+                    style: { background: 'linear-gradient(to bottom right, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.02))' }
+                  }),
+                  h('div', {
+                    className: 'absolute -inset-[1px] rounded-2xl blur-sm',
+                    style: {
+                      background: 'linear-gradient(to bottom right, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05))',
+                      opacity: 0.3
+                    }
+                  }),
+                  h('div', {
+                    className: 'relative rounded-2xl p-6 md:p-8 h-full',
+                    style: {
+                      border: '1px solid rgba(239, 68, 68, 0.3)',
+                      background: 'linear-gradient(to bottom right, rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.7))',
+                      backdropFilter: 'blur(20px)',
+                      boxShadow: '0 0 20px rgba(239, 68, 68, 0.1)'
+                    }
+                  },
+                    h('div', { className: 'mb-6 md:mb-8' },
+                      h('h3', { className: 'text-lg sm:text-xl font-bold text-white/90 mb-2' },
+                        'Trading By ',
+                        h('span', { style: { color: '#f87171' } }, 'Yourself')
+                      ),
+                      h('div', {
+                        className: 'h-1 w-20 rounded-full',
+                        style: { background: 'linear-gradient(to right, rgba(239, 68, 68, 0.6), rgba(239, 68, 68, 0.4), transparent)' }
+                      })
+                    ),
+                    h('div', { className: 'space-y-4' },
+                      data.withoutNQBlade && data.withoutNQBlade.map(function (feature, index) {
+                        return h('div', {
+                          key: index,
+                          className: 'flex items-start gap-4 p-4 rounded-xl transition-all duration-300',
+                          style: {
+                            border: '1px solid rgba(239, 68, 68, 0.25)',
+                            background: 'rgba(239, 68, 68, 0.08)'
+                          }
+                        },
+                          h('div', { className: 'flex-shrink-0 mt-1' },
+                            h('div', {
+                              className: 'w-8 h-8 rounded-full flex items-center justify-center',
+                              style: {
+                                background: 'linear-gradient(to bottom right, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.25))',
+                                border: '1px solid rgba(239, 68, 68, 0.4)'
+                              }
+                            },
+                              h('span', { className: 'text-lg font-bold', style: { color: '#f87171' } }, '✗')
+                            )
+                          ),
+                          h('p', { className: 'text-white/80 text-sm sm:text-base leading-relaxed flex-1' }, feature)
+                        );
+                      })
+                    )
+                  )
                 )
-              ),
-              h('ul', { className: 'feature-list negative' },
-                data.withoutNQBlade && data.withoutNQBlade.map(function (feature, i) {
-                  return h('li', { key: i }, feature);
-                })
               )
             )
           )
@@ -694,230 +415,424 @@
       }
     });
 
-    // Unique Section Preview
+    // UNIQUE SECTION PREVIEW
     var UniquePreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'unique']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, data.badge),
-            h('h2', {},
-              data.title, ' ',
-              h('span', { className: 'gradient-text' }, data.titleHighlight), ' ',
-              data.titleEnd
-            ),
-            h('p', { style: { maxWidth: '900px', margin: '0 auto' } },
-              data.description,
-              h('br'),
-              h('span', { style: { color: 'rgba(21,219,248,0.7)' } }, data.descriptionHighlight)
-            )
-          ),
-          h('div', { className: 'feature-cards' },
-            data.features && data.features.map(function (feature, i) {
-              return h('div', { key: i, className: 'feature-card' },
-                h('div', { style: { marginBottom: '16px' } },
-                  h('div', { className: 'feature-stat' }, feature.stat),
-                  h('div', { className: 'feature-stat-label' }, feature.statLabel)
+        return h('section', {
+          className: 'relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-16',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            h('div', { className: 'text-center mb-12 md:mb-16 relative' },
+              h('div', { className: 'flex items-center justify-center gap-2 sm:gap-4 mb-6 md:mb-8' },
+                h('div', { className: 'h-[1px] w-20', style: { background: 'linear-gradient(to right, transparent, rgba(21, 219, 248, 0.5))' } }),
+                h('div', {
+                  className: 'flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full',
+                  style: { border: '1px solid rgba(21, 219, 248, 0.2)', background: 'rgba(21, 219, 248, 0.05)' }
+                },
+                  h('div', { className: 'w-1.5 h-1.5 rounded-full animate-pulse', style: { background: 'var(--color-primary-light)' } }),
+                  h('span', { className: 'text-xs sm:text-sm tracking-wider uppercase', style: { color: 'var(--color-primary-light)' } }, data.badge)
                 ),
-                h('div', { className: 'feature-icon' }, '⚡'),
-                h('h3', {}, feature.title),
-                h('p', { style: { fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.8)' } },
-                  feature.description
-                )
-              );
-            })
+                h('div', { className: 'h-[1px] w-20', style: { background: 'linear-gradient(to left, transparent, rgba(21, 219, 248, 0.5))' } })
+              ),
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold px-4' },
+                data.title, ' ',
+                h('span', {
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }, data.titleHighlight),
+                ' ', data.titleEnd
+              ),
+              h('p', { className: 'text-white/90 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed px-4' },
+                data.description,
+                h('br', { className: 'hidden sm:block' }),
+                h('span', { style: { color: 'rgba(21, 219, 248, 0.7)' } }, data.descriptionHighlight)
+              )
+            ),
+
+            h('div', { className: 'grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch' },
+              data.features && data.features.map(function (feature, index) {
+                return h('div', {
+                  key: index,
+                  className: 'h-full rounded-2xl p-6 sm:p-8 transition-all duration-300',
+                  style: {
+                    border: '1px solid rgba(21, 219, 248, 0.2)',
+                    background: 'linear-gradient(to bottom right, rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.7))'
+                  }
+                },
+                  h('div', { className: 'flex items-start justify-between mb-4 sm:mb-6' },
+                    h('div', { className: 'relative' },
+                      h('div', {
+                        className: 'w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center',
+                        style: {
+                          background: 'linear-gradient(to bottom right, rgba(6, 152, 194, 0.2), rgba(21, 219, 248, 0.1))',
+                          border: '1px solid rgba(21, 219, 248, 0.3)'
+                        }
+                      },
+                        h('span', { className: 'text-2xl sm:text-3xl', style: { color: 'var(--color-primary-light)' } }, '⚡')
+                      )
+                    ),
+                    h('div', { className: 'text-right' },
+                      h('div', { className: 'text-xl sm:text-2xl font-bold mb-0.5', style: { color: 'var(--color-primary-light)' } }, feature.stat),
+                      h('div', { className: 'text-xs uppercase tracking-wider text-white/90' }, feature.statLabel)
+                    )
+                  ),
+                  h('h3', { className: 'text-lg sm:text-xl text-white mb-2 sm:mb-3 leading-tight' }, feature.title),
+                  h('p', { className: 'text-white/90 leading-relaxed text-sm sm:text-base' }, feature.description)
+                );
+              })
+            )
           )
         );
       }
     });
 
-    // Timeline Preview
+    // TIMELINE SECTION PREVIEW
     var TimelinePreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'timeline']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, data.badge),
-            h('h2', {},
-              data.title, ' ',
-              h('span', { className: 'gradient-text' }, data.titleHighlight)
+        return h('section', {
+          className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('div', { className: 'flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6' },
+                h('div', { className: 'h-[1px] w-10 sm:w-20', style: { background: 'linear-gradient(to right, transparent, rgba(21, 219, 248, 0.5))' } }),
+                h('div', {
+                  className: 'flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full',
+                  style: { border: '1px solid rgba(21, 219, 248, 0.2)', background: 'rgba(21, 219, 248, 0.05)' }
+                },
+                  h('div', { className: 'w-1.5 h-1.5 rounded-full animate-pulse', style: { background: 'var(--color-primary-light)' } }),
+                  h('span', { className: 'text-xs sm:text-sm tracking-wider uppercase', style: { color: 'var(--color-primary-light)' } }, data.badge)
+                ),
+                h('div', { className: 'h-[1px] w-10 sm:w-20', style: { background: 'linear-gradient(to left, transparent, rgba(21, 219, 248, 0.5))' } })
+              ),
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold' },
+                data.title, ' ',
+                h('span', {
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }, data.titleHighlight)
+              ),
+              h('p', { className: 'text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto' }, data.description)
             ),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
-          ),
-          h('div', { className: 'timeline' },
-            data.steps && data.steps.map(function (step, i) {
-              return h('div', { key: i, className: 'timeline-item' },
-                h('div', { className: 'timeline-number' }, step.number),
-                h('div', { className: 'timeline-content' },
-                  h('h3', {}, step.title),
-                  h('p', { style: { marginTop: '12px' } }, step.description)
-                )
-              );
-            })
+
+            h('div', { className: 'relative' },
+              h('div', { className: 'space-y-8 lg:space-y-16' },
+                data.steps && data.steps.map(function (step, index) {
+                  return h('div', {
+                    key: index,
+                    className: 'flex gap-6 lg:gap-8 p-6 lg:p-8 rounded-2xl',
+                    style: {
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }
+                  },
+                    h('div', {
+                      className: 'text-6xl lg:text-7xl font-bold flex-shrink-0',
+                      style: { color: 'var(--color-primary-light)', opacity: 0.3 }
+                    }, step.number),
+                    h('div', { className: 'flex-1' },
+                      h('h3', { className: 'text-xl lg:text-2xl font-bold text-white mb-3 lg:mb-4' }, step.title),
+                      h('p', { className: 'text-white/90 text-base lg:text-lg leading-relaxed' }, step.description)
+                    )
+                  );
+                })
+              )
+            )
           )
         );
       }
     });
 
-    // Pricing Preview
+    // PRICING SECTION PREVIEW
     var PricingPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'pricing']).toJS();
         var plan = data.plan || {};
-        var savings = plan.originalPrice && plan.price ?
-          parseInt(plan.originalPrice.replace(/[^0-9]/g, '')) - parseInt(plan.price.replace(/[^0-9]/g, '')) : 150;
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('h2', {},
-              data.title, ' ',
-              h('span', { className: 'gradient-text' }, 'NQBlade')
-            ),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.subtitle)
-          ),
-          h('div', { className: 'pricing-card' },
-            h('div', { className: 'price-header' },
-              h('h3', { style: { marginBottom: '24px' } }, plan.name),
-              h('div', { className: 'price-wrapper' },
-                h('span', { className: 'original-price' }, plan.originalPrice),
-                h('span', { className: 'price' }, plan.price),
-                h('span', { className: 'save-badge' }, 'Save €', savings)
+        return h('section', {
+          className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold' },
+                data.title, ' ',
+                h('span', {
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }, 'NQBlade')
               ),
-              h('div', { className: 'period' }, plan.period),
-              h('p', { style: { fontSize: '16px', color: 'rgba(255,255,255,0.8)' } }, plan.description)
+              h('p', { className: 'text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto' }, data.subtitle)
             ),
-            h('div', { style: { marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' } },
-              h('h4', { style: { fontSize: '14px', textAlign: 'center' } }, "What's Included")
-            ),
-            h('ul', { className: 'pricing-features' },
-              plan.features && plan.features.map(function (feature, i) {
-                return h('li', { key: i }, feature);
-              })
-            ),
-            h('div', { style: { marginTop: '32px' } },
-              h('button', {
-                className: 'cta-button cta-primary',
-                style: { width: '100%', padding: '20px' }
-              }, plan.ctaButton)
-            ),
-            h('div', { className: 'trial-section' },
-              h('h4', {}, plan.trialButton),
-              h('p', { style: { fontSize: '14px', marginBottom: '16px' } }, plan.trialText),
-              h('a', {
-                href: plan.trialLink,
-                className: 'cta-button cta-secondary',
-                style: { display: 'inline-flex' }
-              }, plan.trialButton)
+
+            h('div', { className: 'max-w-3xl mx-auto' },
+              h('div', {
+                className: 'rounded-2xl p-8 lg:p-12',
+                style: {
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '2px solid rgba(21, 219, 248, 0.3)'
+                }
+              },
+                h('div', { className: 'text-center mb-8' },
+                  h('h3', { className: 'text-2xl font-bold text-white mb-6' }, plan.name),
+                  h('div', { className: 'flex items-baseline justify-center gap-4 mb-4' },
+                    h('span', { className: 'text-3xl text-white/40 line-through font-semibold' }, plan.originalPrice),
+                    h('span', { className: 'text-6xl font-bold', style: { color: 'var(--color-primary-light)' } }, plan.price),
+                    h('span', {
+                      className: 'px-4 py-2 rounded-full text-sm font-semibold',
+                      style: { background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }
+                    }, 'Save €150')
+                  ),
+                  h('div', { className: 'text-white/60 mb-4' }, plan.period),
+                  h('p', { className: 'text-white/90 max-w-xl mx-auto' }, plan.description)
+                ),
+
+                h('div', { className: 'mb-6 pb-6', style: { borderBottom: '1px solid rgba(255, 255, 255, 0.1)' } },
+                  h('div', { className: 'flex items-center mb-4' },
+                    h('div', { className: 'flex-1', style: { borderTop: '1px solid rgba(255, 255, 255, 0.1)' } }),
+                    h('span', { className: 'px-4 text-xs text-white/90 uppercase tracking-wider' }, "What's Included"),
+                    h('div', { className: 'flex-1', style: { borderTop: '1px solid rgba(255, 255, 255, 0.1)' } })
+                  )
+                ),
+
+                h('ul', { className: 'grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-10' },
+                  plan.features && plan.features.map(function (feature, i) {
+                    return h('li', { key: i, className: 'flex items-start gap-3' },
+                      h('div', {
+                        className: 'w-5 h-5 rounded-full flex items-center justify-center mt-1',
+                        style: { border: '1px solid rgba(21, 219, 248, 0.3)' }
+                      },
+                        h('span', { className: 'text-xs font-bold', style: { color: 'var(--color-primary-light)' } }, '✓')
+                      ),
+                      h('span', { className: 'text-white/90 text-sm md:text-base leading-relaxed' }, feature)
+                    );
+                  })
+                ),
+
+                h('button', {
+                  className: 'w-full py-5 px-8 rounded-lg font-bold text-lg transition-all',
+                  style: {
+                    background: 'var(--color-primary-light)',
+                    color: '#000',
+                    boxShadow: '0 0 30px rgba(21, 219, 248, 0.3)'
+                  }
+                }, plan.ctaButton),
+
+                h('div', {
+                  className: 'mt-8 p-6 lg:p-8 rounded-2xl',
+                  style: {
+                    background: 'rgba(21, 219, 248, 0.05)',
+                    border: '1px solid rgba(21, 219, 248, 0.2)'
+                  }
+                },
+                  h('h3', { className: 'text-lg sm:text-xl font-bold text-white mb-2' }, plan.trialButton),
+                  h('p', { className: 'text-white/90 text-sm sm:text-base leading-relaxed mb-4' }, plan.trialText),
+                  h('a', {
+                    href: plan.trialLink,
+                    className: 'inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all',
+                    style: {
+                      color: 'var(--color-primary-light)',
+                      border: '1px solid var(--color-primary-light)'
+                    }
+                  },
+                    plan.trialButton,
+                    h('span', {}, '→')
+                  )
+                )
+              )
             )
           )
         );
       }
     });
 
-    // Footer Preview
+    // FOOTER PREVIEW
     var FooterPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'footer']).toJS();
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'footer-content' },
-            h('h2', { className: 'gradient-text', style: { marginBottom: '16px' } }, 'NQBlade'),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto', fontSize: '16px' } }, data.description)
-          ),
-          h('div', { className: 'footer-links' },
-            h('div', { className: 'footer-section' },
-              h('h4', {}, 'Quick Links'),
-              h('ul', {},
-                data.quickLinks && data.quickLinks.map(function (link, i) {
-                  return h('li', { key: i },
-                    h('a', { href: link.href }, link.label)
-                  );
-                })
-              )
+        return h('footer', {
+          className: 'relative py-8',
+          style: { background: 'var(--color-bg-dark)', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6 mx-auto' },
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('div', { className: 'flex items-center justify-center gap-2 mb-4' },
+                h('div', {
+                  className: 'h-10 md:h-12 w-10 md:w-12 rounded-full',
+                  style: { background: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))' }
+                }),
+                h('h3', { className: 'text-xl sm:text-2xl md:text-3xl font-bold' },
+                  h('span', {
+                    style: {
+                      backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }
+                  }, 'NQBlade')
+                )
+              ),
+              h('p', { className: 'text-white/90 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed' }, data.description)
             ),
-            h('div', { className: 'footer-section' },
-              h('h4', {}, 'Product'),
-              h('ul', {},
-                data.productLinks && data.productLinks.map(function (link, i) {
-                  return h('li', { key: i },
-                    h('a', { href: link.href }, link.label)
-                  );
-                })
-              )
-            ),
-            h('div', { className: 'footer-section' },
-              h('h4', {}, 'Support'),
-              h('ul', {},
-                data.supportLinks && data.supportLinks.map(function (link, i) {
-                  return h('li', { key: i },
-                    h('a', { href: link.href }, link.label)
-                  );
-                })
-              )
-            ),
-            h('div', { className: 'footer-section' },
-              h('h4', {}, 'Social'),
-              h('ul', {},
-                data.socialLinks && data.socialLinks.map(function (link, i) {
-                  return h('li', { key: i },
-                    h('a', { href: link.href, target: '_blank', rel: 'noopener noreferrer' }, link.label)
-                  );
-                })
+
+            h('div', { className: 'relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-8 max-w-5xl mx-auto text-center' },
+              h('div', {},
+                h('h4', { className: 'text-white text-sm sm:text-base font-semibold mb-4 uppercase tracking-wider' }, 'Quick Links'),
+                h('ul', { className: 'space-y-1' },
+                  data.quickLinks && data.quickLinks.map(function (link, i) {
+                    return h('li', { key: i },
+                      h('a', {
+                        href: link.href,
+                        className: 'text-white/90 text-xs sm:text-sm hover:text-[var(--color-primary-light)] transition-colors'
+                      }, link.label)
+                    );
+                  })
+                )
+              ),
+              h('div', {},
+                h('h4', { className: 'text-white text-sm sm:text-base font-semibold mb-4 uppercase tracking-wider' }, 'Product'),
+                h('ul', { className: 'space-y-1' },
+                  data.productLinks && data.productLinks.map(function (link, i) {
+                    return h('li', { key: i },
+                      h('a', {
+                        href: link.href,
+                        className: 'text-white/90 text-xs sm:text-sm hover:text-[var(--color-primary-light)] transition-colors'
+                      }, link.label)
+                    );
+                  })
+                )
+              ),
+              h('div', {},
+                h('h4', { className: 'text-white text-sm sm:text-base font-semibold mb-4 uppercase tracking-wider' }, 'Support'),
+                h('ul', { className: 'space-y-1' },
+                  data.supportLinks && data.supportLinks.map(function (link, i) {
+                    return h('li', { key: i },
+                      h('a', {
+                        href: link.href,
+                        className: 'text-white/90 text-xs sm:text-sm hover:text-[var(--color-primary-light)] transition-colors'
+                      }, link.label)
+                    );
+                  })
+                )
+              ),
+              h('div', {},
+                h('h4', { className: 'text-white text-sm sm:text-base font-semibold mb-4 uppercase tracking-wider' }, 'Social'),
+                h('ul', { className: 'space-y-1' },
+                  data.socialLinks && data.socialLinks.map(function (link, i) {
+                    return h('li', { key: i },
+                      h('a', {
+                        href: link.href,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        className: 'text-white/90 text-xs sm:text-sm hover:text-[var(--color-primary-light)] transition-colors'
+                      }, link.label)
+                    );
+                  })
+                )
               )
             )
           ),
-          h('div', { className: 'footer-bottom' },
-            h('p', {}, data.copyright)
+
+          h('div', { style: { borderTop: '1px solid rgba(255, 255, 255, 0.1)' } },
+            h('div', { className: 'container px-4 sm:px-6 mx-auto py-8' },
+              h('div', { className: 'flex flex-col md:flex-row items-center justify-between gap-4 text-center' },
+                h('p', { className: 'text-white/90 text-xs sm:text-sm' }, data.copyright),
+                h('div', { className: 'flex items-center gap-2 text-white/90 text-xs sm:text-sm' },
+                  h('span', {}, 'Made with'),
+                  h('span', { style: { color: 'var(--color-primary-light)' } }, '💙'),
+                  h('span', {}, 'for traders')
+                )
+              )
+            )
           )
         );
       }
     });
 
-    // FAQ Preview
+    // FAQ PREVIEW
     var FAQPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var items = entry.getIn(['data', 'items']);
         var itemsArray = items ? items.toJS() : [];
 
-        return h('div', { className: 'preview-wrapper' },
-          h('div', { className: 'section-header' },
-            h('div', { className: 'badge' }, 'FAQ'),
-            h('h2', {},
-              'Frequently Asked ',
-              h('span', { className: 'gradient-text' }, 'Questions')
-            ),
-            h('p', { style: { maxWidth: '700px', margin: '0 auto' } },
-              'Find answers to common questions about NQBlade'
-            )
-          ),
-          h('div', {},
-            itemsArray.map(function (item, i) {
-              return h('div', { key: i, className: 'faq-item' },
-                h('div', { className: 'faq-question' }, item.question),
+        return h('section', {
+          className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
+          style: { background: 'var(--color-bg-dark)' }
+        },
+          h('div', { className: 'relative z-10 container px-4 sm:px-6' },
+            h('div', { className: 'text-center mb-12 md:mb-16' },
+              h('div', { className: 'flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6' },
+                h('div', { className: 'h-[1px] w-20', style: { background: 'linear-gradient(to right, transparent, rgba(21, 219, 248, 0.5))' } }),
                 h('div', {
-                  className: 'faq-answer',
-                  dangerouslySetInnerHTML: {
-                    __html: item.answer
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n\n/g, '<br><br>')
-                      .replace(/\n/g, '<br>')
+                  className: 'flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full',
+                  style: { border: '1px solid rgba(21, 219, 248, 0.2)', background: 'rgba(21, 219, 248, 0.05)' }
+                },
+                  h('div', { className: 'w-1.5 h-1.5 rounded-full animate-pulse', style: { background: 'var(--color-primary-light)' } }),
+                  h('span', { className: 'text-xs sm:text-sm tracking-wider uppercase', style: { color: 'var(--color-primary-light)' } }, 'FAQ')
+                ),
+                h('div', { className: 'h-[1px] w-20', style: { background: 'linear-gradient(to left, transparent, rgba(21, 219, 248, 0.5))' } })
+              ),
+              h('h2', { className: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold' },
+                'Frequently Asked ',
+                h('span', {
+                  style: {
+                    backgroundImage: 'linear-gradient(to right, var(--color-primary), var(--color-primary-light))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
                   }
-                })
-              );
-            })
+                }, 'Questions')
+              )
+            ),
+
+            h('div', { className: 'max-w-4xl mx-auto' },
+              itemsArray.map(function (item, i) {
+                return h('div', {
+                  key: i,
+                  className: 'mb-4 p-6 lg:p-8 rounded-2xl',
+                  style: {
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }
+                },
+                  h('h3', { className: 'text-lg lg:text-xl font-bold text-white mb-4' }, item.question),
+                  h('div', {
+                    className: 'text-white/85 text-base leading-relaxed',
+                    dangerouslySetInnerHTML: {
+                      __html: item.answer
+                        .replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--color-primary-light); font-weight: 600;">$1</strong>')
+                        .replace(/\n\n/g, '<br><br>')
+                        .replace(/\n/g, '<br>')
+                    }
+                  })
+                );
+              })
+            )
           )
         );
       }
     });
 
-    // Register all preview templates
+    // Register all preview templates with their exact names from config.yml
     CMS.registerPreviewTemplate('hero_section', HeroPreview);
     CMS.registerPreviewTemplate('testimonials_section', TestimonialsPreview);
     CMS.registerPreviewTemplate('comparison_section', ComparisonPreview);
