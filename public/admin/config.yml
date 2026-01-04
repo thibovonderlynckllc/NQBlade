@@ -30,8 +30,8 @@ collections:
               - { label: 'Answer', name: 'answer', widget: 'markdown', required: true }
               - { label: 'Order', name: 'order', widget: 'number', required: true, default: 0, value_type: 'int' }
 
-  - name: 'site_content'
-    label: 'Site Content'
+  - name: 'hero'
+    label: 'Hero Section'
     files:
       - label: 'Hero Section'
         name: 'hero_section'
@@ -62,6 +62,9 @@ collections:
                   - { label: 'Icon', name: 'icon', widget: 'string' }
                   - { label: 'Text', name: 'text', widget: 'string' }
 
+  - name: 'testimonials'
+    label: 'Testimonials Section'
+    files:
       - label: 'Testimonials Section'
         name: 'testimonials_section'
         file: 'data/content.json'
@@ -76,7 +79,10 @@ collections:
               - { label: 'Title Highlight', name: 'titleHighlight', widget: 'string' }
               - { label: 'Description', name: 'description', widget: 'text' }
 
-      - label: 'Comparison Section (The Choice)'
+  - name: 'comparison'
+    label: 'The Choice Section'
+    files:
+      - label: 'Comparison Section'
         name: 'comparison_section'
         file: 'data/content.json'
         format: 'json'
@@ -100,7 +106,10 @@ collections:
                 widget: 'list'
                 field: { label: 'Feature', name: 'feature', widget: 'string' }
 
-      - label: 'What Makes Us Unique Section'
+  - name: 'unique'
+    label: 'What Makes Us Unique'
+    files:
+      - label: 'Unique Section'
         name: 'unique_section'
         file: 'data/content.json'
         format: 'json'
@@ -126,7 +135,10 @@ collections:
                   - { label: 'Stat Label', name: 'statLabel', widget: 'string' }
                   - { label: 'Color', name: 'color', widget: 'string' }
 
-      - label: 'How It Works Section'
+  - name: 'timeline'
+    label: 'How It Works'
+    files:
+      - label: 'Timeline Section'
         name: 'timeline_section'
         file: 'data/content.json'
         format: 'json'
@@ -148,6 +160,9 @@ collections:
                   - { label: 'Description', name: 'description', widget: 'text' }
                   - { label: 'Image URL', name: 'imageUrl', widget: 'image' }
 
+  - name: 'pricing'
+    label: 'Pricing Section'
+    files:
       - label: 'Pricing Section'
         name: 'pricing_section'
         file: 'data/content.json'
@@ -177,6 +192,9 @@ collections:
                   - { label: 'Trial Link', name: 'trialLink', widget: 'string' }
                   - { label: 'Trial Text', name: 'trialText', widget: 'text' }
 
+  - name: 'footer'
+    label: 'Footer'
+    files:
       - label: 'Footer'
         name: 'footer_section'
         file: 'data/content.json'
