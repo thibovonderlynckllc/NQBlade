@@ -44,10 +44,8 @@
       });
     }
 
-    // Register preview styles with Tailwind CDN and all necessary CSS
+    // Register preview styles - NO @import, use inline CSS only
     CMS.registerPreviewStyle(`
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-      
       :root {
         --color-primary: #0698C2;
         --color-primary-light: #15DBF8;
@@ -142,38 +140,53 @@
       }
     `, { raw: false });
 
-    // Helper function to inject Tailwind script into preview - returns script element
-    function injectTailwindScript() {
+    // Helper function to inject fonts and Tailwind into preview iframe
+    function injectPreviewAssets() {
       return h('script', {
-        key: 'tailwind-loader',
         dangerouslySetInnerHTML: {
           __html: `
             (function() {
-              if (document.querySelector('script[data-tailwind-loaded]')) return;
-              var script = document.createElement('script');
-              script.setAttribute('data-tailwind-loaded', 'true');
-              script.src = 'https://cdn.tailwindcss.com';
-              script.onload = function() {
-                if (window.tailwind && window.tailwind.config) {
-                  window.tailwind.config = {
-                    theme: {
-                      extend: {
-                        colors: {
-                          'primary': '#0698C2',
-                          'primary-light': '#15DBF8',
-                          'bg-dark': '#0a0a0f',
+              // Inject Google Fonts
+              if (!document.querySelector('link[href*="fonts.googleapis.com"]')) {
+                var fontLink = document.createElement('link');
+                fontLink.rel = 'stylesheet';
+                fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap';
+                if (document.head) {
+                  document.head.appendChild(fontLink);
+                } else {
+                  document.addEventListener('DOMContentLoaded', function() {
+                    document.head.appendChild(fontLink);
+                  });
+                }
+              }
+              
+              // Inject Tailwind CSS
+              if (!document.querySelector('script[data-tailwind-loaded]')) {
+                var script = document.createElement('script');
+                script.setAttribute('data-tailwind-loaded', 'true');
+                script.src = 'https://cdn.tailwindcss.com';
+                script.onload = function() {
+                  if (window.tailwind && window.tailwind.config) {
+                    window.tailwind.config = {
+                      theme: {
+                        extend: {
+                          colors: {
+                            'primary': '#0698C2',
+                            'primary-light': '#15DBF8',
+                            'bg-dark': '#0a0a0f',
+                          }
                         }
                       }
                     }
                   }
-                }
-              };
-              if (document.head) {
-                document.head.appendChild(script);
-              } else {
-                document.addEventListener('DOMContentLoaded', function() {
+                };
+                if (document.head) {
                   document.head.appendChild(script);
-                });
+                } else {
+                  document.addEventListener('DOMContentLoaded', function() {
+                    document.head.appendChild(script);
+                  });
+                }
               }
             })();
           `
@@ -188,7 +201,7 @@
         var heroData = entry.getIn(['data', 'hero']).toJS();
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-20',
             style: { background: 'var(--color-bg-dark)' }
@@ -306,7 +319,7 @@
         var data = entry.getIn(['data', 'testimonials']).toJS();
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
             style: { background: 'var(--color-bg-dark)' }
@@ -375,7 +388,7 @@
         var data = entry.getIn(['data', 'comparison']).toJS();
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden',
             style: { background: 'var(--color-bg-dark)' }
@@ -555,7 +568,7 @@
         var data = entry.getIn(['data', 'unique']).toJS();
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center min-h-screen py-12 md:py-16 lg:py-16',
             style: { background: 'var(--color-bg-dark)' }
@@ -636,7 +649,7 @@
         var data = entry.getIn(['data', 'timeline']).toJS();
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden',
             style: { background: 'var(--color-bg-dark)' }
@@ -704,7 +717,7 @@
         var plan = data.plan || {};
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
             style: { background: 'var(--color-bg-dark)' }
@@ -921,7 +934,7 @@
         var itemsArray = items ? items.toJS() : [];
 
         return h('div', {},
-          injectTailwindScript(),
+          injectPreviewAssets(),
           h('section', {
             className: 'relative flex items-center justify-center py-12 md:py-16 lg:py-16',
             style: { background: 'var(--color-bg-dark)' }
