@@ -11,7 +11,7 @@
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
+
   <script>
     // Netlify Identity redirect handling
     if (window.netlifyIdentity) {
@@ -24,36 +24,41 @@
       });
     }
 
-    // Register custom preview styles that match the website
+    // Register preview styles that EXACTLY match the live website
     CMS.registerPreviewStyle(`
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
       :root {
         --color-primary: #0698C2;
         --color-primary-light: #15DBF8;
         --color-bg-dark: #0a0a0f;
       }
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: var(--color-bg-dark);
         color: #ffffff;
         padding: 40px 20px;
         line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
-      .preview-container {
+      .preview-wrapper {
         max-width: 1200px;
         margin: 0 auto;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 40px;
+        padding: 60px 24px;
+        background: rgba(10, 10, 15, 0.95);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
       }
 
-      .section-header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
-
+      /* Badge styling - exact from website */
       .badge {
         display: inline-flex;
         align-items: center;
@@ -66,13 +71,17 @@
         color: var(--color-primary-light);
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 16px;
+        font-weight: 500;
+        margin-bottom: 24px;
       }
 
       .badge::before {
-        content: '●';
-        color: var(--color-primary-light);
-        animation: pulse 2s infinite;
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--color-primary-light);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
       }
 
       @keyframes pulse {
@@ -80,62 +89,100 @@
         50% { opacity: 0.5; }
       }
 
+      /* Typography - exact from website */
       h1 {
-        font-size: 48px;
+        font-size: 60px;
         font-weight: 700;
-        margin: 16px 0;
         line-height: 1.2;
+        margin: 0 0 24px 0;
+        color: #ffffff;
+        letter-spacing: -0.02em;
       }
 
       h2 {
-        font-size: 36px;
+        font-size: 48px;
         font-weight: 700;
-        margin: 16px 0;
         line-height: 1.2;
+        margin: 0 0 24px 0;
+        color: #ffffff;
+        letter-spacing: -0.02em;
       }
 
       h3 {
         font-size: 20px;
-        font-weight: 600;
-        margin: 16px 0;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0 0 12px 0;
+        color: #ffffff;
       }
 
-      .highlight {
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        margin: 0 0 16px 0;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0 0 16px 0;
+      }
+
+      /* Gradient text - exact from website */
+      .gradient-text {
         background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
 
-      .highlight-red {
+      .red-text {
         color: #f87171;
       }
 
-      p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 16px;
-        line-height: 1.8;
-        margin: 16px 0;
+      /* Section header - centered */
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
       }
 
+      /* CTA Buttons - exact from website */
       .cta-buttons {
         display: flex;
         gap: 16px;
-        margin: 24px 0;
+        margin: 32px 0;
         flex-wrap: wrap;
+        justify-content: center;
       }
 
       .cta-button {
-        padding: 12px 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 32px;
         border-radius: 8px;
         font-weight: 600;
+        font-size: 16px;
         text-decoration: none;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
       }
 
       .cta-primary {
         background: var(--color-primary-light);
-        color: #000;
+        color: #000000;
+        box-shadow: 0 0 20px rgba(21, 219, 248, 0.3);
+      }
+
+      .cta-primary:hover {
+        box-shadow: 0 0 30px rgba(21, 219, 248, 0.5);
+        transform: translateY(-2px);
       }
 
       .cta-secondary {
@@ -144,11 +191,17 @@
         border: 1px solid var(--color-primary-light);
       }
 
+      .cta-secondary:hover {
+        background: rgba(21, 219, 248, 0.1);
+      }
+
+      /* Trust indicators */
       .trust-indicators {
         display: flex;
-        gap: 24px;
-        margin: 24px 0;
+        gap: 32px;
+        margin: 32px 0;
         flex-wrap: wrap;
+        justify-content: center;
       }
 
       .trust-item {
@@ -156,206 +209,309 @@
         align-items: center;
         gap: 8px;
         color: rgba(255, 255, 255, 0.9);
-        font-size: 14px;
+        font-size: 16px;
       }
 
       .trust-item::before {
         content: '✓';
         color: var(--color-primary-light);
-        font-weight: bold;
+        font-weight: 700;
+        font-size: 18px;
       }
 
-      .stats {
+      /* Stats grid */
+      .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 24px;
-        margin: 32px 0;
+        margin: 40px 0;
       }
 
-      .stat {
-        text-align: center;
-        padding: 20px;
+      .stat-card {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
+        border-radius: 16px;
+        padding: 32px;
+        text-align: center;
       }
 
       .stat-value {
-        font-size: 32px;
+        font-size: 48px;
         font-weight: 700;
         color: var(--color-primary-light);
-        margin-bottom: 4px;
+        margin-bottom: 8px;
+        line-height: 1;
       }
 
       .stat-label {
-        font-size: 12px;
+        font-size: 14px;
         color: rgba(255, 255, 255, 0.7);
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        font-weight: 500;
       }
 
-      .feature-list, .comparison-list {
+      /* Comparison grid */
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        margin: 48px 0;
+      }
+
+      .comparison-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 40px;
+      }
+
+      .comparison-card.positive {
+        background: linear-gradient(135deg, rgba(6, 152, 194, 0.1) 0%, rgba(10, 10, 15, 0.9) 100%);
+        border-color: rgba(21, 219, 248, 0.3);
+      }
+
+      .comparison-card.negative {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 10, 15, 0.9) 100%);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .comparison-title {
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid;
+      }
+
+      .comparison-card.positive .comparison-title {
+        border-color: var(--color-primary-light);
+      }
+
+      .comparison-card.negative .comparison-title {
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+
+      /* Feature list */
+      .feature-list {
         list-style: none;
         padding: 0;
-        margin: 24px 0;
+        margin: 0;
       }
 
-      .feature-list li, .comparison-list li {
+      .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
         padding: 16px;
         margin: 12px 0;
         background: rgba(21, 219, 248, 0.05);
         border: 1px solid rgba(21, 219, 248, 0.2);
         border-radius: 12px;
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
       }
 
       .feature-list li::before {
         content: '✓';
         color: var(--color-primary-light);
-        font-weight: bold;
-        font-size: 18px;
+        font-weight: 700;
+        font-size: 20px;
         flex-shrink: 0;
+        margin-top: 2px;
       }
 
-      .comparison-list.negative li {
+      .feature-list.negative li {
         background: rgba(239, 68, 68, 0.08);
-        border-color: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.25);
+        color: rgba(255, 255, 255, 0.8);
       }
 
-      .comparison-list.negative li::before {
+      .feature-list.negative li::before {
         content: '✗';
         color: #f87171;
       }
 
-      .comparison-grid {
+      /* Feature cards grid */
+      .feature-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 24px;
-        margin: 32px 0;
-      }
-
-      .comparison-card {
-        padding: 24px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-      }
-
-      .pricing-card {
-        padding: 32px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(21, 219, 248, 0.3);
-        border-radius: 16px;
-        margin: 24px 0;
-      }
-
-      .price {
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--color-primary-light);
-        margin: 16px 0;
-      }
-
-      .original-price {
-        font-size: 24px;
-        color: rgba(255, 255, 255, 0.5);
-        text-decoration: line-through;
-        margin-right: 12px;
-      }
-
-      .save-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        background: rgba(34, 197, 94, 0.2);
-        color: #4ade80;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 24px;
-        margin: 32px 0;
+        margin: 48px 0;
       }
 
       .feature-card {
-        padding: 24px;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(21, 219, 248, 0.2);
-        border-radius: 16px;
-        transition: all 0.3s;
+        border-radius: 20px;
+        padding: 32px;
+        transition: all 0.3s ease;
       }
 
       .feature-card:hover {
-        border-color: var(--color-primary-light);
         background: rgba(21, 219, 248, 0.05);
+        border-color: var(--color-primary-light);
+        transform: translateY(-4px);
       }
 
       .feature-icon {
-        width: 48px;
-        height: 48px;
+        width: 64px;
+        height: 64px;
         background: rgba(21, 219, 248, 0.1);
         border: 1px solid rgba(21, 219, 248, 0.3);
-        border-radius: 12px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--color-primary-light);
-        font-size: 24px;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
+        font-size: 32px;
       }
 
       .feature-stat {
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 700;
         color: var(--color-primary-light);
         float: right;
+        margin-top: -8px;
       }
 
+      .feature-stat-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-align: right;
+        clear: right;
+        margin-top: 4px;
+      }
+
+      /* Timeline */
       .timeline {
-        margin: 32px 0;
+        margin: 48px 0;
       }
 
       .timeline-item {
         display: flex;
-        gap: 24px;
-        margin: 24px 0;
-        padding: 24px;
+        gap: 32px;
+        margin: 32px 0;
+        padding: 32px;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        position: relative;
+        border-radius: 20px;
       }
 
       .timeline-number {
-        font-size: 48px;
+        font-size: 72px;
         font-weight: 700;
         color: var(--color-primary-light);
         opacity: 0.3;
+        line-height: 1;
         flex-shrink: 0;
       }
 
       .timeline-content {
         flex: 1;
+        padding-top: 8px;
+      }
+
+      /* Pricing card */
+      .pricing-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 2px solid rgba(21, 219, 248, 0.3);
+        border-radius: 24px;
+        padding: 48px;
+        margin: 32px auto;
+        max-width: 800px;
+      }
+
+      .price-header {
+        text-align: center;
+        margin-bottom: 32px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .price-wrapper {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .original-price {
+        font-size: 32px;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: line-through;
+        font-weight: 600;
+      }
+
+      .price {
+        font-size: 72px;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        line-height: 1;
+      }
+
+      .save-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 16px;
+      }
+
+      .period {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .pricing-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 32px 0;
+      }
+
+      .pricing-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .pricing-features li::before {
+        content: '✓';
+        color: var(--color-primary-light);
+        font-weight: 700;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .trial-section {
+        margin-top: 40px;
+        padding: 32px;
+        background: rgba(21, 219, 248, 0.05);
+        border: 1px solid rgba(21, 219, 248, 0.2);
+        border-radius: 16px;
+      }
+
+      /* Footer */
+      .footer-content {
+        text-align: center;
+        margin-bottom: 48px;
       }
 
       .footer-links {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 32px;
-        margin: 32px 0;
-      }
-
-      .footer-section h4 {
-        color: var(--color-primary-light);
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 16px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 48px;
+        margin: 48px 0;
       }
 
       .footer-section ul {
@@ -364,83 +520,101 @@
       }
 
       .footer-section li {
-        margin: 8px 0;
+        margin: 12px 0;
       }
 
       .footer-section a {
         color: rgba(255, 255, 255, 0.7);
         text-decoration: none;
         font-size: 14px;
+        transition: color 0.2s;
       }
 
       .footer-section a:hover {
         color: var(--color-primary-light);
       }
 
-      strong {
-        color: var(--color-primary-light);
+      .footer-bottom {
+        text-align: center;
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
       }
 
+      /* FAQ */
       .faq-item {
-        margin: 16px 0;
-        padding: 20px;
+        margin: 20px 0;
+        padding: 32px;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
+        border-radius: 16px;
       }
 
       .faq-question {
-        font-weight: 600;
-        font-size: 18px;
-        margin-bottom: 12px;
-        color: #fff;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 16px;
+        color: #ffffff;
       }
 
       .faq-answer {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.85);
         line-height: 1.8;
+        font-size: 16px;
+      }
+
+      .faq-answer strong {
+        color: var(--color-primary-light);
+        font-weight: 600;
+      }
+
+      strong {
+        color: var(--color-primary-light);
+        font-weight: 600;
       }
     `, { raw: true });
 
-    // Hero Section Preview Template
+    // Hero Section Preview
     var HeroPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'hero']).toJS();
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, data.badge),
             h('h1', {},
               data.headline, ' ',
-              h('span', { className: 'highlight' }, data.headlineHighlight), ' ',
+              h('span', { className: 'gradient-text' }, data.headlineHighlight), ' ',
               data.headlineEnd
             ),
-            h('p', {},
+            h('p', { style: { fontSize: '20px', maxWidth: '700px', margin: '0 auto 32px' } },
               data.subheadline, ' ',
               h('strong', {}, data.avgMonthlyLow, '–', data.avgMonthlyHigh, '%'), ' per month for ',
               h('strong', {}, data.activeUsers, '+'), ' active users.'
             )
           ),
           h('div', { className: 'cta-buttons' },
-            h('a', { className: 'cta-button cta-primary', href: '#' }, data.ctaPrimary),
-            h('a', { className: 'cta-button cta-secondary', href: data.ctaSecondaryLink, target: '_blank' }, data.ctaSecondary)
+            h('button', { className: 'cta-button cta-primary' }, data.ctaPrimary),
+            h('a', { className: 'cta-button cta-secondary', href: data.ctaSecondaryLink }, data.ctaSecondary)
           ),
           h('div', { className: 'trust-indicators' },
             data.trustIndicators && data.trustIndicators.map(function (indicator, i) {
               return h('div', { key: i, className: 'trust-item' }, indicator.text);
             })
           ),
-          h('div', { className: 'stats' },
-            h('div', { className: 'stat' },
+          h('div', { className: 'stats-grid' },
+            h('div', { className: 'stat-card' },
               h('div', { className: 'stat-value' }, data.totalReturn, '%'),
               h('div', { className: 'stat-label' }, 'Total Return')
             ),
-            h('div', { className: 'stat' },
+            h('div', { className: 'stat-card' },
               h('div', { className: 'stat-value' }, data.uptime, '%'),
               h('div', { className: 'stat-label' }, 'Uptime')
             ),
-            h('div', { className: 'stat' },
+            h('div', { className: 'stat-card' },
               h('div', { className: 'stat-value' }, data.activeUsers, '+'),
               h('div', { className: 'stat-label' }, 'Active Users')
             )
@@ -449,49 +623,52 @@
       }
     });
 
-    // Testimonials Section Preview Template
+    // Testimonials Preview
     var TestimonialsPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'testimonials']).toJS();
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, data.badge),
             h('h2', {},
               data.title, ' ',
-              h('span', { className: 'highlight' }, data.titleHighlight)
+              h('span', { className: 'gradient-text' }, data.titleHighlight)
             ),
-            h('p', {}, data.description)
+            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
           ),
-          h('p', { style: { textAlign: 'center', color: 'rgba(255,255,255,0.5)' } }, 
-            '(Testimonial images will display on the live site)')
+          h('p', { style: { textAlign: 'center', color: 'rgba(255,255,255,0.5)', marginTop: '40px' } },
+            '📸 Testimonial images will display on the live site'
+          )
         );
       }
     });
 
-    // Comparison Section Preview Template
+    // Comparison Section Preview
     var ComparisonPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'comparison']).toJS();
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, data.badge),
             h('h2', {},
               data.title, ' ',
-              h('span', { className: 'highlight' }, data.titleHighlight), ' ',
+              h('span', { className: 'gradient-text' }, data.titleHighlight), ' ',
               data.titleEnd, ' ',
-              h('span', { className: 'highlight-red' }, data.titleEndHighlight)
+              h('span', { className: 'red-text' }, data.titleEndHighlight)
             ),
-            h('p', {}, data.description)
+            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
           ),
           h('div', { className: 'comparison-grid' },
-            h('div', { className: 'comparison-card' },
-              h('h3', {},
-                'Trading With ',
-                h('span', { className: 'highlight' }, 'NQBlade')
+            h('div', { className: 'comparison-card positive' },
+              h('div', { className: 'comparison-title' },
+                h('h3', {},
+                  'Trading With ',
+                  h('span', { className: 'gradient-text' }, 'NQBlade')
+                )
               ),
               h('ul', { className: 'feature-list' },
                 data.withNQBlade && data.withNQBlade.map(function (feature, i) {
@@ -499,12 +676,14 @@
                 })
               )
             ),
-            h('div', { className: 'comparison-card' },
-              h('h3', {},
-                'Trading By ',
-                h('span', { className: 'highlight-red' }, 'Yourself')
+            h('div', { className: 'comparison-card negative' },
+              h('div', { className: 'comparison-title' },
+                h('h3', {},
+                  'Trading By ',
+                  h('span', { className: 'red-text' }, 'Yourself')
+                )
               ),
-              h('ul', { className: 'comparison-list negative' },
+              h('ul', { className: 'feature-list negative' },
                 data.withoutNQBlade && data.withoutNQBlade.map(function (feature, i) {
                   return h('li', { key: i }, feature);
                 })
@@ -515,35 +694,37 @@
       }
     });
 
-    // Unique Section Preview Template
+    // Unique Section Preview
     var UniquePreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'unique']).toJS();
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, data.badge),
             h('h2', {},
               data.title, ' ',
-              h('span', { className: 'highlight' }, data.titleHighlight), ' ',
+              h('span', { className: 'gradient-text' }, data.titleHighlight), ' ',
               data.titleEnd
             ),
-            h('p', {},
+            h('p', { style: { maxWidth: '900px', margin: '0 auto' } },
               data.description,
               h('br'),
               h('span', { style: { color: 'rgba(21,219,248,0.7)' } }, data.descriptionHighlight)
             )
           ),
-          h('div', { className: 'feature-grid' },
+          h('div', { className: 'feature-cards' },
             data.features && data.features.map(function (feature, i) {
               return h('div', { key: i, className: 'feature-card' },
+                h('div', { style: { marginBottom: '16px' } },
+                  h('div', { className: 'feature-stat' }, feature.stat),
+                  h('div', { className: 'feature-stat-label' }, feature.statLabel)
+                ),
                 h('div', { className: 'feature-icon' }, '⚡'),
-                h('div', { className: 'feature-stat' }, feature.stat),
                 h('h3', {}, feature.title),
-                h('p', { style: { fontSize: '14px', margin: '8px 0' } }, feature.description),
-                h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '8px' } }, 
-                  feature.statLabel
+                h('p', { style: { fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.8)' } },
+                  feature.description
                 )
               );
             })
@@ -552,20 +733,20 @@
       }
     });
 
-    // Timeline Section Preview Template
+    // Timeline Preview
     var TimelinePreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'timeline']).toJS();
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, data.badge),
             h('h2', {},
               data.title, ' ',
-              h('span', { className: 'highlight' }, data.titleHighlight)
+              h('span', { className: 'gradient-text' }, data.titleHighlight)
             ),
-            h('p', {}, data.description)
+            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.description)
           ),
           h('div', { className: 'timeline' },
             data.steps && data.steps.map(function (step, i) {
@@ -573,7 +754,7 @@
                 h('div', { className: 'timeline-number' }, step.number),
                 h('div', { className: 'timeline-content' },
                   h('h3', {}, step.title),
-                  h('p', {}, step.description)
+                  h('p', { style: { marginTop: '12px' } }, step.description)
                 )
               );
             })
@@ -582,62 +763,72 @@
       }
     });
 
-    // Pricing Section Preview Template
+    // Pricing Preview
     var PricingPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'pricing']).toJS();
         var plan = data.plan || {};
+        var savings = plan.originalPrice && plan.price ?
+          parseInt(plan.originalPrice.replace(/[^0-9]/g, '')) - parseInt(plan.price.replace(/[^0-9]/g, '')) : 150;
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('h2', {},
               data.title, ' ',
-              h('span', { className: 'highlight' }, 'NQBlade')
+              h('span', { className: 'gradient-text' }, 'NQBlade')
             ),
-            h('p', {}, data.subtitle)
+            h('p', { style: { maxWidth: '700px', margin: '0 auto' } }, data.subtitle)
           ),
           h('div', { className: 'pricing-card' },
-            h('h3', {}, plan.name),
-            h('div', {},
-              h('span', { className: 'original-price' }, plan.originalPrice),
-              h('span', { className: 'price' }, plan.price),
-              h('span', { className: 'save-badge' }, 'Save €150')
+            h('div', { className: 'price-header' },
+              h('h3', { style: { marginBottom: '24px' } }, plan.name),
+              h('div', { className: 'price-wrapper' },
+                h('span', { className: 'original-price' }, plan.originalPrice),
+                h('span', { className: 'price' }, plan.price),
+                h('span', { className: 'save-badge' }, 'Save €', savings)
+              ),
+              h('div', { className: 'period' }, plan.period),
+              h('p', { style: { fontSize: '16px', color: 'rgba(255,255,255,0.8)' } }, plan.description)
             ),
-            h('p', { style: { margin: '16px 0', color: 'rgba(255,255,255,0.7)' } }, plan.period),
-            h('p', {}, plan.description),
-            h('ul', { className: 'feature-list' },
+            h('div', { style: { marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' } },
+              h('h4', { style: { fontSize: '14px', textAlign: 'center' } }, "What's Included")
+            ),
+            h('ul', { className: 'pricing-features' },
               plan.features && plan.features.map(function (feature, i) {
                 return h('li', { key: i }, feature);
               })
             ),
-            h('div', { className: 'cta-buttons' },
-              h('a', { className: 'cta-button cta-primary', href: '#', style: { width: '100%', textAlign: 'center' } }, 
-                plan.ctaButton
-              )
+            h('div', { style: { marginTop: '32px' } },
+              h('button', {
+                className: 'cta-button cta-primary',
+                style: { width: '100%', padding: '20px' }
+              }, plan.ctaButton)
             ),
-            h('div', { style: { marginTop: '24px', padding: '20px', background: 'rgba(21,219,248,0.05)', borderRadius: '12px' } },
-              h('h4', { style: { margin: '0 0 8px 0' } }, plan.trialButton),
-              h('p', { style: { fontSize: '14px', margin: '0 0 12px 0' } }, plan.trialText),
-              h('a', { href: plan.trialLink, className: 'cta-button cta-secondary', style: { display: 'inline-block' } }, 
-                plan.trialButton
-              )
+            h('div', { className: 'trial-section' },
+              h('h4', {}, plan.trialButton),
+              h('p', { style: { fontSize: '14px', marginBottom: '16px' } }, plan.trialText),
+              h('a', {
+                href: plan.trialLink,
+                className: 'cta-button cta-secondary',
+                style: { display: 'inline-flex' }
+              }, plan.trialButton)
             )
           )
         );
       }
     });
 
-    // Footer Preview Template
+    // Footer Preview
     var FooterPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var data = entry.getIn(['data', 'footer']).toJS();
 
-        return h('div', { className: 'preview-container' },
-          h('div', { style: { textAlign: 'center', marginBottom: '32px' } },
-            h('h2', { className: 'highlight' }, 'NQBlade'),
-            h('p', {}, data.description)
+        return h('div', { className: 'preview-wrapper' },
+          h('div', { className: 'footer-content' },
+            h('h2', { className: 'gradient-text', style: { marginBottom: '16px' } }, 'NQBlade'),
+            h('p', { style: { maxWidth: '700px', margin: '0 auto', fontSize: '16px' } }, data.description)
           ),
           h('div', { className: 'footer-links' },
             h('div', { className: 'footer-section' },
@@ -669,37 +860,55 @@
                   );
                 })
               )
+            ),
+            h('div', { className: 'footer-section' },
+              h('h4', {}, 'Social'),
+              h('ul', {},
+                data.socialLinks && data.socialLinks.map(function (link, i) {
+                  return h('li', { key: i },
+                    h('a', { href: link.href, target: '_blank', rel: 'noopener noreferrer' }, link.label)
+                  );
+                })
+              )
             )
           ),
-          h('div', { style: { textAlign: 'center', marginTop: '32px', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' } },
-            h('p', { style: { fontSize: '14px' } }, data.copyright)
+          h('div', { className: 'footer-bottom' },
+            h('p', {}, data.copyright)
           )
         );
       }
     });
 
-    // FAQ Preview Template
+    // FAQ Preview
     var FAQPreview = createClass({
       render: function () {
         var entry = this.props.entry;
         var items = entry.getIn(['data', 'items']);
         var itemsArray = items ? items.toJS() : [];
 
-        return h('div', { className: 'preview-container' },
+        return h('div', { className: 'preview-wrapper' },
           h('div', { className: 'section-header' },
             h('div', { className: 'badge' }, 'FAQ'),
             h('h2', {},
               'Frequently Asked ',
-              h('span', { className: 'highlight' }, 'Questions')
+              h('span', { className: 'gradient-text' }, 'Questions')
+            ),
+            h('p', { style: { maxWidth: '700px', margin: '0 auto' } },
+              'Find answers to common questions about NQBlade'
             )
           ),
           h('div', {},
             itemsArray.map(function (item, i) {
               return h('div', { key: i, className: 'faq-item' },
                 h('div', { className: 'faq-question' }, item.question),
-                h('div', { 
+                h('div', {
                   className: 'faq-answer',
-                  dangerouslySetInnerHTML: { __html: item.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>') }
+                  dangerouslySetInnerHTML: {
+                    __html: item.answer
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n\n/g, '<br><br>')
+                      .replace(/\n/g, '<br>')
+                  }
                 })
               );
             })
