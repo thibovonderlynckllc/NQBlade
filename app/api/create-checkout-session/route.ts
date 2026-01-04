@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-12-15.clover',
-});
-
 const YOUR_DOMAIN = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 export async function POST(req: NextRequest) {
@@ -14,6 +10,11 @@ export async function POST(req: NextRequest) {
       console.error('STRIPE_SECRET_KEY is not set');
       return NextResponse.json({ error: 'Stripe secret key is not configured. Please set STRIPE_SECRET_KEY in your .env.local file.' }, { status: 500 });
     }
+
+    // Initialize Stripe only at runtime (not during build)
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-12-15.clover',
+    });
 
     // Check if Price ID is configured
     const priceId = process.env.STRIPE_PRICE_ID;
