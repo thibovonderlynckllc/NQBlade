@@ -70,7 +70,7 @@ export function Footer() {
                   Pricing
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a 
                   href="#performance" 
                   onClick={(e) => {
@@ -81,7 +81,7 @@ export function Footer() {
                 >
                   Live Performance
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a 
                   href="#testimonials" 

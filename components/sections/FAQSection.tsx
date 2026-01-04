@@ -18,7 +18,9 @@ interface FAQ {
 }
 
 const getFAQItems = (): FAQ[] => {
-  return faqData.sort((a, b) => a.order - b.order);
+  // Handle both old array format and new object format for backward compatibility
+  const items = Array.isArray(faqData) ? faqData : (faqData as any).items || [];
+  return items.sort((a: FAQ, b: FAQ) => a.order - b.order);
 };
 
 export function FAQSection() {
@@ -34,24 +36,24 @@ export function FAQSection() {
         <div className="max-w-3xl mx-auto">
           {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="text-center mb-12 md:mb-16"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="flex items-center justify-center gap-2 sm:gap-4 mb-4 md:mb-6"
             >
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: '5rem' }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.4, delay: 0.15 }}
                 className="h-[1px] bg-gradient-to-r from-transparent to-[var(--color-primary-light)]/50"
               />
               <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[var(--color-primary-light)]/20 bg-[var(--color-primary-light)]/5">
@@ -62,17 +64,17 @@ export function FAQSection() {
                 initial={{ width: 0 }}
                 whileInView={{ width: '5rem' }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.4, delay: 0.15 }}
                 className="h-[1px] bg-gradient-to-l from-transparent to-[var(--color-primary-light)]/50"
               />
             </motion.div>
 
             {/* Section Icon */}
             <motion.div
-              initial={{ opacity: 0, scale: 0, rotate: -180 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1, type: "spring", stiffness: 200 }}
+              transition={{ duration: 0.4, delay: 0.05, type: "spring", stiffness: 300, damping: 20 }}
               className="flex items-center justify-center w-16 h-16 rounded-2xl bg-[var(--color-primary-light)]/10 border border-[var(--color-primary-light)]/20 mb-6 mx-auto"
             >
               <HelpCircle className="h-8 w-8 text-[var(--color-primary-light)]" />
@@ -80,10 +82,10 @@ export function FAQSection() {
 
             {/* Section Title */}
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 tracking-tight font-bold"
             >
               <span className="block">Frequently</span>
@@ -98,13 +100,13 @@ export function FAQSection() {
             {faqItems.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1]
+                  duration: 0.3,
+                  delay: index * 0.03,
+                  ease: [0.25, 0.46, 0.45, 0.94]
                 }}
               >
                 <AccordionItem

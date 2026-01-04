@@ -7,7 +7,7 @@ import { ComparisonSection } from '@/components/sections/ComparisonSection';
 import { UniqueSection } from '@/components/sections/UniqueSection';
 import { TimelineSection } from '@/components/sections/TimelineSection';
 import { PricingSection } from '@/components/sections/PricingSection';
-import { PerformanceGraph } from '@/components/sections/PerformanceGraph';
+// import { PerformanceGraph } from '@/components/sections/PerformanceGraph';
 import { FAQSection } from '@/components/sections/FAQSection';
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
         <UniqueSection />
         <TimelineSection />
         <PricingSection />
-        <PerformanceGraph />
+        {/* <PerformanceGraph /> */}
         <FAQSection />
         <Footer />
       </div>

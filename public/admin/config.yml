@@ -1,0 +1,33 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: public/img
+public_folder: img
+
+# For local development/testing, use test-repo instead of git-gateway
+# backend:
+#   name: test-repo
+
+collections:
+  - name: 'faq'
+    label: 'FAQ'
+    files:
+      - label: 'FAQ Data'
+        name: 'faq'
+        file: 'data/faq.json'
+        format: 'json'
+        # Decap CMS requires the file to be an object, so we'll wrap the array
+        # The file structure will be: { "items": [...] }
+        fields:
+          - label: 'FAQ Items'
+            name: 'items'
+            widget: 'list'
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            summary: '{{question}}'
+            fields:
+              - { label: 'Question', name: 'question', widget: 'string', required: true }
+              - { label: 'Answer', name: 'answer', widget: 'markdown', required: true }
+              - { label: 'Order', name: 'order', widget: 'number', required: true, default: 0, value_type: 'int' }

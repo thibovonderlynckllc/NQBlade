@@ -52,6 +52,49 @@ export function Hero() {
   const avgMonthlyHigh = useCounter(12, 1800, 0);
   const activeUsers = useCounter(150, 2000, 0);
   const uptime = useCounter(99.9, 2000, 0);
+  
+  // Static equity data - represents 600% growth over 5 years
+  // TODO: To make this dynamic again, uncomment the useEffect below and remove this static data
+  const staticEquityData: EquityPoint[] = [
+    { date: '2019-01-01', equity: 0, balance: 0 },
+    { date: '2019-03-01', equity: 15, balance: 15 },
+    { date: '2019-06-01', equity: 35, balance: 35 },
+    { date: '2019-09-01', equity: 58, balance: 58 },
+    { date: '2019-12-01', equity: 82, balance: 82 },
+    { date: '2020-03-01', equity: 105, balance: 105 },
+    { date: '2020-06-01', equity: 128, balance: 128 },
+    { date: '2020-09-01', equity: 152, balance: 152 },
+    { date: '2020-12-01', equity: 178, balance: 178 },
+    { date: '2021-03-01', equity: 205, balance: 205 },
+    { date: '2021-06-01', equity: 235, balance: 235 },
+    { date: '2021-09-01', equity: 268, balance: 268 },
+    { date: '2021-12-01', equity: 302, balance: 302 },
+    { date: '2022-03-01', equity: 338, balance: 338 },
+    { date: '2022-06-01', equity: 375, balance: 375 },
+    { date: '2022-09-01', equity: 412, balance: 412 },
+    { date: '2022-12-01', equity: 450, balance: 450 },
+    { date: '2023-03-01', equity: 488, balance: 488 },
+    { date: '2023-06-01', equity: 525, balance: 525 },
+    { date: '2023-09-01', equity: 560, balance: 560 },
+    { date: '2023-12-01', equity: 590, balance: 590 },
+    { date: '2024-01-01', equity: 600, balance: 600 },
+  ];
+  
+  // Chart data state - starts empty, then loads all at once to trigger Recharts animation
+  const [equityData, setEquityData] = useState<EquityPoint[]>([]);
+
+  useEffect(() => {
+    // Set data after a very short delay to ensure chart is mounted, then Recharts will animate
+    const timer = setTimeout(() => {
+      setEquityData(staticEquityData);
+    }, 100); // Minimal delay to trigger Recharts animation
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // DYNAMIC DATA LOADING - Commented out for static mode
+  // To re-enable dynamic loading, uncomment this useEffect and remove the static equityData above
+  /*
   const [equityData, setEquityData] = useState<EquityPoint[]>([]);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
 
@@ -174,6 +217,7 @@ export function Hero() {
     
     loadAndProcessData();
   }, []);
+  */
 
   // Format date for display
   const formatDate = (dateStr: string) => {
@@ -354,46 +398,46 @@ export function Hero() {
 
                     {/* Performance Chart */}
                     <div className="relative h-48 bg-[var(--color-bg-dark)]/50 rounded-xl p-2 sm:p-4 border border-white/5">
-                      {isLoadingChart ? (
-                        <div className="flex items-center justify-center h-full">
-                          <div className="w-6 h-6 border-2 border-[var(--color-primary-light)] border-t-transparent rounded-full animate-spin"></div>
-                        </div>
-                      ) : equityData.length > 0 ? (
-                        <ResponsiveContainer width="100%" height="100%">
-                          <AreaChart data={equityData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                        <defs>
-                              <linearGradient id="heroEquityGradient" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#15DBF8" stopOpacity={0.4} />
-                                <stop offset="50%" stopColor="#15DBF8" stopOpacity={0.15} />
-                                <stop offset="95%" stopColor="#15DBF8" stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
-                            <CartesianGrid 
-                              strokeDasharray="3 3" 
-                              stroke="rgba(255, 255, 255, 0.05)" 
-                              vertical={false}
-                            />
-                            <Tooltip 
-                              content={<CustomTooltip />}
-                              cursor={{ stroke: 'rgba(21, 219, 248, 0.3)', strokeWidth: 1 }}
-                            />
-                            <Area
-                              type="monotone"
-                              dataKey="equity"
-                              stroke="#15DBF8"
-                              strokeWidth={2}
-                              fill="url(#heroEquityGradient)"
-                              dot={false}
-                              activeDot={{ 
-                                r: 4, 
-                                fill: '#15DBF8',
-                                stroke: '#0698C2',
-                                strokeWidth: 2
-                              }}
-                            />
-                          </AreaChart>
-                        </ResponsiveContainer>
-                      ) : null}
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart 
+                          data={equityData} 
+                          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                        >
+                      <defs>
+                            <linearGradient id="heroEquityGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#15DBF8" stopOpacity={0.4} />
+                              <stop offset="50%" stopColor="#15DBF8" stopOpacity={0.15} />
+                              <stop offset="95%" stopColor="#15DBF8" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                          <CartesianGrid 
+                            strokeDasharray="3 3" 
+                            stroke="rgba(255, 255, 255, 0.05)" 
+                            vertical={false}
+                          />
+                          <Tooltip 
+                            content={<CustomTooltip />}
+                            cursor={{ stroke: 'rgba(21, 219, 248, 0.3)', strokeWidth: 1 }}
+                          />
+                          <Area
+                            type="monotone"
+                            dataKey="equity"
+                            stroke="#15DBF8"
+                            strokeWidth={2}
+                            fill="url(#heroEquityGradient)"
+                            dot={false}
+                            isAnimationActive={true}
+                            animationDuration={1500}
+                            animationEasing="ease-out"
+                            activeDot={{ 
+                              r: 4, 
+                              fill: '#15DBF8',
+                              stroke: '#0698C2',
+                              strokeWidth: 2
+                            }}
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
                     </div>
 
                     {/* Key Metrics */}
