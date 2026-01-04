@@ -8,6 +8,7 @@ import contentData from '@/data/content.json';
 export function Footer() {
   const footerContent = contentData.footer;
   const currentYear = new Date().getFullYear();
+  const logoPath = footerContent.logo || '/logo.webp';
 
   const handleScrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -35,7 +36,7 @@ export function Footer() {
         <div className="text-center mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Image
-              src="/logo.webp"
+              src={logoPath}
               alt="NQBlade Logo"
               width={48}
               height={48}

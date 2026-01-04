@@ -23,7 +23,16 @@
     "badge": "Real Results",
     "title": "Trusted by",
     "titleHighlight": "150+ Traders",
-    "description": "See what our community of traders is saying about NQBlade"
+    "description": "See what our community of traders is saying about NQBlade",
+    "images": [
+      "/testimonials/1.PNG",
+      "/testimonials/2.PNG",
+      "/testimonials/3.PNG",
+      "/testimonials/4.PNG",
+      "/testimonials/5.PNG",
+      "/testimonials/6.PNG",
+      "/testimonials/7.PNG"
+    ]
   },
   "comparison": {
     "badge": "The Choice",
@@ -165,6 +174,7 @@
     "socialLinks": [
       { "label": "Telegram", "href": "https://t.me/+gJnsM_0FpetjOTFi" }
     ],
-    "copyright": "© 2024 NQBlade. All rights reserved."
+    "copyright": "© 2024 NQBlade. All rights reserved.",
+    "logo": "/logo.webp"
   }
 }

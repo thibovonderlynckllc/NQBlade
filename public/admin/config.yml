@@ -78,6 +78,13 @@ collections:
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Title Highlight', name: 'titleHighlight', widget: 'string' }
               - { label: 'Description', name: 'description', widget: 'text' }
+              - label: 'Testimonial Images'
+                name: 'images'
+                widget: 'list'
+                allow_add: true
+                allow_delete: true
+                fields:
+                  - { label: 'Image', name: 'image', widget: 'image', required: false }
 
   - name: 'comparison'
     label: 'The Choice Section'
@@ -158,7 +165,7 @@ collections:
                   - { label: 'Number', name: 'number', widget: 'string' }
                   - { label: 'Title', name: 'title', widget: 'string' }
                   - { label: 'Description', name: 'description', widget: 'text' }
-                  - { label: 'Image URL', name: 'imageUrl', widget: 'image' }
+                  - { label: 'Image', name: 'imageUrl', widget: 'image', required: false, allow_multiple: false }
 
   - name: 'pricing'
     label: 'Pricing Section'
@@ -205,6 +212,7 @@ collections:
             widget: 'object'
             fields:
               - { label: 'Description', name: 'description', widget: 'text' }
+              - { label: 'Logo', name: 'logo', widget: 'image', required: false, allow_multiple: false }
               - label: 'Quick Links'
                 name: 'quickLinks'
                 widget: 'list'

@@ -8,18 +8,24 @@ import contentData from '@/data/content.json';
 const DESKTOP_ITEMS_PER_PAGE = 4;
 const MOBILE_ITEMS_PER_PAGE = 1;
 
-const testimonialImages = [
-  "/testimonials/1.PNG",
-  "/testimonials/2.PNG",
-  "/testimonials/3.PNG",
-  "/testimonials/4.PNG",
-  "/testimonials/5.PNG",
-  "/testimonials/6.PNG",
-  "/testimonials/7.PNG",
-];
-
 export function TestimonialsSection() {
   const testimonialsContent = contentData.testimonials;
+  // Use images from CMS, fallback to default if not set
+  // CMS returns array of image objects with image property
+  const testimonialImages = testimonialsContent.images && testimonialsContent.images.length > 0
+    ? testimonialsContent.images.map((img: string | { image?: string }) => {
+        const path = typeof img === 'string' ? img : (img.image || '');
+        return path.startsWith('/') ? path : `/${path}`;
+      })
+    : [
+        "/testimonials/1.PNG",
+        "/testimonials/2.PNG",
+        "/testimonials/3.PNG",
+        "/testimonials/4.PNG",
+        "/testimonials/5.PNG",
+        "/testimonials/6.PNG",
+        "/testimonials/7.PNG",
+      ];
   const [pageIndex, setPageIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(MOBILE_ITEMS_PER_PAGE);
 
