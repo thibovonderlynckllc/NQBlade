@@ -33,14 +33,15 @@ collections:
   - name: 'content'
     label: 'Site Content'
     files:
-      - label: 'Hero Section'
-        name: 'hero'
+      - label: 'Main Content'
+        name: 'main_content'
         file: 'data/content.json'
         format: 'json'
         fields:
           - label: 'Hero Section'
             name: 'hero'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Badge Text', name: 'badge', widget: 'string' }
               - { label: 'Headline Start', name: 'headline', widget: 'string' }
@@ -62,28 +63,20 @@ collections:
                   - { label: 'Icon', name: 'icon', widget: 'string' }
                   - { label: 'Text', name: 'text', widget: 'string' }
 
-      - label: 'Testimonials Section'
-        name: 'testimonials'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Testimonials Section'
             name: 'testimonials'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Badge Text', name: 'badge', widget: 'string' }
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Title Highlight', name: 'titleHighlight', widget: 'string' }
               - { label: 'Description', name: 'description', widget: 'text' }
 
-      - label: 'Comparison Section'
-        name: 'comparison'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Comparison Section'
             name: 'comparison'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Badge Text', name: 'badge', widget: 'string' }
               - { label: 'Title', name: 'title', widget: 'string' }
@@ -100,14 +93,10 @@ collections:
                 widget: 'list'
                 field: { label: 'Feature', name: 'feature', widget: 'string' }
 
-      - label: 'Unique Section'
-        name: 'unique'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Unique Section'
             name: 'unique'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Badge Text', name: 'badge', widget: 'string' }
               - { label: 'Title', name: 'title', widget: 'string' }
@@ -126,18 +115,15 @@ collections:
                   - { label: 'Stat Label', name: 'statLabel', widget: 'string' }
                   - { label: 'Color', name: 'color', widget: 'string' }
 
-      - label: 'Timeline Section'
-        name: 'timeline'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Timeline Section'
             name: 'timeline'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Badge Text', name: 'badge', widget: 'string' }
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Title Highlight', name: 'titleHighlight', widget: 'string' }
+              - { label: 'Description', name: 'description', widget: 'text' }
               - label: 'Steps'
                 name: 'steps'
                 widget: 'list'
@@ -147,14 +133,10 @@ collections:
                   - { label: 'Description', name: 'description', widget: 'text' }
                   - { label: 'Image URL', name: 'imageUrl', widget: 'image' }
 
-      - label: 'Pricing Section'
-        name: 'pricing'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Pricing Section'
             name: 'pricing'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Subtitle', name: 'subtitle', widget: 'text' }
@@ -176,14 +158,10 @@ collections:
                   - { label: 'Trial Link', name: 'trialLink', widget: 'string' }
                   - { label: 'Trial Text', name: 'trialText', widget: 'text' }
 
-      - label: 'Footer'
-        name: 'footer'
-        file: 'data/content.json'
-        format: 'json'
-        fields:
           - label: 'Footer'
             name: 'footer'
             widget: 'object'
+            collapsed: false
             fields:
               - { label: 'Description', name: 'description', widget: 'text' }
               - label: 'Quick Links'
