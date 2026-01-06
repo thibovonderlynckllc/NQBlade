@@ -1,84 +1,84 @@
 {
   "items": [
-    {
-      "question": "Is the bot fully automated?",
-      "answer": "**Yes.**\n\nOnce installed, the bot can trade completely automatically.\n\nYou can stop, pause or remove it at any time.",
-      "order": 1
-    },
-    {
-      "question": "Which markets does the bot trade?",
-      "answer": "The bot trades the **Nasdaq CFD**\n\nIt is optimized for liquid markets with clean price action.",
-      "order": 2
-    },
-    {
-      "question": "Does the bot guarantee profits?",
-      "answer": "**No.**\n\nThere are no guaranteed profits in trading.\n\nThe bot focuses on risk control, consistency and execution discipline, not on unrealistic returns.",
-      "order": 3
-    },
-    {
-      "question": "Can I lose money using the bot?",
-      "answer": "**Yes.**\n\nTrading always involves risk.\n\nWhile the bot includes risk management logic, losses are still possible depending on market conditions and settings.",
-      "order": 4
-    },
-    {
-      "question": "How much capital do I need?",
-      "answer": "This depends on your risk settings and broker requirements.\n\nMany users start with **500-1000$**, but the bot can also be used on larger accounts.",
-      "order": 5
-    },
-    {
-      "question": "Do I need trading experience?",
-      "answer": "Basic platform knowledge is helpful but not required.\n\nA step-by-step setup guide is included.",
-      "order": 6
-    },
-    {
-      "question": "Which platform does the bot run on?",
-      "answer": "The bot runs on **MT5**.\n\nYou will need a compatible trading account.",
-      "order": 7
-    },
-    {
-      "question": "Can I use the bot on prop firm accounts?",
-      "answer": "**Yes**, if configured correctly.\n\nYou are responsible for ensuring the bot complies with your prop firm's rules.",
-      "order": 8
-    },
-    {
-      "question": "Is this a signal service or copy trading?",
-      "answer": "**No.**\n\nYou receive the trading bot software, which trades directly on your own account.\n\nYou stay in full control of your capital at all times.",
-      "order": 9
-    },
-    {
-      "question": "Is this a one-time payment or a subscription?",
-      "answer": "This is a **one-time payment**.\n\nThere are no monthly fees.",
-      "order": 10
-    },
-    {
-      "question": "Will I receive updates?",
-      "answer": "**Yes.**\n\nBot updates and improvements are provided when released.",
-      "order": 11
-    },
-    {
-      "question": "Why use a bot instead of manual trading?",
-      "answer": "→ No emotions, no overtrading, consistent execution.",
-      "order": 12
-    },
-    {
-      "question": "Can I customize risk settings?",
-      "answer": "→ **Yes**, risk parameters can be adjusted.",
-      "order": 13
-    },
-    {
-      "question": "Why is the free trial only available via Vantage?",
-      "answer": "The free trial is provided through our broker partnership, which allows us to offer full bot access without upfront costs.",
-      "order": 14
-    },
-    {
-      "question": "Is there a free trial?",
-      "answer": "**Yes.**\n\nThe free trial is available exclusively through our partner broker Vantage.",
-      "order": 15
-    },
-    {
-      "question": "How do I access the free trial?",
-      "answer": "To start the free trial, you need to register with Vantage using our partner link and connect the bot to your trading account.",
-      "order": 16
-    }
-  ]
+  {
+    "question": "Is the bot fully automated?",
+    "answer": "**Yes.**\n\nOnce installed, the bot can trade completely automatically.\n\nYou can stop, pause or remove it at any time.",
+    "order": 1
+  },
+  {
+    "question": "Which markets does the bot trade?",
+    "answer": "The bot trades the **Nasdaq CFD**\n\nIt is optimized for liquid markets with clean price action.",
+    "order": 2
+  },
+  {
+    "question": "Does the bot guarantee profits?",
+    "answer": "**No.**\n\nThere are no guaranteed profits in trading.\n\nThe bot focuses on risk control, consistency and execution discipline, not on unrealistic returns.",
+    "order": 3
+  },
+  {
+    "question": "Can I lose money using the bot?",
+    "answer": "**Yes.**\n\nTrading always involves risk.\n\nWhile the bot includes risk management logic, losses are still possible depending on market conditions and settings.",
+    "order": 4
+  },
+  {
+    "question": "How much capital do I need?",
+    "answer": "This depends on your risk settings and broker requirements.\n\nMany users start with **500-1000$**, but the bot can also be used on larger accounts.",
+    "order": 5
+  },
+  {
+    "question": "Do I need trading experience?",
+    "answer": "Basic platform knowledge is helpful but not required.\n\nA step-by-step setup guide is included.",
+    "order": 6
+  },
+  {
+    "question": "Which platform does the bot run on?",
+    "answer": "The bot runs on **MT5**.\n\nYou will need a compatible trading account.",
+    "order": 7
+  },
+  {
+    "question": "Can I use the bot on prop firm accounts?",
+    "answer": "**Yes**, if configured correctly.\n\nYou are responsible for ensuring the bot complies with your prop firm's rules.",
+    "order": 8
+  },
+  {
+    "question": "Is this a signal service or copy trading?",
+    "answer": "**No.**\n\nYou receive the trading bot software, which trades directly on your own account.\n\nYou stay in full control of your capital at all times.",
+    "order": 9
+  },
+  {
+    "question": "Is this a one-time payment or a subscription?",
+    "answer": "This is a **one-time payment**.\n\nThere are no monthly fees.",
+    "order": 10
+  },
+  {
+    "question": "Will I receive updates?",
+    "answer": "**Yes.**\n\nBot updates and improvements are provided when released.",
+    "order": 11
+  },
+  {
+    "question": "Why use a bot instead of manual trading?",
+    "answer": "→ No emotions, no overtrading, consistent execution.",
+    "order": 12
+  },
+  {
+    "question": "Can I customize risk settings?",
+    "answer": "→ **Yes**, risk parameters can be adjusted.",
+    "order": 13
+  },
+  {
+    "question": "Why is the free trial only available via Vantage?",
+    "answer": "The free trial is provided through our broker partnership, which allows us to offer full bot access without upfront costs.",
+    "order": 14
+  },
+  {
+    "question": "Is there a free trial?",
+    "answer": "**Yes.**\n\nThe free trial is available exclusively through our partner broker Vantage.",
+    "order": 15
+  },
+  {
+    "question": "How do I access the free trial?",
+    "answer": "To start the free trial, you need to register with Vantage using our partner link and connect the bot to your trading account.",
+    "order": 16
+  }
+]
 }

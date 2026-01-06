@@ -372,7 +372,7 @@ export function Hero() {
                   <div key={index} className="flex items-center gap-2 text-white/90">
                     <IconComponent className="w-5 h-5 text-[var(--color-primary-light)]" />
                     <span>{indicator.text}</span>
-                  </div>
+              </div>
                 );
               })}
             </div>
@@ -410,13 +410,13 @@ export function Hero() {
                           data={equityData} 
                           margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
                         >
-                      <defs>
+                        <defs>
                             <linearGradient id="heroEquityGradient" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="5%" stopColor="#15DBF8" stopOpacity={0.4} />
                               <stop offset="50%" stopColor="#15DBF8" stopOpacity={0.15} />
                               <stop offset="95%" stopColor="#15DBF8" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
+                          </linearGradient>
+                        </defs>
                           <CartesianGrid 
                             strokeDasharray="3 3" 
                             stroke="rgba(255, 255, 255, 0.05)" 

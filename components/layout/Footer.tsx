@@ -74,8 +74,8 @@ export function Footer() {
                     className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
                   >
                     {link.label}
-                  </a>
-                </li>
+                </a>
+              </li>
               ))}
             </ul>
           </div>
@@ -97,8 +97,8 @@ export function Footer() {
                     className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
                   >
                     {link.label}
-                  </a>
-                </li>
+                </a>
+              </li>
               ))}
             </ul>
           </div>
@@ -122,8 +122,8 @@ export function Footer() {
                     className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
                   >
                     {link.label}
-                  </a>
-                </li>
+                </a>
+              </li>
               ))}
             </ul>
           </div>

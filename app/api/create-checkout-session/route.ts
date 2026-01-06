@@ -23,6 +23,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Stripe Price ID is not configured. Please set STRIPE_PRICE_ID in your .env.local file.' }, { status: 500 });
     }
 
+    // Fetch the price to determine if it's recurring or one-time
+    const price = await stripe.prices.retrieve(priceId);
+    const isRecurring = price.type === 'recurring';
+
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -30,7 +34,7 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: isRecurring ? 'subscription' : 'payment',
       success_url: `${YOUR_DOMAIN}/success`,
       cancel_url: `${YOUR_DOMAIN}/cancel`,
     });
