@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const YOUR_DOMAIN = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+// Helper function to ensure URL doesn't have trailing slash
+const getBaseUrl = () => {
+  const url = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  return url.replace(/\/$/, ''); // Remove trailing slash if present
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,8 +39,8 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: isRecurring ? 'subscription' : 'payment',
-      success_url: `${YOUR_DOMAIN}/success`,
-      cancel_url: `${YOUR_DOMAIN}/cancel`,
+      success_url: `${getBaseUrl()}/success`,
+      cancel_url: `${getBaseUrl()}/cancel`,
     });
 
     if (!session.url) {
