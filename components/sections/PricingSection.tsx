@@ -7,8 +7,8 @@ import contentData from '@/data/content.json';
 
 export function PricingSection() {
   const pricingContent = contentData.pricing;
-  const plan = pricingContent.plan;
-  const [isCardHovered, setIsCardHovered] = useState(false);
+  const plans = pricingContent.plans || [];
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
 
   return (
     <section id="pricing" className="relative flex items-center justify-center py-12 md:py-16 lg:py-16 overflow-hidden">
@@ -32,41 +32,6 @@ export function PricingSection() {
       />
       {/* Grid Pattern Background - On top of gradients */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(6,152,194,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(6,152,194,0.06)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" style={{ zIndex: 1 }} />
-      
-
-      {/* Enhanced dotted pattern that glows on hover - only around card with ripple effect */}
-      <div 
-        className="absolute pointer-events-none transition-opacity duration-500"
-        style={{
-          zIndex: 2,
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '900px',
-          height: '800px',
-          backgroundImage: 'radial-gradient(circle, rgba(21, 219, 248, 0.7) 2px, transparent 2px)',
-          backgroundSize: '20px 20px',
-          maskImage: 'radial-gradient(ellipse 800px 700px at center, black 0%, rgba(0, 0, 0, 0.8) 30%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 70%, transparent 85%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 800px 700px at center, black 0%, rgba(0, 0, 0, 0.8) 30%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 70%, transparent 85%)',
-          opacity: isCardHovered ? 0.5 : 0,
-        }}
-      />
-
-      {/* Glow overlay that brightens dots around card on hover - ripple effect */}
-      <div 
-        className="absolute pointer-events-none transition-opacity duration-500"
-        style={{
-          zIndex: 2,
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '900px',
-          height: '800px',
-          background: 'radial-gradient(ellipse 800px 700px at center, rgba(21, 219, 248, 0.2) 0%, rgba(21, 219, 248, 0.15) 25%, rgba(6, 152, 194, 0.1) 45%, rgba(6, 152, 194, 0.05) 60%, rgba(21, 219, 248, 0.02) 75%, transparent 90%)',
-          filter: 'blur(60px)',
-          opacity: isCardHovered ? 0.7 : 0,
-        }}
-      />
 
       <div className="relative z-10 container px-4 sm:px-6">
         {/* Section Header */}
@@ -91,9 +56,17 @@ export function PricingSection() {
           </p>
         </div>
 
-        {/* Pricing Card */}
-        <div className="max-w-3xl mx-auto">
-          <PricingCard plan={plan} onHoverChange={setIsCardHovered} />
+        {/* Pricing Cards - Two columns with equal height */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto mb-12 md:mb-16 items-stretch">
+          {plans.map((plan, index) => (
+            <PricingCard
+              key={index}
+              plan={plan}
+              index={index}
+              isHovered={hoveredCardIndex === index}
+              onHoverChange={(hovered) => setHoveredCardIndex(hovered ? index : null)}
+            />
+          ))}
         </div>
 
         {/* Free Trial Section */}
@@ -102,7 +75,7 @@ export function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-3xl mx-auto mt-12 md:mt-16"
+          className="max-w-6xl mx-auto"
         >
           <div className="relative rounded-2xl p-6 lg:p-8 border border-[var(--color-primary)]/30 bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary-light)]/5 backdrop-blur-sm">
             <div className="flex items-start gap-4">
@@ -115,18 +88,18 @@ export function PricingSection() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                  {plan.trialButton}
+                  {pricingContent.trialButton}
                 </h3>
                 <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-4">
-                  {plan.trialText}
+                  {pricingContent.trialText}
                 </p>
                 <a
-                  href={plan.trialLink}
+                  href={pricingContent.trialLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] font-medium text-sm sm:text-base transition-colors"
                 >
-                  {plan.trialButton}
+                  {pricingContent.trialButton}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -147,19 +120,19 @@ interface PricingCardProps {
     originalPrice: string;
     period: string;
     description: string;
+    priceId: string;
+    popular?: boolean;
     features: string[];
     ctaButton: string;
-    trialButton: string;
-    trialLink: string;
-    trialText: string;
   };
+  index: number;
+  isHovered: boolean;
   onHoverChange?: (isHovered: boolean) => void;
 }
 
-function PricingCard({ plan, onHoverChange }: PricingCardProps) {
+function PricingCard({ plan, index, isHovered, onHoverChange }: PricingCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -174,11 +147,23 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
   const handleCheckout = async () => {
     setIsLoading(true);
     try {
+      // Determine planType based on period
+      const planType = plan.period === 'one-time' ? 'lifetime' : 'subscription';
+      
+      // Use plan.priceId if available, otherwise send planType for env var lookup
+      const requestBody: { priceId?: string; planType?: string } = {};
+      if (plan.priceId && plan.priceId.trim() !== '') {
+        requestBody.priceId = plan.priceId;
+      } else {
+        requestBody.planType = planType;
+      }
+      
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
@@ -209,19 +194,56 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
       className="relative group"
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => {
-        setIsHovered(true);
-        onHoverChange?.(true);
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        onHoverChange?.(false);
-      }}
+      onMouseEnter={() => onHoverChange?.(true)}
+      onMouseLeave={() => onHoverChange?.(false)}
     >
+      {/* Popular Badge */}
+      {plan.popular && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+          <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] text-white text-xs sm:text-sm font-bold shadow-lg">
+            Most Popular
+          </div>
+        </div>
+      )}
+
+      {/* Enhanced dotted pattern that glows on hover - only around card with ripple effect */}
+      <div 
+        className="absolute pointer-events-none transition-opacity duration-500"
+        style={{
+          zIndex: 0,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '900px',
+          height: '800px',
+          backgroundImage: 'radial-gradient(circle, rgba(21, 219, 248, 0.7) 2px, transparent 2px)',
+          backgroundSize: '20px 20px',
+          maskImage: 'radial-gradient(ellipse 600px 500px at center, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.3) 55%, rgba(0, 0, 0, 0.7) 58%, black 60%, rgba(0, 0, 0, 0.6) 62%, rgba(0, 0, 0, 0.2) 65%, transparent 68%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 600px 500px at center, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.3) 55%, rgba(0, 0, 0, 0.7) 58%, black 60%, rgba(0, 0, 0, 0.6) 62%, rgba(0, 0, 0, 0.2) 65%, transparent 68%)',
+          opacity: isHovered ? 0.5 : 0,
+        }}
+      />
+
+      {/* Glow overlay that brightens dots around card on hover - ripple effect */}
+      <div 
+        className="absolute pointer-events-none transition-opacity duration-500"
+        style={{
+          zIndex: 0,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '900px',
+          height: '800px',
+          background: 'radial-gradient(ellipse 800px 700px at center, rgba(21, 219, 248, 0.2) 0%, rgba(21, 219, 248, 0.15) 25%, rgba(6, 152, 194, 0.1) 45%, rgba(6, 152, 194, 0.05) 60%, rgba(21, 219, 248, 0.02) 75%, transparent 90%)',
+          filter: 'blur(60px)',
+          opacity: isHovered ? 0.7 : 0,
+        }}
+      />
+
       {/* Glow effect that follows mouse */}
       {isHovered && (
         <div
@@ -236,86 +258,78 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
       )}
 
       {/* Outer glow */}
-      <div className="absolute -inset-[1px] bg-gradient-to-br from-[var(--color-primary-light)]/0 via-[var(--color-primary)]/20 to-[var(--color-primary-light)]/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" style={{ zIndex: 0 }} />
+      <div className={`absolute -inset-[1px] bg-gradient-to-br from-[var(--color-primary-light)]/0 via-[var(--color-primary)]/20 to-[var(--color-primary-light)]/0 rounded-2xl ${isHovered ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 blur-sm`} style={{ zIndex: 0 }} />
       
       {/* Card Container */}
-      <div className="relative h-full rounded-2xl border border-[var(--color-primary)]/20 bg-gradient-to-br from-[var(--color-bg-dark)]/90 via-[var(--color-bg-dark)]/70 to-[var(--color-bg-dark)]/90 backdrop-blur-xl overflow-hidden group-hover:border-[var(--color-primary-light)]/40 transition-all duration-500" style={{ zIndex: 1 }}>
+      <div className={`relative h-full flex flex-col rounded-2xl border ${plan.popular ? 'border-[var(--color-primary-light)]/40' : 'border-[var(--color-primary)]/20'} bg-gradient-to-br from-[var(--color-bg-dark)]/90 via-[var(--color-bg-dark)]/70 to-[var(--color-bg-dark)]/90 backdrop-blur-xl overflow-hidden ${isHovered ? 'border-[var(--color-primary-light)]/40' : ''} transition-all duration-500`} style={{ zIndex: 1 }}>
         {/* Animated grid overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(21,219,248,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(21,219,248,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className={`absolute inset-0 bg-[linear-gradient(rgba(21,219,248,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(21,219,248,0.02)_1px,transparent_1px)] bg-[size:20px_20px] ${isHovered ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} />
         
         {/* Top gradient accent */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-primary-light)]/50 to-transparent ${isHovered ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`} />
         
-        {/* Card Content */}
-        <div className="relative p-8 lg:p-12">
-          {/* Price Badge */}
-          <div className="flex items-center justify-center mb-8">
-            <div className="relative">
+        {/* Card Content - Flex column to push button to bottom */}
+        <div className="relative p-6 lg:p-8 flex flex-col flex-grow">
+          {/* Price Badge - Fixed height to ensure alignment */}
+          <div className="flex items-center justify-center mb-6 min-h-[120px]">
+            <div className="relative w-full">
               <div className="text-center">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <span className="text-base sm:text-lg md:text-lg font-medium text-white/90 line-through uppercase">
-                    {plan.originalPrice}
-                  </span>
-                  <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-sm sm:text-base md:text-lg font-bold group-hover:from-[var(--color-primary)]/30 group-hover:to-[var(--color-primary-light)]/30 transition-all duration-300">
-                    Save 30%
-                  </span>
+                {/* Always reserve space for originalPrice, even if not present */}
+                <div className="flex items-center justify-center gap-3 mb-2 min-h-[28px]">
+                  {plan.originalPrice && (
+                    <>
+                      <span className="text-sm sm:text-base font-medium text-white/90 line-through uppercase">
+                        {plan.originalPrice}
+                      </span>
+                      <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-xs sm:text-sm font-bold">
+                        Save 30%
+                      </span>
+                    </>
+                  )}
                 </div>
-                <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300">
+                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-2">
                   {plan.price}
                 </div>
-                <div className="text-white/90 uppercase tracking-wider group-hover:text-white/90 transition-colors duration-300">
+                <div className="text-white/90 uppercase tracking-wider text-sm sm:text-base">
                   {plan.period}
                 </div>
-              </div>  
-              {/* Decorative lines */}
-              <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-r from-transparent to-[var(--color-primary)]/30 hidden lg:block group-hover:to-[var(--color-primary-light)]/50 transition-colors duration-300" />
-              <div className="absolute -right-20 top-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-l from-transparent to-[var(--color-primary)]/30 hidden lg:block group-hover:to-[var(--color-primary-light)]/50 transition-colors duration-300" />
+              </div>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-white/90 text-sm sm:text-base md:text-base lg:text-lg text-center mb-10 leading-relaxed max-w-xl mx-auto group-hover:text-white transition-colors duration-300">
+          <p className="text-white/90 text-sm sm:text-base text-center mb-6 leading-relaxed min-h-[48px] flex items-center justify-center">
             {plan.description}
           </p>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 mb-10">
-            <div className="flex-1 border-t border-white/10 group-hover:border-[var(--color-primary-light)]/30 transition-colors duration-300"></div>
-            <span className="text-xs text-white/90 uppercase tracking-wider group-hover:text-[var(--color-primary-light)]/70 transition-colors duration-300">What's Included</span>
-            <div className="flex-1 border-t border-white/10 group-hover:border-[var(--color-primary-light)]/30 transition-colors duration-300"></div>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex-1 border-t border-white/10"></div>
+            <span className="text-xs text-white/90 uppercase tracking-wider">What's Included</span>
+            <div className="flex-1 border-t border-white/10"></div>
           </div>
 
-          {/* Features - 2 columns */}
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-10">
+          {/* Features - Single column for smaller cards - Flex grow to push button down */}
+          <ul className="space-y-3 mb-8 flex-grow">
             {plan.features.map((feature, i) => (
-              <li key={i} className="flex items-start gap-3 group/item">
+              <li key={i} className="flex items-start gap-3">
                 <div className="mt-1 flex-shrink-0">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center border border-[var(--color-primary)]/30 group-hover/item:border-[var(--color-primary-light)]/60 group-hover/item:bg-[var(--color-primary-light)]/10 transition-all duration-300">
-                    <Check className="w-3 h-3 text-[var(--color-primary-light)] group-hover/item:scale-110 transition-transform duration-300" strokeWidth={3} />
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center border border-[var(--color-primary)]/30 bg-[var(--color-primary-light)]/10">
+                    <Check className="w-3 h-3 text-[var(--color-primary-light)]" strokeWidth={3} />
                   </div>
                 </div>
-                <span className="text-white/90 text-sm md:text-base leading-relaxed group-hover/item:text-white transition-colors duration-300">
+                <span className="text-white/90 text-sm leading-relaxed">
                   {feature}
                 </span>
               </li>
             ))}
           </ul>
 
-          {/* Bottom accent elements */}
-          <div className="mb-10 pt-4 border-t border-[var(--color-primary)]/10 group-hover:border-[var(--color-primary-light)]/20 transition-colors duration-300">
-            <div className="flex items-center gap-2">
-              <div className="flex-1 h-1 bg-gradient-to-r from-[var(--color-primary)]/20 via-[var(--color-primary-light)]/40 to-transparent rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-[var(--color-primary-light)] to-[var(--color-primary)] w-0 group-hover:w-full transition-all duration-1000 ease-out" />
-              </div>
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-light)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </div>
-
-          {/* CTA Button */}
+          {/* CTA Button - Always at bottom */}
           <button 
             onClick={handleCheckout}
             disabled={isLoading}
-            className="shiny-cta w-full !py-4 !px-8 !text-base lg:!text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="shiny-cta w-full !py-3 !px-6 !text-sm sm:!text-base disabled:opacity-50 disabled:cursor-not-allowed mt-auto"
           >
             <span>{isLoading ? 'Loading...' : plan.ctaButton}</span>
           </button>
@@ -331,4 +345,3 @@ function PricingCard({ plan, onHoverChange }: PricingCardProps) {
     </motion.div>
   );
 }
-

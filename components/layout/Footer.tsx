@@ -132,21 +132,16 @@ export function Footer() {
           <div>
             <h4 className="text-white text-sm sm:text-base md:text-base font-semibold mb-4 uppercase tracking-wider">Legal</h4>
             <ul className="space-y-1">
-              <li>
-                <a href="#privacy" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#terms" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#refund" className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors">
-                  Refund Policy
-                </a>
-              </li>
+              {footerContent.legalLinks.map((link, index) => (
+                <li key={index}>
+                  <Link 
+                    href={link.href}
+                    className="text-white/90 text-xs sm:text-sm md:text-sm hover:text-[var(--color-primary-light)] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

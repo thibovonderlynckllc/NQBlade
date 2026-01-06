@@ -96,11 +96,7 @@ function TimelineStep({ step, index, isLast }: { step: TimelineStep; index: numb
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-white/90 leading-relaxed max-w-md text-sm sm:text-base md:text-base"
-          style={{
-            marginLeft: isEven ? 'auto' : '0',
-            marginRight: isEven ? '0' : 'auto'
-          }}
+          className={`text-white/90 leading-relaxed max-w-md text-sm sm:text-base md:text-base text-left ${isEven ? 'lg:text-right lg:ml-auto lg:mr-0' : 'lg:text-left lg:ml-0 lg:mr-auto'}`}
         >
           {step.description}
         </motion.p>

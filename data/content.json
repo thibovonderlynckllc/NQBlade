@@ -126,30 +126,56 @@
   },
   "pricing": {
     "title": "Get NQBlade",
-    "subtitle": "One-time purchase. Lifetime access. Start trading today.",
-    "plan": {
-      "name": "NQBlade EA",
-      "price": "€349",
-      "originalPrice": "€499",
-      "period": "one-time",
-      "description": "Get lifetime access to our proven NQ Futures trading algorithm",
-      "features": [
-        "Full Algorithm Access",
-        "Unlimited Trading Accounts",
-        "24/7 Automated Trading",
-        "Lifetime Updates",
-        "Priority Support",
-        "Performance Dashboard",
-        "Advanced Analytics",
-        "Custom Risk Settings",
-        "Installation Guide",
-        "Trading Community Access"
-      ],
-      "ctaButton": "Buy NQBlade Now",
-      "trialButton": "Get Free Trial",
-      "trialLink": "https://t.me/NQBladeBot",
-      "trialText": "Try NQBlade risk-free with our partner broker"
-    }
+    "subtitle": "Choose the plan that works best for you. Start trading today.",
+    "plans": [
+      {
+        "name": "Lifetime Access",
+        "price": "€349",
+        "originalPrice": "€499",
+        "period": "one-time",
+        "description": "Get lifetime access to our proven NQ Futures trading algorithm",
+        "priceId": "",
+        "popular": true,
+        "features": [
+          "Full Algorithm Access",
+          "Unlimited Trading Accounts",
+          "24/7 Automated Trading",
+          "Lifetime Updates",
+          "Priority Support",
+          "Performance Dashboard",
+          "Advanced Analytics",
+          "Custom Risk Settings",
+          "Installation Guide",
+          "Trading Community Access"
+        ],
+        "ctaButton": "Buy Lifetime Access"
+      },
+      {
+        "name": "Monthly Subscription",
+        "price": "€129",
+        "originalPrice": "",
+        "period": "per month",
+        "description": "Flexible monthly subscription with full access to all features",
+        "priceId": "",
+        "popular": false,
+        "features": [
+          "Full Algorithm Access",
+          "Unlimited Trading Accounts",
+          "24/7 Automated Trading",
+          "Monthly Updates",
+          "Priority Support",
+          "Performance Dashboard",
+          "Advanced Analytics",
+          "Custom Risk Settings",
+          "Installation Guide",
+          "Trading Community Access"
+        ],
+        "ctaButton": "Subscribe Monthly"
+      }
+    ],
+    "trialButton": "Get Free Trial",
+    "trialLink": "https://t.me/NQBladeBot",
+    "trialText": "Try NQBlade risk-free with our partner broker"
   },
   "footer": {
     "description": "NQBlade is the best automated trading bot for NQ Futures. Trade with confidence using our proven algorithm.",
@@ -170,6 +196,12 @@
     "supportLinks": [
       { "label": "FAQ", "href": "#faq" },
       { "label": "Contact", "href": "https://t.me/NQBladeBot" }
+    ],
+    "legalLinks": [
+      { "label": "Legal Disclaimer", "href": "/legal" },
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Refund Policy", "href": "/refund" }
     ],
     "socialLinks": [
       { "label": "Telegram", "href": "https://t.me/+gJnsM_0FpetjOTFi" }

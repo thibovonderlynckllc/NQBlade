@@ -20,11 +20,35 @@ export async function POST(req: NextRequest) {
       apiVersion: '2025-12-15.clover',
     });
 
-    // Check if Price ID is configured
-    const priceId = process.env.STRIPE_PRICE_ID;
-    if (!priceId || priceId === '{{PRICE_ID}}' || priceId === '') {
-      console.error('STRIPE_PRICE_ID is not set');
-      return NextResponse.json({ error: 'Stripe Price ID is not configured. Please set STRIPE_PRICE_ID in your .env.local file.' }, { status: 500 });
+    // Get priceId from request body or determine from planType
+    const body = await req.json();
+    let priceId: string | undefined;
+
+    // Priority 1: Use priceId from request body if provided
+    if (body.priceId && body.priceId.trim() !== '') {
+      priceId = body.priceId;
+    }
+    // Priority 2: Use planType to determine which env var to use
+    else if (body.planType) {
+      if (body.planType === 'lifetime' || body.planType === 'one-time') {
+        priceId = process.env.STRIPE_PRICE_ID_LIFETIME;
+      } else if (body.planType === 'subscription' || body.planType === 'monthly') {
+        priceId = process.env.STRIPE_PRICE_ID_SUBSCRIPTION;
+      }
+    }
+    // Priority 3: Fallback to legacy env var (for backwards compatibility)
+    else {
+      priceId = process.env.STRIPE_PRICE_ID;
+    }
+
+    if (!priceId || priceId === '{{PRICE_ID}}' || priceId.trim() === '') {
+      console.error('Stripe Price ID is not configured');
+      return NextResponse.json(
+        {
+          error: 'Stripe Price ID is not configured. Please provide a priceId or planType in the request, or set STRIPE_PRICE_ID_LIFETIME and STRIPE_PRICE_ID_SUBSCRIPTION in your environment variables.',
+        },
+        { status: 500 }
+      );
     }
 
     // Fetch the price to determine if it's recurring or one-time
