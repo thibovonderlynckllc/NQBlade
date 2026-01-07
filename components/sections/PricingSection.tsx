@@ -279,11 +279,11 @@ function PricingCard({ plan, index, isHovered, onHoverChange }: PricingCardProps
                   {plan.originalPrice && (
                     <>
                       <span className="text-sm sm:text-base font-medium text-white/90 line-through uppercase">
-                        {plan.originalPrice}
-                      </span>
+                    {plan.originalPrice}
+                  </span>
                       <span className="px-2 py-1 rounded-md bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-primary-light)]/20 text-[var(--color-primary-light)] text-xs sm:text-sm font-bold">
-                        Save 30%
-                      </span>
+                    Save 30%
+                  </span>
                     </>
                   )}
                 </div>
@@ -293,7 +293,7 @@ function PricingCard({ plan, index, isHovered, onHoverChange }: PricingCardProps
                 <div className="text-white/90 uppercase tracking-wider text-sm sm:text-base">
                   {plan.period}
                 </div>
-              </div>
+              </div>  
             </div>
           </div>
 

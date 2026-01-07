@@ -17,7 +17,7 @@ export default function RefundPage() {
       <div className="relative z-10">
         <Navbar />
         
-        <section className="relative py-34">
+        <section className="relative pt-20 md:pt-24 lg:pt-28 pb-12 md:pb-16 lg:pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

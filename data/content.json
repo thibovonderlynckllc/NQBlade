@@ -201,7 +201,8 @@
       { "label": "Legal Disclaimer", "href": "/legal" },
       { "label": "Privacy Policy", "href": "/privacy" },
       { "label": "Terms of Service", "href": "/terms" },
-      { "label": "Refund Policy", "href": "/refund" }
+      { "label": "Refund Policy", "href": "/refund" },
+      { "label": "Impressum", "href": "/impressum" }
     ],
     "socialLinks": [
       { "label": "Telegram", "href": "https://t.me/+gJnsM_0FpetjOTFi" }

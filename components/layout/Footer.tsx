@@ -140,7 +140,7 @@ export function Footer() {
                   >
                     {link.label}
                   </Link>
-                </li>
+              </li>
               ))}
             </ul>
           </div>
