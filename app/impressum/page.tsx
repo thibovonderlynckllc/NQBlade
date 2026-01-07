@@ -45,14 +45,14 @@ export default function ImpressumPage() {
                   
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 text-left">Responsible for Content</h2>
+                      <h2 className="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 text-left">Angaben gemäß § 5 TMG</h2>
                       <p className="text-left mb-3">
-                        <strong className="text-white">NQ Blade</strong>
+                        <strong className="text-white">NQ Blade Marlon Grahl</strong>
                       </p>
                       <p className="text-left mb-3">
-                        <strong className="text-white">Marlon Grahl</strong>
+                        <strong className="text-white">Inhaber:</strong> Marlon Grahl
                       </p>
-                      <p className="text-left">
+                      <p className="text-left mb-4">
                         Bei den Mühren 1<br />
                         20457 Hamburg<br />
                         Deutschland
@@ -60,9 +60,12 @@ export default function ImpressumPage() {
                     </div>
 
                     <div>
-                      <h2 className="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 text-left">Contact Information</h2>
+                      <h2 className="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 text-left">Kontakt</h2>
                       <p className="text-left mb-3">
-                        For inquiries, please contact us through the support channels available on our website.
+                        <strong className="text-white">E-Mail:</strong>{' '}
+                        <a href="mailto:marlon@nqblade.com" className="text-[var(--color-primary-light)] hover:underline">
+                          marlon@nqblade.com
+                        </a>
                       </p>
                     </div>
 
